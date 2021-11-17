@@ -4,49 +4,125 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style>
+    body {
+      margin: auto;
+      padding: 0pxs;
+      font-size: 20px;
+    }
+  
+    div {
+      width: 600px;
+      margin: auto;
+    }
+  
+    header {
+      background-color: black;
+      min-width: 600px;
+    }
+  
+    header nav {
+      width: 600px;
+      color: white;
+      margin: auto;
+      font-size: 20px;
+    }
+  
+  
+  
+    main ul {
+      padding-left: 0px;
+      list-style: none;
+    }
+  
+    main ul li {
+      font-size: 15px;
+      width: 174px;
+      height: 34px;
+      background-color: pink;
+      border: 3px solid black;
+      text-align: center;
+      line-height: 34px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  
+    main ul li:nth-child(n+5) {
+      margin-left: 210px;
+    }
+  
+    main ul li:nth-child(n+9) {
+      margin-left: 420px;
+    }
+  
+    main ul li:nth-child(4n+5) {
+      margin-top: -220px;
+    }
+  
+    main ul li:hover {
+      background-color: red;
+    }
+  
+    section ul {
+      list-style: none;
+      padding: 0px;
+      overflow: hidden;
+    }
+  
+    section ul li {
+      padding-top: 1px;
+      margin-top: -1px;
+      margin-bottom: -1px;
+      border-bottom: 1px dotted black;
+    }
+  
+    footer {
+      background-color: orchid;
+      text-align: center;
+    }
+  </style>
 </head>
+<body>
 <header>
   <nav>hello world 请调整浏览器窗口大小查看效果</nav>
 </header>
-<p>页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px
+<div>
+  <p>页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px
   页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px
 </p>
-<dl>
-  <dt>宽180高40（包含边框）</dt>
-  <dt>产品</dt>
-  <dt>产品</dt>
-</dl>
-<dl>
-  <dt>水平间隙30px</dt>
-  <dt>产品</dt>
-  <dt>产品</dt>
-</dl>
-<dl>
-  <dt>垂直间隙15px</dt>
-  <dt>产品</dt>
-  <dt>产品</dt>
-</dl>
-<dl>
-  <dt>边框宽度3px</dt>
-  <dt>产品</dt>
-  <dt>产品</dt>
-</dl>
-<p>link
-  <hr>
-  link
-  <hr>
-  link
-  <hr>
-  link
-  <hr>
-  link
-</p>
-<div>
-  &copy;版权所有
-  <br>本页所有布局均使用块元素
+<main>
+  <ul>
+    <li>宽180高40（包含边框）</li>
+    <li>水平间隙30px</li>
+    <li>垂直间隙15px</li>
+    <li>边框宽度3px</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+  </ul>
+</main>
+<section>
+  <ul>
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+  </ul>
+</section>
 </div>
 
-<body>
+<footer>
+  &copy;版权所有
+  <br>本页所有布局均使用块元素
+  </footer>
+
+
 
 </body>
 

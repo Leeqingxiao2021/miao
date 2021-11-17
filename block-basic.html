@@ -8,15 +8,16 @@
     body>:first-child {
       background-color: red;
       min-width: 600px;
+      margin-top: 30px;
     }
 
     nav {
-      width: 640px;
+      width: 600px;
       margin: auto;
     }
 
     div {
-      width: 600px;
+      max-width: 600px;
       border-top: 3px solid black;
       border-right: 3px solid black;
       border-bottom: 3px solid black;
@@ -26,10 +27,11 @@
       margin-left: auto;
       margin-top: 30px;
       margin-bottom: 30px;
+      box-sizing: border-box;
     }
 
     div p {
-      height: 180px;
+      height: 80px;
       overflow: scroll;
     }
 
@@ -39,17 +41,17 @@
     }
 
     div div {
-      width: 560px;
+      height: 50px;;
       background-color: magenta;
       border: 0px;
     }
 
     div div:hover {
-      width: 600px;
       margin-left: -20px;
+      margin-right: -20px;
     }
 
-    body>:nth-last-child(1) {
+   section{
       width: 0px;
       height: 0px;
       border-top: 100px solid rgba(0, 0, 0, 0);
@@ -57,6 +59,7 @@
       border-bottom: 100px solid orange;
       border-left: 100px solid rgba(0, 0, 0, 0);
       margin: auto;
+      color: red;
     }
   </style>
 </head>
@@ -93,7 +96,7 @@
       Enim quis expedita repellat possimus nostrum nam omnis molli
     </p>
   </div>
-  <p></p>
+  <section></section>
 </body>
 
 </html>
