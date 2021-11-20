@@ -33,9 +33,7 @@
       box-sizing: border-box;
     }
 
-    nav {
-      font-size: 0px;
-    }
+   
 
     main {
       font-size: 16px;
@@ -80,16 +78,6 @@
     .c p {
       margin: 0px 24px;
     }
-
-
-    .a ul {
-      font-size: 20px;
-      list-style: none;
-      height: calc(100% - 107px);
-      overflow: auto;
-      margin: 0px;
-    }
-
     .a {
       border-right: 2px solid black;
     }
@@ -116,19 +104,57 @@
       box-sizing: border-box;
       border-top: 2px solid black;
     }
-
-    main section p {}
+    .a ul {
+      font-size: 20px;
+      list-style: none;
+      height: calc(100% - 107px);
+      overflow: auto;
+      margin: 0px;
+      padding: 0px;
+    }
+    .a ul li{
+      padding: 0px 0px 0px 20px;
+    }
+    .a ul li:hover{
+      color: blue;
+      background-color: cadetblue;
+      border-color: chartreuse;
+    }
+    /*鼠标选中变色效果*/
+    nav{
+      margin: 4px;
+      padding: 0px;
+    }
+    input{
+      width: 150px;
+      height: 25px;
+      box-sizing: border-box;
+      border:2px solid black;
+      padding: 1px 2px;
+      border-radius: 15px 0px 0px 15px;/*半圆效果*/
+    }
+    button{
+      width: 35px;
+      height: 25px;
+      box-sizing: border-box;
+      border:2px solid black;
+      padding: 1px 6px;
+      border-radius: 0px 15px 15px 0px;/*半圆效果*/
+      vertical-align: top;/*对齐*/
+    }
+    
   </style>
 </head>
 
 <body>
   <div>
     <aside class="a">
-      <nav>
         <h1>OALD Se7en</h1>
-      </nav>
-      <input type="text">
-      <button></button>
+      <nav>
+        <input type="search" name="word" id="word" value="这是怎么回事？"></input>
+        <button></button>
+        <!-- value在文本框中显示字 -->
+        </nav>
       <ul>
         <li>word1</li>
         <li>word2</li>
