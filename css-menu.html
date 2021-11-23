@@ -6,14 +6,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CSS-MENU</title>
+  <style>
+    .menu>li {
+      display: inline-block;
+  
+    }
+  </style>
 </head>
 
 <body>
   <div>
-    <ul>
-      <li>文件(F)</li>
+    <ul class="menu">
+      <li>文件(F)
+        <ul>
+          <li>q</li>
+          <li>w</li>
+          <li>e</li>
+          <li>r</li>
+          </ul>
+          </li>
       <li>编辑(E)</li>
-      <li>选择(S)</li>
+      <li>选择(S)
+        <ul>
+          <li>1</li>
+          <li>3</li>
+          <li>5</li>
+        </ul>
+      </li>
       <li>查看(V)</li>
       <li>转到(G)</li>
       <li>运行(R)</li>
