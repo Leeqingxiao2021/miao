@@ -14,7 +14,9 @@
       font-size: 0px;
       margin: 0px;
       height: 100%;
-      width: 100%;
+      min-width: 900px;
+      /*缩小窗口右边框，中间文字被右边框盖住，而不是透明展示,
+      像素值为三个边框宽度加上main元素最小宽度300 */
     }
 
     div {
@@ -42,6 +44,7 @@
       margin-left: 200px;
       margin-top: calc(-100vh);
       box-sizing: border-box;
+      min-width: 300px;
       /* margin高度取百分数计算值是父元素宽度的百分数 */
     }
 
