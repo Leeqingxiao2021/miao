@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>div-img-contain</title>
+  <style>
+    /* div {
+      width: 600px;
+      height: 600px;
+      border: 2px solid black;
+      box-sizing: border-box;
+      line-height: 600px;
+      text-align: center;
+      font-size: 0px;
+      margin: auto;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      vertical-align: middle;
+    } */
+    div {
+      width: 300px;
+      height: 300px;
+      border: 2px solid black;
+      box-sizing: border-box;
+      position: relative;
+      margin: auto;
+    }
+
+    img {
+      display: block;
+      margin: auto;
+      max-width: 100%;
+      max-height: 100%;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <img src="https://th.bing.com/th/id/OIP.nZefLXfn07exDn7ZuQwLMwHaMY?pid=ImgDet&rs=1" alt="">
+  </div>
+  <div>
+    <img
+      src="https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/2cf5e0fe9925bc3122ba28ed5edf8db1ca1370db.jpg"
+      alt="">
+  </div>
+  <div>
+    <img src="https://www.bing.com/favicon.ico" alt="">
+  </div>
+</body>
+
+</html>

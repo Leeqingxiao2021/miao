@@ -7,28 +7,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>twitter-heart</title>
   <style>
-    div {
-      display: block;
-      width: 105px;
-      height: 105px;
+     /* div {
+      width: 100px;
+      height: 100px;
       overflow: hidden;
       border: 1px solid rgb(94, 51, 51);
     }
 
-    main:hover {
+    img:hover {
       margin-left: -2800px;
-      transition: 1s steps(28);
+      transition: 2s steps(28);
+    } 
+第一种非定位布局  */
+    section{
+      background-image:url(https://github.com/Leeqingxiao2021/miao/blob/main/web_heart_animation.png?raw=true) ;
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+      border: 1px solid rgb(94, 51, 51);
+      background-position: 0 0;
     }
+    section:hover{
+      background-position: -2800px 0;
+      transition: 2s steps(28);
+    } 
+    
+    /* 第二种 背景图片生成效果 */
+   
+    label{
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+      position: relative;
+      overflow: hidden;
+      background-image: url(https://github.com/Leeqingxiao2021/miao/blob/main/web_heart_animation.png?raw=true);
+      background-position: 0 0;
+      transition:none;
+    }
+
+    input:checked+label{
+      background-position: -2800px 0;
+      transition: 2s steps(28);
+    } 
+
+     /* 第三种按钮效果，背景图 */
+
+     main{
+       width: 100px;
+       height: 100px;
+       border: 2px solid black;
+       box-sizing: border-box;
+       overflow: hidden;
+       position: relative;
+      
+     }
+     img{
+       position: absolute;
+       left: 0px;
+     }
+     img:hover{
+       left: -2800px;
+       transition: 2s steps(28);
+     }
   </style>
 </head>
 
 <body>
-  <div>
-    <main>
+  <!-- <div>
       <img src="https://github.com/Leeqingxiao2021/miao/blob/main/web_heart_animation.png?raw=true" alt="herat"
         value="twitter-heart">
-    </main>
   </div>
+  第一种非定位效果 -->
+  
+  <section></section>
+  <!-- 第二种用背景图片形成动画效果  -->
+  
+  <input type="checkbox" id="heart" hidden>
+  <label for="heart"></label>
+  
+  <!-- 第三种按钮效果 -->
+  <main>
+    <img src="https://github.com/Leeqingxiao2021/miao/blob/main/web_heart_animation.png?raw=true" alt="">
+  </main>
 </body>
 
 </html>
