@@ -7,6 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oald</title>
   <style>
+    html{
+      width: 100%;
+      height: 100%;
+    }
+    body{
+      min-width: 900px;
+      position: relative;
+      margin: 0px;
+      width: 100%;
+      height: 100%;
+    }
+    
     aside {
       width: 200px;
       background-color: rgba(234, 238, 243);
@@ -15,8 +27,6 @@
 
     .left {
       position: absolute;
-      top: 0px;
-      bottom: 0px;
       left: 0px;
       box-sizing: border-box;
       border-right: 2px solid black;
@@ -39,12 +49,12 @@
     }
 
     main {
-      min-width: 100px;
+      min-width: 300px;
       overflow: auto;
       position: absolute;
       left: 200px;
+      right:0PX;
       top: 0px;
-      bottom: 0px;
     }
 
     h2 {
@@ -64,7 +74,10 @@
       padding: 16px;
       box-sizing: border-box;
       border-top: 2px solid black;
+      height:calc(100%);
+      overflow:auto;
       width: calc(100% - 400px);
+      margin: 0px;
     }
 
     h1 {
@@ -78,7 +91,7 @@
     ul {
       font-size: 20px;
       list-style: none;
-      height: calc(100% - 105px);
+      height: calc(100vh - 105px);
       overflow: auto;
       margin: 0px;
       padding: 0px;
