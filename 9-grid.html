@@ -11,18 +11,18 @@
       border-collapse: collapse;
     }
 
-    td {
+    tr,col {
       width: 50px;
       height: 50px;
       text-align: center;
       border: 5px solid blue;
     }
-
+    
     td:hover {
-      border: 5.01px solid red;
+      border: 5px solid red;
     }
 
-    label {
+    /* label {
       display: block;
       width: 100px;
       height: 60px;
@@ -37,15 +37,56 @@
       transition: 3s;
     }
 
-    label:active {
+    label:active { 
       background: green;
       transition: 0.01s;
+    } */
+    ul{
+      margin: 0px;
+      padding: 0px;
+      list-style: none;
+      width: 155px;
+      height: 155px;
+      box-sizing: border-box;
+    }
+    li{
+      width: 45px;
+      height: 45px;
+      float: left;
+      text-align: center;
+      line-height: 50px;
+      vertical-align: middle;
+      border: 5px solid blue;
+      margin-right: -5px;
+      margin-bottom: -5px;
+      position: relative;
+    }
+    li:hover{
+      border: 5px solid red;
+      z-index: 1;
+    }
+
+
+    div{
+      display: table-cell;
+      vertical-align: bottom;
+      width: 100px;
+      height: 60px;
+      border-bottom: 5px solid red;
+      background-color: rgb(160, 208, 224);
+    }
+    div:hover{
+      font-size: 24px;
+      transition: 2s;
     }
   </style>
 </head>
 
 <body>
   <table>
+    <col>
+    <col>
+    <col>
     <tr>
       <td>1</td>
       <td>2</td>
@@ -63,13 +104,27 @@
     </tr>
   </table>
   <br>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+  </ul>
   <br>
 
-  <input type="checkbox" id="dingyue" hidden>
+  <!-- <input type="checkbox" id="dingyue" hidden>
   <label for="dingyue">
     <div>订阅博客</div>
-  </label>
-
+  </label> -->
+  <br>
+  <div>
+    订阅博客
+  </div>
 </body>
 
 </html>

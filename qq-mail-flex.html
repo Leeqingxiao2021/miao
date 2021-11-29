@@ -9,7 +9,7 @@
   <style>
     html {
       height: 100%;
-      /* width: 100%; */
+      width: 100%;
       overflow: hidden;
     }
 
@@ -17,8 +17,9 @@
       font-size: 0px;
       margin: 0px;
       padding: 0px;
-      /* width: 100%; */
+      width: 100%;
       height: 100%;
+
     }
 
     header {
@@ -29,21 +30,21 @@
 
     div {
       font-size: 16px;
-      /* width: 100%; */
+      width: 100%;
       height: 100%;
+      display: flex;
     }
 
     aside {
       width: 200px;
       background-color: rgb(210, 180, 140);
-      height: 100%;
+      height: calc(100% - 100px);
       overflow: auto;
-      float: left;
-
     }
 
     main {
-      /* width: calc(100% - 200px); */
+      width: 300px;
+      flex-grow: 1;
       height: calc(100% - 100px);
       background-color: yellow;
       overflow: auto;
@@ -368,6 +369,5 @@
       在十几里外的王宫中，在国王的寝室里，国王消失了。在那张床腿是四个天神雕像的大床上，被褥还有他身体的余温，床单上还有他压出的凹印，但他的躯体消失得无影无踪。</main>
   </div>
 </body>
-
 
 </html>

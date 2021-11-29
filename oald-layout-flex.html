@@ -17,12 +17,12 @@
       margin: 0px;
       height: 100%;
       width: 100%;
-      min-width: 900px;
     }
 
     div {
       height: 100%;
       width: 100%;
+      display: flex;
     }
 
     .a,
@@ -30,15 +30,13 @@
     .c {
       font-size: 16px;
       width: 200px;
-      height: 100%;
-      float: left;
       background-color: rgba(234, 238, 243);
     }
 
     main {
       font-size: 16px;
-      float: left;
-      width: calc(100% - 600px);
+      width: 300px;
+      flex-grow: 1;
     }
 
     .a h1 {
@@ -47,6 +45,7 @@
       height: 72px;
       line-height: 70px;
       text-align: right;
+      width: 174px;
     }
 
     .b p {
@@ -89,10 +88,10 @@
 
     main section {
       padding: 16px;
-      height: calc(100vh - 72px);
-      overflow:auto;
       box-sizing: border-box;
       border-top: 2px solid black;
+      height: calc(100vh - 72px);
+      overflow: auto;
     }
 
     .a ul {

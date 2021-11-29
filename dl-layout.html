@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dl-layout</title>
+  <style>
+    /* dl {
+      min-width: 300px;
+    }
+
+    dt {
+      width: 60px;
+      margin: 2px 2px -23px 2px;
+      text-align: left;
+    }
+
+    dd {
+      display: inline-block;
+      padding: 0px;
+      margin: 2px;
+    }
+
+    dt+dd {
+      padding-left: 40px;
+    }
+
+    dd::after {
+      content: " /";
+    }
+
+    dd:nth-child(2)::after,
+    dd:nth-child(4)::after,
+    dd:nth-child(16)::after,
+    dd:last-child::after {
+      content: "";
+    } */
+
+    dt,
+    dd {
+      float: left;
+      margin: 2px;
+      font-size: 16px;
+    }
+
+    dt {
+      clear: both;
+      margin-left: -50px;
+      width: 50px;
+      letter-spacing: 6px;
+    }
+
+    dd::before {
+      content: "| "
+    }
+
+    dt+dd::before {
+      content: none;
+    }
+
+    dl {
+      padding-left: 50px;
+      font-size: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <dl>
+    <dt>导演</dt>
+    <dd>申元浩</dd>
+    <dt>编剧</dt>
+    <dd>李祐汀</dd>
+    <dt>主演</dt>
+    <dd>成冬日</dd>
+    <dd>李一花</dd>
+    <dd>罗美兰</dd>
+    <dd>金成均</dd>
+    <dd>崔武成</dd>
+    <dd>柳慧英</dd>
+    <dd>李惠利</dd>
+    <dd>柳俊烈</dd>
+    <dd>高庚杓</dd>
+    <dd>朴宝剑</dd>
+    <dd>安宰弘</dd>
+    <dt>类型</dt>
+    <dd>剧情</dd>
+    <dd>喜剧</dd>
+    <dd>爱情</dd>
+  </dl>
+</body>
+
+</html>
