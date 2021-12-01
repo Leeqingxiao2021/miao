@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bookstrap-table</title>
+  <link rel="stylesheet" href="mytable-style.css">
+  <style type="text/less">
+    .table{
+      width: 800px;
+      text-align: left;
+      border-collapse: collapse;
+     thead{
+        border-bottom: 2px solid black;
+      }
+     th,td{
+       padding: 0.5em;
+       height: 24px;
+       border-bottom: 1px solid rgb(222,226,230);
+       font-size: 16px;
+     }
+    }
+   
+    .table-striped{
+      tbody tr:nth-child(2n+1){
+        background-color:rgb(242,242,242);
+      }
+    }
+    .table-hover{
+      tbody{
+        tr:hover{
+          background-color: rgb(236,236,236);
+        }
+      }
+    }
+  .table-bordered{
+    th,td{
+      border: 1px solid rgb(222,226,230);
+    }
+  }
+  .table-borderless{
+    thead{
+      border: none;
+    }
+    th,td{
+      border: none;
+    }
+  }
+  .table-sm{
+    th,td{
+    padding:0.25em;
+    /* 根据字号调整padding大小减半效果 */
+    }
+  }
+  .table-dark{
+    background-color:rgb(33,37,41 );
+    color: white;
+    thead{
+        border-bottom: 2px solid white;
+    }
+    th,td {
+      border-bottom: 1px solid rgb(55,59,62);
+    }
+    &.table-striped{
+      tbody tr:nth-child(2n+1){
+        background-color: rgb(44,48,52);
+      }
+    }
+    &.table-hover{
+      tbody tr:hover{
+      background-color: rgb(50,53,57);
+      }
+    }
+     &.table-bordered{
+      th,td {
+        border-color: rgb(55,59,62);
+      }
+    } 
+  }
+  </style>
+  <style type="text/scss"></style>
+</head>
+
+<body>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <table class="table  table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+<script src="less.min.js"></script>
+<script src="sass.link.min.js"></script>
+
+</html>
