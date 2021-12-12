@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Clock</title>
+  <style type="text/less"></style>
+  <style type="text/scss">
+    html,body{
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+	    justify-content: center;
+    	align-items: center;
+    }
+    .clock-bg{
+      width: 700px;
+      height: 600px;
+      margin:auto;
+      background-color: #fff;
+      .clock{
+        display: flex;
+        background-color: black;
+        width: 550px;
+        height: 550px;
+        margin:auto;
+        border-radius:99999px;
+        .dial{
+          position: relative;
+          background-color: rgb(222,222,222);
+          width: 500px;
+          height: 500px;
+          border-radius:99999px;
+          margin:auto;
+          ul.number{
+            display: inline-block;
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+            font-size: 50px;
+            font-weight: bolder;
+            font-style:italic;
+            >li{
+              position: absolute;
+              width: 50px;
+              text-align: center;
+              height: 50px;
+              line-height: 50px;
+              top:0%;
+              left: 0%;
+              right: 0%;
+              bottom: 0%;
+              margin: auto;
+              z-index: 100;
+            }
+            >li::before{
+              content: " ";
+              position: absolute;
+              width: 5px;
+              height: 21px;
+              background-color: rgb(214, 8, 8);
+              top:0%;
+              left: 0%;
+              right: 0%;
+              bottom: 0%;
+              text-align: center;
+              line-height: 30px;
+              margin: auto;
+            }
+            >li:nth-child(1){
+              transform: rotate(300deg) translate(200px) rotate(-300deg);
+            }
+            >li:nth-child(1)::before{
+              transform: rotate(30deg) translatey(-40px);
+            }
+            >li:nth-child(2){
+              transform: rotate(330deg) translate(200px) rotate(-330deg);
+            }
+            >li:nth-child(2)::before{
+              transform: rotate(60deg) translatey(-40px);
+            }
+            >li:nth-child(3){
+              transform: rotate(0deg) translate(200px) rotate(0deg);
+            }
+            >li:nth-child(3)::before{
+              transform: rotate(90deg) translatey(-40px);
+            }
+            >li:nth-child(4){
+              transform: rotate(30deg) translate(200px) rotate(-30deg);
+            }
+            >li:nth-child(4)::before{
+              transform: rotate(120deg) translatey(-40px);
+            }
+            >li:nth-child(5){
+             transform: rotate(60deg) translate(200px) rotate(-60deg);
+            }
+            >li:nth-child(5)::before{
+              transform: rotate(150deg) translatey(-40px);
+            }
+            >li:nth-child(6){
+             transform: rotate(90deg) translate(200px) rotate(-90deg);
+            }
+            >li:nth-child(6)::before{
+              transform: rotate(180deg) translatey(-40px);
+            }
+            >li:nth-child(7){
+             transform: rotate(120deg) translate(200px) rotate(-120deg);
+            }
+            >li:nth-child(7)::before{
+              transform: rotate(210deg) translatey(-40px);
+            }
+            >li:nth-child(8){
+             transform: rotate(150deg) translate(200px) rotate(-150deg);
+            }
+            >li:nth-child(8)::before{
+              transform: rotate(240deg) translatey(-40px);
+            }
+            >li:nth-child(9){
+             transform: rotate(180deg) translate(200px) rotate(-180deg);
+            }
+            >li:nth-child(9)::before{
+              transform: rotate(270deg) translatey(-40px);
+            }
+            >li:nth-child(10){
+             transform: rotate(210deg) translate(200px) rotate(-210deg);
+            }
+            >li:nth-child(10)::before{
+              transform: rotate(300deg) translatey(-40px);
+            }
+            >li:nth-child(11){
+             transform: rotate(240deg) translate(200px) rotate(-240deg);
+            }
+            >li:nth-child(11)::before{
+              transform: rotate(330deg) translatey(-40px);
+            }
+            >li:nth-child(12){
+              transform: rotate(270deg) translate(200px) rotate(-270deg);
+            }
+            >li:nth-child(12)::before{
+              transform:translatey(-40px);
+            }
+          }
+          ul.scale{
+            display: inline-block;
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+            >li{
+              position: absolute;
+              text-align: center;
+              line-height: 21px;
+              top:0%;
+              left: 0%;
+              right: 0%;
+              bottom: 0%;
+              margin: auto;
+              width: 3px;
+              height: 10px;
+              background-color: purple;
+              z-index: 10;
+            }
+            >li:nth-child(1){
+              transform: rotate(0deg) translatey(-245px);
+            }
+            >li:nth-child(2){
+              transform: rotate(6deg) translatey(-245px);
+            }
+            >li:nth-child(3){
+              transform: rotate(12deg) translatey(-245px);
+            }
+            >li:nth-child(4){
+              transform: rotate(18deg) translatey(-245px);
+            }
+            >li:nth-child(5){
+              transform: rotate(24deg) translatey(-245px);
+            }
+            >li:nth-child(6){
+              transform: rotate(30deg) translatey(-245px);
+            }
+            >li:nth-child(7){
+              transform: rotate(36deg) translatey(-245px);
+            }
+            >li:nth-child(8){
+              transform: rotate(42deg) translatey(-245px);
+            }
+            >li:nth-child(9){
+              transform: rotate(48deg) translatey(-245px);
+            }
+            >li:nth-child(10){
+              transform: rotate(54deg) translatey(-245px);
+            }
+            >li:nth-child(11){
+              transform: rotate(60deg) translatey(-245px);
+            }
+            >li:nth-child(12){
+              transform: rotate(66deg) translatey(-245px);
+            }
+            >li:nth-child(13){
+              transform: rotate(72deg) translatey(-245px);
+            }
+            >li:nth-child(14){
+              transform: rotate(78deg) translatey(-245px);
+            }
+            >li:nth-child(15){
+              transform: rotate(84deg) translatey(-245px);
+            }
+            >li:nth-child(16){
+              transform: rotate(90deg) translatey(-245px);
+            }
+            >li:nth-child(17){
+              transform: rotate(96deg) translatey(-245px);
+            }
+            >li:nth-child(18){
+              transform: rotate(102deg) translatey(-245px);
+            }
+            >li:nth-child(19){
+              transform: rotate(108deg) translatey(-245px);
+            }
+            >li:nth-child(20){
+              transform: rotate(114deg) translatey(-245px);
+            }
+            >li:nth-child(21){
+              transform: rotate(120deg) translatey(-245px);
+            }
+            >li:nth-child(22){
+              transform: rotate(126deg) translatey(-245px);
+            }
+            >li:nth-child(23){
+              transform: rotate(132deg) translatey(-245px);
+            }
+            >li:nth-child(24){
+              transform: rotate(138deg) translatey(-245px);
+            }
+            >li:nth-child(25){
+              transform: rotate(144deg) translatey(-245px);
+            }
+            >li:nth-child(26){
+              transform: rotate(150deg) translatey(-245px);
+            }
+            >li:nth-child(27){
+              transform: rotate(156deg) translatey(-245px);
+            }
+            >li:nth-child(28){
+              transform: rotate(162deg) translatey(-245px);
+            }
+            >li:nth-child(29){
+              transform: rotate(168deg) translatey(-245px);
+            }
+            >li:nth-child(30){
+              transform: rotate(174deg) translatey(-245px);
+            }
+            >li:nth-child(31){
+              transform: rotate(180deg) translatey(-245px);
+            }
+            >li:nth-child(32){
+              transform: rotate(186deg) translatey(-245px);
+            }
+            >li:nth-child(33){
+              transform: rotate(192deg) translatey(-245px);
+            }
+            >li:nth-child(34){
+              transform: rotate(198deg) translatey(-245px);
+            }
+            >li:nth-child(35){
+              transform: rotate(204deg) translatey(-245px);
+            }
+            >li:nth-child(36){
+              transform: rotate(210deg) translatey(-245px);
+            }
+            >li:nth-child(37){
+              transform: rotate(216deg) translatey(-245px);
+            }
+            >li:nth-child(38){
+              transform: rotate(222deg) translatey(-245px);
+            }
+            >li:nth-child(39){
+              transform: rotate(228deg) translatey(-245px);
+            }
+            >li:nth-child(40){
+              transform: rotate(234deg) translatey(-245px);
+            }
+            >li:nth-child(41){
+              transform: rotate(240deg) translatey(-245px);
+            }
+            >li:nth-child(42){
+              transform: rotate(246deg) translatey(-245px);
+            }
+            >li:nth-child(43){
+              transform: rotate(252deg) translatey(-245px);
+            }
+            >li:nth-child(44){
+              transform: rotate(258deg) translatey(-245px);
+            }
+            >li:nth-child(45){
+              transform: rotate(264deg) translatey(-245px);
+            }
+            >li:nth-child(46){
+              transform: rotate(270deg) translatey(-245px);
+            }
+            >li:nth-child(47){
+              transform: rotate(276deg) translatey(-245px);
+            }
+            >li:nth-child(48){
+              transform: rotate(282deg) translatey(-245px);
+            }
+            >li:nth-child(49){
+              transform: rotate(288deg) translatey(-245px);
+            }
+            >li:nth-child(50){
+              transform: rotate(294deg) translatey(-245px);
+            }
+            >li:nth-child(51){
+              transform: rotate(300deg) translatey(-245px);
+            }
+            >li:nth-child(52){
+              transform: rotate(306deg) translatey(-245px);
+            }
+            >li:nth-child(53){
+              transform: rotate(312deg) translatey(-245px);
+            }
+            >li:nth-child(54){
+              transform: rotate(318deg) translatey(-245px);
+            }
+            >li:nth-child(55){
+              transform: rotate(324deg) translatey(-245px);
+            }
+            >li:nth-child(56){
+              transform: rotate(330deg) translatey(-245px);
+            }
+            >li:nth-child(57){
+              transform: rotate(336deg) translatey(-245px);
+            }
+            >li:nth-child(58){
+              transform: rotate(342deg) translatey(-245px);
+            }
+            >li:nth-child(59){
+              transform: rotate(348deg) translatey(-245px);
+            }
+            >li:nth-child(60){
+              transform: rotate(354deg) translatey(-245px);
+            }
+          }
+          .hour{
+            position: absolute;
+            left:47.7%;
+            top:25%;
+            width: 22px;
+            height: 160px;
+            background-color: pink;
+            border-radius: 20px;
+            transform-origin:50% 78%;
+            animation: hour 43200s linear infinite;
+          }
+           
+          .minute{
+            position: absolute;
+            left:48.5%;
+            top:20%;
+            width: 14px;
+            height: 200px;
+            background-color: rgb(212, 142, 212);
+            border-radius: 20px;
+            transform-origin:50% 75%;
+            animation: minute 3600s .1s steps(60) infinite;
+          }
+          .second{
+            position: absolute;
+            left:49.4%;
+            top:16%;
+            width: 6px;
+            height: 240px;
+            background-color: rgb(228, 55, 25);
+            border-radius: 20px;
+            transform-origin:50% 71%;
+            animation: second 60s steps(60) infinite;
+          }
+          .center{
+            position: absolute;
+            top:0%;
+            left: 0%;
+            right: 0%;
+            bottom: 0%;
+            width: 20px;
+            height: 20px;
+            z-index: 100;
+            margin:auto;
+            border-radius: 99999px;
+            background-color: rgb(63, 97, 248);
+          }
+        }
+      } 
+    } 
+    @keyframes hour {
+      from{
+        transform: rotate(0deg);
+      }
+      to{
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes minute {
+      from{
+        transform: rotate(0deg);
+      }
+      to{
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes second {
+      from{
+        transform: rotate(0deg);
+      }
+      to{
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="clock-bg">
+    <div class="clock">
+      <div class="dial">
+        <ul class="number">
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+          <li>9</li>
+          <li>10</li>
+          <li>11</li>
+          <li>12</li>
+        </ul>
+        <ul class="scale">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <div class="hour">
+
+        </div>
+        <div class="minute">
+        </div>
+        <div class="second">
+          <div class="pointer"></div>
+        </div>
+        <div class="center">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+<script src="less.min.js"></script>
+<script src="sass.link.min.js"></script>

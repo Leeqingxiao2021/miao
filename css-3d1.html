@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>css-3d</title>
+  <style type="text/less">
+    div.smile{
+      width: 500px;
+      height: 500px;
+      border: 5px solid peru;
+      position: relative;
+      margin: auto;
+      margin-top: 200px;
+      section{
+        position: absolute;
+        top: 225px;
+        left:125px;
+        animation: lufe 3s linear infinite;
+        transform-origin: 125px 25px;
+        @keyframes lufe{
+          from{
+            transform: rotate(0deg)
+          }
+          to{
+            transform: rotate(360deg)
+          }
+        }   
+        img{
+          border: 2px solid khaki;
+          animation: lufe2 3s linear infinite;
+          @keyframes lufe2{
+          from{
+            transform: rotate(0deg)
+          }
+          to{
+            transform: rotate(-360deg)
+          }
+        }  
+        }
+      }
+      p{
+        font-size: 50px;
+        position: absolute;
+        top: 175px;
+        left:225px;
+        animation: smile 3s linear infinite;
+        @keyframes smile {
+          from{
+            transform:rotate(0deg) translate(200px) rotate(0deg);
+          }
+          to{
+            transform:rotate(360deg) translate(200px) rotate(-360deg);
+          }
+        }
+      }
+      main{
+        display: inline-block;
+        
+        font-size: 50px;
+        animation:x 2s cubic-bezier(.36,0,.64,1) alternate infinite,
+         y 2s 1s cubic-bezier(.36,0,.64,1) alternate infinite;
+        @keyframes x {
+          from{
+            margin-left:0px;
+          }
+          to{
+            margin-left:430px;
+          }
+        }
+        @keyframes y {
+          from{
+            margin-top:0px;
+          }
+          to{
+            margin-top:430px;
+          }
+        }
+      }
+    }
+ 
+  </style>
+  <style type="text/scss"> </style>
+</head>
+
+<body>
+  <div class="smile">
+    <section>
+      <img
+        src="https://tse1-mm.cn.bing.net/th/id/OIP-C.p6PCYV1-bHbc387r_HD6-gAAAA?w=181&h=182&c=7&r=0&o=5&dpr=2&pid=1.7"
+        width="50px" alt="smile">
+    </section>
+    <p>😀</p>
+    <main>☹</main>
+  </div>
+</body>
+<script src="less.min.js"></script>
+<script src="sass.link.min.js"></script>
+
+</html>
