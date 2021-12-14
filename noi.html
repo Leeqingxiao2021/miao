@@ -15,7 +15,9 @@
   var a = Number(prompt("Pick a number", "a"))
   var b = Number(prompt("Pick a number", "b"))
   var c = Number(prompt("Pick a number", "c!=0"))
-  alert((a > -10000 && a < 10000 && b > -10000 && b < 10000 && c > -10000 && c < 10000 && c !=0) ? Number((a + b) / c) : false)
+  var m = Math.trunc( (a + b) / c)
+  console.log(m)
+  // alert((a > -10000 && a < 10000 && b > -10000 && b < 10000 && c > -10000 && c < 10000 && c !=0) ? Number((a + b) / c) : false)
  </script>
 
 <script type="ch0103/04" id="ch0103/04">
@@ -41,7 +43,8 @@
   var A = ( b / a )
   var A = A * 100 
   var B = A.toFixed(3)
-  alert("甲流死亡率" + B + "%")
+  console.log(B + "%")
+  // alert("甲流死亡率" + B + "%")
  </script>
 
 <script type="ch0103/07" id="ch0103/07">
@@ -59,45 +62,50 @@
   var f = Number(prompt("Pick a number", "f>=-459.67"))
   var C = 5 * (f - 32) / 9
   var C = C.toFixed(5)
-  alert("摄氏温度" + C )
+  console.log(C)
+  // alert("摄氏温度" + C )
  </script>
 
-<script type="ch0103/09" id="ch0103/09">
+<script type="xxx" id="ch0103/09">
   var r = Number(prompt("Pick a number", "圆的半径"))
-  var pi = 3.1415926
+  var pi = 3.14159
   var d = 2 * r
   var l = 2 * pi * r
   var s = r * r * pi
   var d = d.toFixed(4)
   var l = l.toFixed(4)
   var s = s.toFixed(4)
-  alert("圆的直径" + d )
-  alert("圆的周长" + l )
-  alert("圆的面积" + s )
+  console.log(d, l, s)
+  // alert("圆的直径" + d )
+  // alert("圆的周长" + l )
+  // alert("圆的面积" + s )
  </script>
 
-<script type="ch0103/10" id="ch0103/10">
+<script type="xxx" id="ch0103/10">
   var r1 = Number(prompt("Pick a number", "r1"))
   var r2 = Number(prompt("Pick a number", "r2"))
-  var R = 1 / (1 / r1 + 1 / r2 )
+  var R = r1 * r2 / (r1 + r2)
   var R = R.toFixed(2)
-  alert("并联电阻值" + R )
+  console.log(R)
+  // alert("并联电阻值" + R )
  </script>
 
-<script type="ch0103/11" id="ch0103/11">
+<script type="xxx" id="ch0103/11">
   var a = Number(prompt("Pick a number", "除数"))
   var b = Number(prompt("Pick a number", "被除数"))
   var r =a % b
   var r = r.toFixed(4)
-  alert("余数" + r )
+  console.log(r)
+  // alert("余数" + r )
  </script>
 
-<script type="ch0103/12" id="ch0103/12">
+<script type="xxx" id="ch0103/12">
   var r = Number(prompt("Pick a number", "球的半径"))
   var pi = 3.14
   var V = r * r * r * pi * 4 / 3
   var V = V.toFixed(2)
-  alert("球的体积" + V )
+  console.log(V)
+  // alert("球的体积" + V )
  </script>
 
 <script type="ch0103/13" id="ch0103/13">
@@ -109,24 +117,26 @@
   alert( z != 0 ? "反向输出" + n : "0" + y + x )
  </script>
 
-<script type="ch0103/14" id="ch0103/14">
+<script type="xxx" id="ch0103/14">
   var h = Number(prompt("Pick a number", "水桶深度h厘米"))
   var r = Number(prompt("Pick a number", "圆桶半径r厘米"))
   var pi = 3.1415926
   var x = pi * r * r * h / 1000
   var x = Math.ceil(20 / x)
-  alert("大象至少需要喝水的桶数是" + x)
+  console.log(x)
+  // alert("大象至少需要喝水的桶数是" + x)
  </script>
 
-<script type="ch0103/15" id="ch0103/15">
+<script type="xxx" id="ch0103/15">
   var n = Number(prompt("Pick a number", "苹果数"))
   var x = Number(prompt("Pick a number", "虫子吃一个苹果需要时间h小时"))
   var y = Number(prompt("Pick a number", "经过了y小时"))
   var z = n - Math.ceil(y / x)
-  alert( y <= n * x ? "剩余苹果数量" + z : false)
+  console.log( y <= n * x ? z : false )
+  // alert( y <= n * x ? "剩余苹果数量" + z : false)
  </script>
 
-<script type="ch0103/16" id="ch0103/16">
+<script type="xxx" id="ch0103/16">
   var Xa = Number(prompt("Pick a number", "坐标A的x坐标"))
   var Ya = Number(prompt("Pick a number", "坐标A的y坐标"))
   var Xb = Number(prompt("Pick a number", "坐标B的x坐标"))
@@ -134,10 +144,11 @@
   var m = (Xa - Xb) * (Xa - Xb) + (Ya - Yb) * (Ya - Yb)
   var m = Math.pow(m , 1/2)
   var m = m.toFixed(3)
-  alert("线段AB长度" + m)
+  console.log(m)
+  // alert("线段AB长度" + m)
  </script>
 
-<script type="ch0103/17" id=" ch0103/17">
+<script type="xxx" id="ch0103/17">
   var x1 = Number(prompt("Pick a number", "顶点A的x坐标"))
   var y1 = Number(prompt("Pick a number", "顶点A的y坐标"))
   var x2= Number(prompt("Pick a number", "顶点B的x坐标"))
@@ -154,27 +165,32 @@
   var S = p * (p - c) * (p - b) * (p - a)
   var S = Math.sqrt(S)
   var S = S.toFixed(2)
-  alert("三角形ABC的面积是" + S)
+  console.log(S)
+  // alert("三角形ABC的面积是" + S)
  </script>
 
-<script type="ch0103/18" id="ch0103/18">
+<script type="xxx" id="ch0103/18">
   var a1 = Number(prompt("Pick a number", "等差a1"))
   var a2 = Number(prompt("Pick a number", "等差a2"))
   var n = Number(prompt("Pick a number", "等差第n项"))
   var x = a2 - a1
   var an = a1 + (n - 1) * x
-  alert("等差数列第n项值为" + an )
+  console.log(an)
+  // alert("等差数列第n项值为" + an )
  </script>
 
-<script type="ch0103/19" id="ch0103/19">
+<script type="xxx" id="ch0103/19">
   var A = Number(prompt("Pick a number", "正整数A"))
   var B = Number(prompt("Pick a number", "正整数B"))
   var x = A * B
-  alert(A > 0 && A % 1 == 0 && B > 0 && B % 1== 0 ? "乘积为" + x : false)
+  console.log(A > 0 && A % 1 == 0 && B > 0 && B % 1== 0 ?  x : false)
+  // alert(A > 0 && A % 1 == 0 && B > 0 && B % 1== 0 ? "乘积为" + x : false)
  </script>
 
-<script type="ch0103/20" id="ch0103/20">
+<script type="xxx" id="ch0103/20">
   var n = Number(prompt("Pick a number", "非负整数n"))
   var x = Math.pow(2 , n)
-  alert(n >= 0 && n < 31 && n % 1 == 0 ? "值为" + x : false)
+  console.log(n >= 0 && n < 31 && n % 1 == 0 ?  x : false)
+  // alert(n >= 0 && n < 31 && n % 1 == 0 ? "值为" + x : false)
+
  </script>
