@@ -429,10 +429,44 @@
     console.log("Invalid operator!")
 </script>
 
-<script type="" id="ch0104/20">
+<script type="xxx" id="ch0104/20">
   var a = Number(prompt("Pick a number", "number a"))
   var b = Number(prompt("Pick a number", "number b"))
   var c = Number(prompt("Pick a number", "number c"))
-  
-  
+  var q = b * b - 4 * a * c
+  if (q == 0) {
+    var x = -b / (a * 2)
+    var x =  x.toFixed(5)
+    console.log("x1=x2=" + x)
+  } else if (q > 0) {
+      var x1 = -b / (a * 2) + Math.sqrt(q) / (2 * a)
+      var x1 =  x1.toFixed(5)
+      var x2 = -b / (a * 2) - Math.sqrt(q) / (2 * a)
+      var x2 =  x2.toFixed(5)
+      console.log("x1=" + x1 + ";" + "x2="+ x2)
+  } else if (q < 0) {
+    var m =  -b / (a * 2)
+    var m = m.toFixed(5)
+    var n = Math.sqrt(-q) / (2 * a)
+    var n = n.toFixed(5)
+    var o = -n
+    var o = o.toFixed(5)
+    var x1 = m + "+" + n + "i"
+    var x2 = m  + o + "i"
+    console.log("x1=" + x1 + ";" + "x2=" + x2)
+  }
+  else 
+    console.log("error")
 </script>
+
+<script type="xxx" id="ch0104/21">
+  var n = Number(prompt("Pick a number", "苹果数"))
+  var x = Number(prompt("Pick a number", "虫子吃一个苹果需要时间h小时"))
+  var y = Number(prompt("Pick a number", "经过了y小时"))
+  var z = n - Math.ceil(y / x)
+  if (y <= n * x)
+    console.log(z)
+  else 
+    console.log("0")
+
+ </script>
