@@ -192,5 +192,247 @@
   var x = Math.pow(2 , n)
   console.log(n >= 0 && n < 31 && n % 1 == 0 ?  x : false)
   // alert(n >= 0 && n < 31 && n % 1 == 0 ? "值为" + x : false)
-
  </script>
+
+<script type="xxx" id="ch0104/01">
+  var N = Number(prompt("Pick a number", "整数N"))
+  if (N < 0  && N % 1 == 0)
+    console.log("negative")
+  else if (N == 0)
+    console.log("zero")
+  else if (N > 0  && N % 1 == 0 )
+    console.log("positive")
+  else
+    console.log("false")
+  // console.log(N > 0  && N % 1 == 0 ? "positive" : (N == 0 ? "zero" :( N < 0  && N % 1 == 0 ? "negative" : false)))
+ </script>
+
+<script type="xxx" id="ch0104/02">
+  var N = Number(prompt("Pick a number", "整数N"))
+  if (N >= 0)
+    console.log(N)
+  else
+    console.log(-N)
+ </script>
+
+<script type="XXX" id="ch0104/03">
+  var N = Number(prompt("Pick a number", "整数N"))
+  if (N > 0 && N % 1 == 0) {
+    if (N % 2 == 1)
+      console.log("odd")
+    else 
+      console.log("even")
+  }
+  else
+    console.log("false")
+ </script>
+
+<script type="xxx" id="ch0104/04">
+  var s = String(prompt("Pick a number", "字符"))
+  var s = s.charCodeAt(0)
+  if (s % 2 == 1)
+    console.log("YES")
+  else
+    console.log("NO")
+ </script>
+
+<script type="xxx" id="ch0104/05">
+  var x = Number(prompt("Pick a number", "整数"))
+  var y = Number(prompt("Pick a number", "整数"))
+  if (x > y )
+    console.log(">")
+  else if (x == y)
+    console.log("=")
+  else if (x < y)
+    console.log("<")
+  else 
+    console.log("false")
+ </script>
+
+<script type="xxx" id="ch0104/06">
+  var x = Number(prompt("Pick a number", "整数"))
+  if (x >= 10 && x <= 99)
+    console.log("1")
+  else 
+    console.log("0")
+ </script>
+
+<script type="xxx" id="ch0104/07">
+  var x = Number(prompt("Pick a number", "整数"))
+  var y = Number(prompt("Pick a number", "整数"))
+  if (x >= 10 || y >= 20)
+    console.log("1")
+  else 
+    console.log("0")
+ </script>
+
+<script type="xxx" id="ch0104/08">
+  var x = Number(prompt("Pick a number", "整数"))
+  if (x % 3 == 0 && x % 5 == 0)
+    console.log("YES")
+  else 
+    console.log("NO")
+ </script>
+
+<script type="xxx" id="ch0104/09">
+  var x = Number(prompt("Pick a number", "整数"))
+  if (x % 3 == 0 && x % 5 == 0 && x % 7 == 0)
+    console.log("3 5 7")
+  else if (x % 3 == 0 && x % 5 == 0 && x % 7 != 0)
+    console.log("3 5")
+  else if (x % 3 == 0 && x % 5 != 0 && x % 7 == 0)
+    console.log("3 7")
+  else if (x % 3 != 0 && x % 5 == 0 && x % 7 == 0)
+    console.log("5 7")
+  else if (x % 3 == 0 && x % 5 != 0 && x % 7 != 0)
+    console.log("3")
+  else if (x % 3 != 0 && x % 5 == 0 && x % 7 != 0)
+    console.log("5")
+  else if (x % 3 != 0 && x % 5 != 0 && x % 7 == 0)
+    console.log("7")
+  else 
+    console.log("n")
+ </script>
+
+<script type="xxx" id="ch0104/10">
+  var x = Number(prompt("Pick a number", "语文成绩"))
+  var y = Number(prompt("Pick a number", "数学成绩"))
+  if (x >= 60 && y < 60 || y >= 60 && x < 60 )
+    console.log("1")
+  else 
+    console.log("0")
+ </script>
+
+<script type="xxx" id="ch0104/11">
+  var x = Number(prompt("Pick a number", "日期1~7"))
+  if (x == 1 || x == 3  || x == 5 )
+    console.log("NO")
+  else 
+    console.log("YES")
+ </script>
+
+<script type="xxx" id="ch0104/12">
+  var x = Number(prompt("Pick a number", "距离"))
+  var t1 = 27 + 23 + x / 3
+  var t2 =x / 1.2
+  if (t1 < t2)
+    console.log("Bike")
+  else if (t1 > t2)
+    console.log("Walk")
+  else 
+    console.log("All")
+ </script>
+
+<script type="xxx" id="ch0104/13">
+  var x = Number(prompt("Pick a number", "number"))
+  if (0 <= x && x < 5) {
+    var y = -x + 2.5
+    console.log(y.toFixed(3))
+   } else if (5 <= x && x < 10) {
+    var y = 2 - 1.5 * (x - 3) * (x - 3)
+    console.log(y.toFixed(3))
+   } else if (10 <= x && x < 20) {
+     var y = x / 2 - 1.5
+     console.log(y.toFixed(3))
+   }
+   else
+    console.log("false")
+ </script>
+
+<script type="xxx" id="ch0104/14">
+  var x = Number(prompt("Pick a number", "重量"))
+  var q = String(prompt("Pick a string", "y or n"))
+  var w = String("y")
+  if (x <= 1000 && y != q) {
+    var p = 8
+    console.log(p)
+  } else if (x <= 1000 && w == q) {
+    var p = 8 + 5
+    console.log(p)
+  } else if (x > 1000 && w != q) {
+    var p = 8 + Math.ceil((x - 1000) / 500) * 4
+    console.log(p)
+  } else if (x > 1000 && w == q) {
+    var p = 8 + Math.ceil((x - 1000) / 500) * 4 + 5
+    console.log(p)
+  }
+  else 
+    console.log("error")
+ </script>
+
+<script type="xxx" id="ch0104/15">
+  var x = Number(prompt("Pick a number", "number"))
+  var y = Number(prompt("Pick a number", "number"))
+  var z = Number(prompt("Pick a number", "number"))
+  if (x >= y && x >= z )
+    console.log(x)
+  else if (y >= x && y >= z)
+    console.log(y)
+  else 
+    console.log(z)
+ </script>
+
+<script type="xxx" id="ch0104/16">
+  var x = Number(prompt("Pick a number", "number"))
+  var y = Number(prompt("Pick a number", "number"))
+  var z = Number(prompt("Pick a number", "number"))
+  if ((x + y) > z && (x + z) > y && (y + z) > x)
+    console.log("yes")
+  else 
+    console.log("no")
+</script>
+
+<script type="xxx" id="ch0104/17">
+  var x = Number(prompt("Pick a number", "公元纪年"))
+  if (x % 100 == 0 && x % 400 == 0)
+    console.log("Y")
+  else if (x % 100 == 0 && x % 400 != 0)
+    console.log("N")
+  else if (x % 4 == 0)
+    console.log("Y")
+  else 
+    console.log("N")
+</script>
+
+<script type="xxx" id="ch0104/18">
+  var x = Number(prompt("Pick a number", "点横坐标"))
+  var y = Number(prompt("Pick a number", "点纵坐标"))
+  if (-1 <= x && x <= 1 && -1 <=y && y <= 1)
+    console.log("yes")
+  else 
+    console.log("no")
+</script>
+
+<script type="xxx" id="ch0104/19">
+  var x = Number(prompt("Pick a number", "参数1"))
+  var y = Number(prompt("Pick a number", "参数2"))
+  var z = String(prompt("Pick a number", "运算符"))
+  var a = String("+")
+  var b = String("-")
+  var c = String("*")
+  var d = String("/")
+  if (a == z ) {
+    n = x + y
+    console.log(n)
+  } else if (b == z) {
+      n = x - y
+      console.log(n)
+  } else if (c == z) {
+      n = x * y
+      console.log(n)
+  } else if (d == z && y != 0) {
+      n = x / y
+      console.log(n)
+  } else if (d == z && y == 0)
+    console.log("Divided by zero!")
+  else 
+    console.log("Invalid operator!")
+</script>
+
+<script type="" id="ch0104/20">
+  var a = Number(prompt("Pick a number", "number a"))
+  var b = Number(prompt("Pick a number", "number b"))
+  var c = Number(prompt("Pick a number", "number c"))
+  
+  
+</script>
