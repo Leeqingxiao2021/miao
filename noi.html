@@ -670,7 +670,7 @@
   console.log(sum)
 </script>
 
-<script type="" id="ch0105/11">
+<script type="xxx" id="ch0105/11">
   var k = Number(prompt("Pick a number", "k个正整数"))
   var one = 0
   var five = 0
@@ -689,4 +689,43 @@
   console.log(one)
   console.log(five)
   console.log(ten)
+</script>
+
+<script type="xxx" id="ch0105/12">
+  var N = Number(prompt("Pick a number", "N"))
+  var m = Number(prompt("Pick a number", "m"))
+  var n = 0
+  var counter = 0
+  while (counter < N) {
+    var x = Number(prompt("Pick a number", "x"))
+    if (m == x)
+      n = n + 1
+    counter = counter + 1
+  }
+  console.log(n)
+</script>
+
+<script type="xxx" id="ch0105/13">
+  var a = Number(prompt("Pick a number", "a"))
+  var n = Number(prompt("Pick a number", "n"))
+  var an = 1
+  var counter = 0
+  while (counter < n) {
+    an = an * a
+    counter = counter + 1
+  }
+  console.log(an)
+</script>
+
+<script type="" id="ch0105/14">
+  var x = Number(prompt("Pick a number", "x"))
+  var n = Number(prompt("Pick a number", "n"))
+  var growth = 1 
+  var counter = 0
+  while (counter < n) {
+    growth = growth * (1 + 0.001)
+    counter = counter + 1
+  }
+  x = x * growth 
+  console.log(x.toFixed(4))
 </script>
