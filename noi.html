@@ -234,7 +234,7 @@
     console.log("YES")
   else
     console.log("NO")
- </script>
+</script>
 
 <script type="xxx" id="ch0104/05">
   var x = Number(prompt("Pick a number", "整数"))
@@ -274,7 +274,18 @@
     console.log("NO")
  </script>
 
-<script type="xxx" id="ch0104/09">
+<script type="ddd" id="ch0104/09">
+  // var x = Number(prompt("Pick a number", "整数"))
+  // if (x % 3 == 0 || x % 5 == 0 || x % 7 == 0) {
+  //   if (x % 3 == 0)
+  //     console.log("3")
+  //   if (x % 5 == 0)
+  //     console.log("5")
+  //   if (x % 7 == 0)
+  //     console.log("7")
+  //  }
+  //  else 
+  //   console.log("n")
   var x = Number(prompt("Pick a number", "整数"))
   if (x % 3 == 0 && x % 5 == 0 && x % 7 == 0)
     console.log("3 5 7")
@@ -297,10 +308,21 @@
 <script type="xxx" id="ch0104/10">
   var x = Number(prompt("Pick a number", "语文成绩"))
   var y = Number(prompt("Pick a number", "数学成绩"))
-  if (x >= 60 && y < 60 || y >= 60 && x < 60 )
+  var n = 0 //不及格科目计数
+  if (x < 60)
+    var n = n + 1
+  if (y < 60)
+    var n = n + 1
+  if (n == 1)
     console.log("1")
   else 
     console.log("0")
+  // var x = Number(prompt("Pick a number", "语文成绩"))
+  // var y = Number(prompt("Pick a number", "数学成绩"))
+  // if (x >= 60 && y < 60 || y >= 60 && x < 60 )
+  //   console.log("1")
+  // else 
+  //   console.log("0")
  </script>
 
 <script type="xxx" id="ch0104/11">
@@ -328,10 +350,10 @@
   if (0 <= x && x < 5) {
     var y = -x + 2.5
     console.log(y.toFixed(3))
-   } else if (5 <= x && x < 10) {
+   } else if ( x < 10) {
     var y = 2 - 1.5 * (x - 3) * (x - 3)
     console.log(y.toFixed(3))
-   } else if (10 <= x && x < 20) {
+   } else if ( x < 20) {
      var y = x / 2 - 1.5
      console.log(y.toFixed(3))
    }
@@ -342,34 +364,50 @@
 <script type="xxx" id="ch0104/14">
   var x = Number(prompt("Pick a number", "重量"))
   var q = String(prompt("Pick a string", "y or n"))
-  var w = String("y")
-  if (x <= 1000 && w != q) {
-    var p = 8
-    console.log(p)
-  } else if (x <= 1000 && w == q) {
-    var p = 8 + 5
-    console.log(p)
-  } else if (x > 1000 && w != q) {
-    var p = 8 + Math.ceil((x - 1000) / 500) * 4
-    console.log(p)
-  } else if (x > 1000 && w == q) {
-    var p = 8 + Math.ceil((x - 1000) / 500) * 4 + 5
-    console.log(p)
-  }
-  else 
-    console.log("error")
+  var price = 8
+  if (1000 < x)
+    var price = price + Math.ceil((x - 1000) / 500) * 4
+  if (q == "y")
+    var price = price + 5
+  console.log(price)
+  // var x = Number(prompt("Pick a number", "重量"))
+  // var q = String(prompt("Pick a string", "y or n"))
+  // var w = String("y")
+  // if (x <= 1000 && w != q) {
+  //   var p = 8
+  //   console.log(p)
+  // } else if (x <= 1000 && w == q) {
+  //   var p = 8 + 5
+  //   console.log(p)
+  // } else if (x > 1000 && w != q) {
+  //   var p = 8 + Math.ceil((x - 1000) / 500) * 4
+  //   console.log(p)
+  // } else if (x > 1000 && w == q) {
+  //   var p = 8 + Math.ceil((x - 1000) / 500) * 4 + 5
+  //   console.log(p)
+  // }
+  // else 
+  //   console.log("error")
  </script>
 
 <script type="xxx" id="ch0104/15">
   var x = Number(prompt("Pick a number", "number"))
   var y = Number(prompt("Pick a number", "number"))
   var z = Number(prompt("Pick a number", "number"))
-  if (x >= y && x >= z )
-    console.log(x)
-  else if (y >= x && y >= z)
-    console.log(y)
-  else 
-    console.log(z)
+  var max = 0
+  if (x >= max)
+    max = x
+  if (y >= max)
+    max = y
+  if (z >= max)
+    max = z
+  console.log(max)
+  // if (x >= y && x >= z )
+  //   console.log(x)
+  // else if (y >= x && y >= z)
+  //   console.log(y)
+  // else 
+  //   console.log(z)
  </script>
 
 <script type="xxx" id="ch0104/16">
@@ -470,3 +508,108 @@
     console.log("0")
  </script>
 
+<script type="xxx" id="ch0105/01">
+  var n = Number(prompt("Pick a number", "人数"))
+  var a = 0
+  var average = 0
+  while (a < n) {
+    var age = Number(prompt("Pick a number", "学生年龄"))
+    var average = average + age
+    var a = a + 1
+  } 
+  var average = average / n
+  console.log(average.toFixed(2))
+ </script>
+
+<script type="xxx" id="ch0105/02">
+  var a = 0
+  var average = 0
+  do  {
+    var money = Number(prompt("Pick a number", "月末结余"))
+    var average = average + money
+    var a = a + 1
+  } while (a < 12);
+  var average = average / 12
+  console.log("$" + average.toFixed(2))
+ </script>
+
+<script type="xxx" id="ch0105/03">
+  var n = Number(prompt("Pick a number", "样本容量"))
+  var a = 0
+  var average = 0
+  while (a < n)  {
+    var x = Number(prompt("Pick a number", "样本值"))
+    var average = average + x
+    var a = a + 1
+  } 
+  var average = average / n
+  console.log(average.toFixed(4))
+ </script>
+
+<script type="xxx" id="ch0105/04">
+  var n = Number(prompt("Pick a number", "n个整数"))
+  var counter = 0
+  var sum= 0
+  while (counter < n)  {
+    var x = Number(prompt("Pick a number", "数字x"))
+    var sum = sum + x
+    var counter = counter + 1
+  } 
+  var average = sum / n
+  var average = average.toFixed(5)
+  console.log(sum + " " + average)
+ </script>
+
+<script type="xxx" id="ch0105/05">
+  var n = Number(prompt("Pick a number", "n个整数"))
+  var counter = 0
+  var max= 0
+  while (counter < n)  {
+    var x = Number(prompt("Pick a number", "数字x"))
+    if (max < x)
+      var max =  x
+    var counter = counter + 1
+  } 
+  console.log(max)
+ </script>
+
+<script type="xxx" id="ch0105/06">
+  var n = Number(prompt("Pick a number", "n个整数"))
+  var counter = 0
+  var max = 0
+  var min = 1000
+  if (n == 0)
+    console.log(0)
+  else {
+    while (counter < n) {
+      var x = Number(prompt("Pick a number", "数字"))
+      if (max <= x){
+        var max = x
+      }
+      if (min >= x){
+        var min = x
+      }
+      var counter = counter + 1
+    } 
+    console.log(max - min)
+  }
+</script>
+
+<script type="xxx" id="ch0105/07">
+  var n = Number(prompt("Pick a number", "天数"))
+  var counter = 0
+  var gold = 0
+  var silver = 0
+  var copper = 0
+  while (counter < n)  {
+    var x = Number(prompt("Pick a number", "金牌数"))
+    var gold = gold + x
+    var y = Number(prompt("Pick a number", "银牌数"))
+    var silver = silver + y
+    var z = Number(prompt("Pick a number", "铜牌数"))
+    var copper = copper + z
+    var counter = counter + 1
+  } 
+    var all = gold  + silver  + copper
+  console.log(gold + " " + silver + " " + copper + " " + all )
+ </script>
