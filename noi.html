@@ -563,7 +563,7 @@
 <script type="xxx" id="ch0105/05">
   var n = Number(prompt("Pick a number", "n个整数"))
   var counter = 0
-  var max= 0
+  var max= -Infinity
   while (counter < n)  {
     var x = Number(prompt("Pick a number", "数字x"))
     if (max < x)
@@ -576,8 +576,8 @@
 <script type="xxx" id="ch0105/06">
   var n = Number(prompt("Pick a number", "n个整数"))
   var counter = 0
-  var max = 0
-  var min = 1000
+  var max = -Infinity
+  var min = Infinity
   if (n == 0)
     console.log(0)
   else {
@@ -630,44 +630,66 @@
   var m = Number(prompt("Pick a number", ""))
   var n = Number(prompt("Pick a number", ""))
   var sum = 0
-  if (0 <= m && m <= n && n <= 300) {
-    if (m % 2 == 1) {
-      do {
-        sum = sum + m
-        m = m + 2
-      } while (m <= n)
+  whie (m <= n) {
+    if ( m % 2 == 1) {
+      sum =sum + m
     }
-    else {
-      m = m + 1
-      do {
-        sum = sum + m
-        m = m + 2
-      } while (m <= n)
-    }
+    m = m + 1
   }
   console.log(sum)
+  // var m = Number(prompt("Pick a number", ""))
+  // var n = Number(prompt("Pick a number", ""))
+  // var sum = 0
+  // if (0 <= m && m <= n && n <= 300) {
+  //   if (m % 2 == 1) {
+  //     do {
+  //       sum = sum + m
+  //       m = m + 2
+  //     } while (m <= n)
+  //   }
+  //   else {
+  //     m = m + 1
+  //     do {
+  //       sum = sum + m
+  //       m = m + 2
+  //     } while (m <= n)
+  //   }
+  // }
+  // console.log(sum)
 </script>
 
 <script type="xxx" id="ch0105/10">
   var m = Number(prompt("Pick a number", ""))
   var n = Number(prompt("Pick a number", ""))
   var sum = 0
-    if (m % 17 == 0) {
-      do {
-        sum = sum + m
-        m = m + 17
-      } while (m <= n)
-    }
-    else {
-      while (m % 17 != 0) {
-        m = m + 1
-      }
-      while (m <= n) {
-        sum = sum + m
-        m = m + 17
-      } 
-    }
+  if (m % 17 != 0) {
+    m = m + (17 - m % 17)
+  }
+  while (m <= n) {
+    sum = sum + m
+    m = m + 17
+  }
   console.log(sum)
+
+  // var m = Number(prompt("Pick a number", ""))
+  // var n = Number(prompt("Pick a number", ""))
+  // var sum = 0
+  //   if (m % 17 == 0) {
+  //     do {
+  //       sum = sum + m
+  //       m = m + 17
+  //     } while (m <= n)
+  //   }
+  //   else {
+  //     while (m % 17 != 0) {
+  //       m = m + 1
+  //     }
+  //     while (m <= n) {
+  //       sum = sum + m
+  //       m = m + 17
+  //     } 
+  //   }
+  // console.log(sum)
 </script>
 
 <script type="xxx" id="ch0105/11">
@@ -678,12 +700,13 @@
   var counter = 0
   while (counter < k) {
     var n = Number(prompt("数字"))
-    if( n - 1 == 0)
+    if (n == 1) {
       one = one + 1
-    if( n - 5 == 0)
+    } else if (n == 5) {
       five = five + 1
-    if( n - 10 == 0)
+    } else if (n == 10) {
       ten = ten + 1
+    }
     counter = counter + 1
   }
   console.log(one)
@@ -717,15 +740,130 @@
   console.log(an)
 </script>
 
-<script type="" id="ch0105/14">
+<script type="xxx" id="ch0105/14">
   var x = Number(prompt("Pick a number", "x"))
   var n = Number(prompt("Pick a number", "n"))
-  var growth = 1 
   var counter = 0
   while (counter < n) {
-    growth = growth * (1 + 0.001)
+    x = x * (1 + 0.001)
     counter = counter + 1
   }
-  x = x * growth 
   console.log(x.toFixed(4))
+</script>
+
+<script type="XXX" id="ch0105/15">
+  var R = Number(prompt("Pick a number", "年利率"))
+  var M = Number(prompt("Pick a number", "存款"))
+  var Y = Number(prompt("Pick a number", "年份"))
+  var growth = 1 + R /100
+  var counter = 0
+  while (counter < Y) {
+    M = M * growth
+    counter = counter + 1
+  }
+  M = Math.trunc(M)
+  console.log(M)
+</script>
+
+<script type="xxx" id="ch0105/16">
+  var N = Number(prompt("Pick a number", "年薪"))
+  var K = Number(prompt("Pick a number", "利率"))
+  var P = 200
+  var year = 1
+  var sum = N
+  while (sum < P) {
+    P = P * (1 + K / 100)
+    year = year + 1
+    sum = N * year
+  }
+  if (year <= 20)
+    console.log(year)
+  else 
+    console.log("Impossible")
+</script>
+
+<script type="xxx" id="ch0105/17">
+  var k = Number(prompt("Pick a number", "第k个数"))
+  var m = 1
+  var n = 0
+  var counter = 0
+  while (counter < k) {
+    var kn = m + n
+    m = n
+    n = kn 
+    counter = counter + 1
+  }
+    console.log(kn)
+</script>
+
+<script type="xxx" id="ch0105/18">
+  var n = Number(prompt("Pick a number", "n组"))
+  var all = Number(prompt("Pick a number", "总病例数"))
+  var a = Number(prompt("Pick a number", "有效病例数"))
+  var x = (a / all) 
+  for (var i = 1 ; i < n ; i = i + 1) {
+    var An = Number(prompt("Pick a number", "总病例数"))
+    var an = Number(prompt("Pick a number", "有效病例数"))
+    var y = (an / An) 
+    if (y - x > 0.05) {
+      console.log("better")
+    } else if (x - y > 0.05) {
+      console.log("worse")
+    } else
+      console.log("same")
+  }
+</script>
+
+<script type="xxx" id="ch0105/19">
+  var n = Number(prompt("Pick a number", "n组")) 
+  for (var i = 0 ; i < n ; i = i + 1) {
+    var x = Number(prompt("Pick a number", "x坐标"))
+    var y = Number(prompt("Pick a number", "y坐标"))
+    var z = Number(prompt("Pick a number", "人数"))
+    var t = Math.ceil(Math.sqrt(x * x + y * y) / 50 * 2 + z * (1 +0.5)) 
+    console.log(t)
+  }
+</script>
+
+<script type="xxx" id="ch0105/20">
+  var h = Number(prompt("Pick a number", "高度")) 
+  var sn = 0
+  for (var i = 0 ; i < 10 ; i = i + 1) {
+    hn = h / 2 // 反弹高度
+    h = hn 
+    var s = hn * 2 
+    sn = sn + s + hn // 到达反弹高度的总经过路程
+  }
+  sn = sn - hn //减去触地后弹起的高度就是触地时路程
+  console.log(sn.toFixed(4))
+  console.log(h.toFixed(7))
+</script>
+
+<script type="xxx" id="ch0105/21">
+  var N = Number(prompt("Pick a number", "正整数")) 
+  var m 
+  var n
+  while (N != 1) {
+    if (N % 2 == 0) {
+      m = N / 2
+      n = N
+      N = m
+      console.log(n + "/2=" + N)
+    }
+    else {
+      m = N * 3 + 1
+      n = N
+      N = m
+      console.log(n + "*3+1=" + N)
+    }
+  }
+  console.log("End")
+</script>
+
+<script type="" id="ch0105/22">
+  for (var i = 1 ; i <= 12 ; i++) {
+    var x = Number(prompt("预算"))
+    var m = 300 - x
+    if (m  )
+  }
 </script>
