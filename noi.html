@@ -921,7 +921,7 @@
   console.log(max)
 </script>
 
-<script type="" id="ch0105/25">
+<script type="xxx" id="ch0105/25">
   var a = 1
   var b = 0
   var c = 1
@@ -934,7 +934,7 @@
     var z = c * 100 + b * 10 + a
     var n = 81 * c + 9 * b + a
     if (n == x) {
-      console.log(x , y,z)
+      console.log(x)
       console.log(y)
       console.log(z)
     }
@@ -977,22 +977,19 @@
     console.log("error")
 </script>
 
-<script type="XXX" id="ch0105/28">
+<script type="" id="ch0105/28">
   var n = Number(prompt("Pick a number", "整数n")) 
-  var a = n % 10 
-  n = (n - a) / 10
-  
-  if (n == 0) {
-    console.log(a)
-  } else if (n <= 9){
-      console.log(a , n)
-  } else {
-      while (n > 10) {
-        a = n % 10 
-        a = ((n - a) / 10) % 10
-        n = n - a
-        console.log(a)
+  while (n != 0 ) {
+    var a = n % 10 
+    n = (n - a) / 10
+      console.log(a)
+    if (n >= 1) {
+      a = n % 10 
+      n = (n - a) / 10
+      console.log(a)
     }
   }
+  
+  
 </script>
 
