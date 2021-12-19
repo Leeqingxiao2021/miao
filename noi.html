@@ -1020,11 +1020,211 @@
     console.log("NO")
 </script>
 
-<script type="" id="ch0105/31">
+<script type="xxx" id="ch0105/31">未完成
   var n = Number(prompt("Pick a number", "N盏灯")) 
   var m = Number(prompt("Pick a number", "M个人"))
   var i = 1
-  while(i<n)
+  var N = "t"
+  while (i < n) {
+    var a = "t"
+    N = N + a
+    i++
+  }
+  while (i < m) {
+    var b = "f"
+    N = N 
+  }
+    
+  console.log(String(N))
 
+</script>
 
+<script type="xxx" id="ch0105/32">
+  var n = Number(prompt("Pick a number", "第n项"))
+  var p = 1
+  var q = 2
+  var s = 0
+  var counter = 0
+  while (counter < n) {
+    s = s + q / p
+    var a = p 
+    var b = q
+    q = a + b
+    p = b 
+    counter = counter + 1
+  }
+    console.log(s.toFixed(4))
+</script>
+
+<script type="xxx" id="ch0105/33">
+  var n = Number(prompt("Pick a number", "第n项"))
+  var p = 1
+  var s = 0
+  var counter = 0
+  while (counter < n) {
+    s = s + 1 / p
+    if (p % 2 == 1) {
+      p++
+      p = -p
+    } else {
+      p = -p
+      p++
+    }
+    counter = counter + 1
+  }
+    console.log(s.toFixed(4))
+</script>
+
+<script type="xxx" id="ch0105/34">
+  var n = Number(prompt("Pick a number", "第n项"))
+  var p = 1
+  var s = 0
+  for (var i = 1 ; i <= n ; i++) {
+    p = p * i
+    s = s + p
+  }
+    console.log(s)
+</script>
+
+<script type="xxx" id="ch0105/35">
+  var n = Number(prompt("Pick a number", "第n项"))
+  var p = 1
+  var s = 0
+  var i = 0
+  while (i <= n ) {
+    p = p * i
+    if (p == 0) {
+      p = 1
+    }
+    s = s + 1 / p
+    i++
+  }
+    console.log(s.toFixed(10))
+</script>
+
+<script type="xxx" id="ch0105/36">
+  var x = Number(prompt("Pick a number", "x"))
+  var n = Number(prompt("Pick a number", "n"))
+  var s = 1
+  var y = 1
+  for (var i = 0 ; i < n ; i++) {
+    y = y * x
+    s = s + y
+  }
+    console.log(s.toFixed(2))
+</script>
+
+<script type="xxx" id="ch0105/37">未完成
+  var m = Number(prompt("Pick a number", "m"))
+  var n = Number(prompt("Pick a number", "n"))
+  var x = Number(prompt("Pick a number", "x"))
+  var power = 0
+  for (var i = 0 ; i < n ; i++) {
+ 
+  }
+    console.log(s.toFixed(2))
+</script>
+
+<script type="xxx" id="ch0105/38">未完成
+  var m = Number(prompt("Pick a number", "m"))
+  var n = Number(prompt("Pick a number", "n"))
+  var x = Number(prompt("Pick a number", "x"))
+  var power = 0
+  for (var i = 0 ; i < n ; i++) {
+ 
+  }
+    console.log(s.toFixed(2))
+</script>
+
+<script type="xxx" id="ch0105/39">
+  var x = Number(prompt("Pick a number", "x"))
+  var s = 0
+  var i = 1
+  while (i <= x) {
+    var y = i
+    var m = y % 10
+    var n = (y - m) / 10
+    if (y % 7 == 0 || m == 7 || n == 7) {
+      y = 0
+    }
+    s = s + y * y
+    i++
+  }
+    console.log(s)
+</script>
+
+<script type="xxx" id="ch0105/40">
+  var x = Number(prompt("Pick a number", "x"))
+  var s = 1
+  var i = 1
+  while (i <= x) {
+    var m = i 
+    var n = i 
+    while (n >= 10) {
+      m = n % 10
+      n = (n - m) / 10
+      if (m == 1 || n == 1) {
+        s = s + 1
+      }
+      if  (m == 1 && n == 1) {
+        s = s + 1
+      }
+    } 
+    i++
+  }
+    console.log(s)
+</script>
+
+<script type="xxx" id="ch0105/41">
+  var l = Number(prompt("Pick a number", "L"))
+  var r = Number(prompt("Pick a number", "R"))
+  var i = l
+  var s = 0
+  while (i <= r) {
+    var m = i 
+    var n = i 
+    while (n >= 10) {
+      m = n % 10
+      n = (n - m) / 10
+      if (m == 2 || n == 2) {
+        s = s + 1
+      }
+      if  (m == 2 && n == 2) {
+        s = s + 1
+      }
+    } 
+    if (i == 2) {
+      s = s + 1
+    }
+    i++
+  }
+    console.log(s)
+</script>
+
+<script type="" id="ch0105/42">
+  var a = Number(prompt("Pick a number", "宽"))
+  var b = Number(prompt("Pick a number", "高"))
+  var c = String(prompt("Pick a number", "字符"))
+  var d = Number(prompt("Pick a number", "1 or 0"))
+  var x = String()
+  var y = String()
+  for (var i = 1 ; i <= a ; i++) {
+    var x = x + c
+    if (i > 2) {
+      y = y + " "
+      var z = c + y + c
+    } else {
+      z = x
+    }
+  }
+  for (var i = 1 ; i <= b ; i++) {
+    if (d == 1) {
+      console.log(x)
+    }
+    if (d == 0 && (i == 1 || i == b)) {
+      console.log(x)
+    } else if (d == 0 && i > 1){
+      console.log(z)
+    }
+  }
 </script>
