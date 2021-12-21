@@ -816,48 +816,63 @@
 
 <script type="xxx" id="ch0105/19">
   var n = Number(prompt("Pick a number", "n组")) 
+  var sum = 0
   for (var i = 0 ; i < n ; i = i + 1) {
     var x = Number(prompt("Pick a number", "x坐标"))
     var y = Number(prompt("Pick a number", "y坐标"))
     var z = Number(prompt("Pick a number", "人数"))
     var t = Math.ceil(Math.sqrt(x * x + y * y) / 50 * 2 + z * (1 +0.5)) 
-    console.log(t)
+    sum = sum + t 
   }
+  console.log(sum)
 </script>
 
 <script type="xxx" id="ch0105/20">
   var h = Number(prompt("Pick a number", "高度")) 
   var sn = 0
   for (var i = 0 ; i < 10 ; i = i + 1) {
-    hn = h / 2 // 反弹高度
-    h = hn 
-    var s = hn * 2 
-    sn = sn + s + hn // 到达反弹高度的总经过路程
+    h = h / 2 // 反弹高度
+    var s = h * 2 
+    sn = sn + s + h // 到达反弹高度的总经过路程
   }
-  sn = sn - hn //减去触地后弹起的高度就是触地时路程
+  sn = sn - h //减去触地后弹起的高度就是触地时路程
   console.log(sn.toFixed(4))
   console.log(h.toFixed(7))
 </script>
 
 <script type="xxx" id="ch0105/21">
   var N = Number(prompt("Pick a number", "正整数")) 
-  var m 
-  var n
   while (N != 1) {
     if (N % 2 == 0) {
       m = N / 2
-      n = N
-      N = m
-      console.log(n + "/2=" + N)
+      var str = N + "/2=" + m
     }
     else {
       m = N * 3 + 1
-      n = N
-      N = m
-      console.log(n + "*3+1=" + N)
+      str = N+ "*3+1=" + m
     }
+    console.log(str)
+    N = m // 简洁写法，数值变化写在后面
   }
   console.log("End")
+  // var N = Number(prompt("Pick a number", "正整数")) 
+  // var m 
+  // var n
+  // while (N != 1) {
+  //   if (N % 2 == 0) {
+  //     m = N / 2
+  //     n = N
+  //     N = m
+  //     console.log(n + "/2=" + N)
+  //   }
+  //   else {
+  //     m = N * 3 + 1
+  //     n = N
+  //     N = m
+  //     console.log(n + "*3+1=" + N)
+  //   }
+  // }
+  // console.log("End")
 </script>
 
 <script type="xxx" id="ch0105/22">
@@ -871,6 +886,7 @@
     var balance = balance + 300 - budget // 每月除去预算后剩余的钱
     if (balance < 0)
       x = i
+      break
     if (balance >= 100){
       save = Math.floor(balance / 100) * 100
       balance = balance - save // 存款后剩余到下个月的钱
@@ -903,29 +919,44 @@
   console.log (Refused)
 </script>
 
-<script type="xxx" id="ch0105/24">
+<script type="zzz" id="ch0105/24">
   var n = Number(prompt("测量次数"))
-  var sustain = 1
+  var sustain = 0 //两段区别
   var max = 0
   for (var i = 0 ; i < n ; i++) {
     var x = Number(prompt("收缩压"))
     var y = Number(prompt("舒张压"))
     if (90 <= x && x <= 140 && 60 <= y && y <= 90) {
       sustain = sustain + 1
-      if (sustain > 1) {
-        max = max + 1
+      if (sustain > max) {  //两段区别
+        max = sustain //两段区别
       }
     }else 
       sustain = 0
   }
   console.log(max)
+  // var n = Number(prompt("测量次数"))
+  // var sustain = 1
+  // var max = 0
+  // for (var i = 0 ; i < n ; i++) {
+  //   var x = Number(prompt("收缩压"))
+  //   var y = Number(prompt("舒张压"))
+  //   if (90 <= x && x <= 140 && 60 <= y && y <= 90) {
+  //     sustain = sustain + 1
+  //     if (sustain > 1) {
+  //       max = max + 1
+  //     }
+  //   }else 
+  //     sustain = 0
+  // }
+  // console.log(max)
 </script>
 
 <script type="xxx" id="ch0105/25">
   var a = 1
   var b = 0
   var c = 1
-  var x = 1
+  var x = 101
   while (48 * a != 2 * b + 80 * c) {
     a = Math.trunc(x / 49) 
     b = Math.trunc((x - a * 49) / 7)
@@ -977,18 +1008,24 @@
     console.log("error")
 </script>
 
-<script type="xxx" id="ch0105/28">
+<script type="zzz" id="ch0105/28">
   var n = Number(prompt("Pick a number", "整数n")) 
-  while (n != 0 ) {
+  while (n > 0 ) {
     var a = n % 10 
-    n = (n - a) / 10
     console.log(a)
-    if (n != 0) {
-      a = n % 10 
-      n = (n - a) / 10
-      console.log(a)
-    }
+    n = (n - a) / 10
   }
+  // var n = Number(prompt("Pick a number", "整数n")) 
+  // while (n != 0 ) {
+  //   var a = n % 10 
+  //   n = (n - a) / 10
+  //   console.log(a)
+  //   if (n != 0) {
+  //     a = n % 10 
+  //     n = (n - a) / 10
+  //     console.log(a)
+  //   }
+  // }
 </script>
 
 <script type="xxx" id="ch0105/29">
@@ -1020,23 +1057,28 @@
     console.log("NO")
 </script>
 
-<script type="xxx" id="ch0105/31">未完成
+<script type="xxx" id="ch0105/31">
   var n = Number(prompt("Pick a number", "N盏灯")) 
   var m = Number(prompt("Pick a number", "M个人"))
-  var i = 1
-  var N = "t"
-  while (i < n) {
-    var a = "t"
-    N = N + a
-    i++
+  var lights = String("")
+  var First = true
+  for (var i = 1 ; i <= n ; i++) {
+    var light = true
+    for (var j = 1 ; j <= m ; j++) {
+      if (i % j == 0)  {
+        light = !light
+      }
+    }
+    if (!light) {
+      if (First) {
+        lights += i
+      } else {
+        lights += "," + i
+      }
+      First = false
+    }
   }
-  while (i < m) {
-    var b = "f"
-    N = N 
-  }
-    
-  console.log(String(N))
-
+  console.log(lights)
 </script>
 
 <script type="xxx" id="ch0105/32">
@@ -1044,35 +1086,49 @@
   var p = 1
   var q = 2
   var s = 0
-  var counter = 0
-  while (counter < n) {
+  for (var i = 0 ; i < n ; i++) {
     s = s + q / p
-    var a = p 
-    var b = q
-    q = a + b
-    p = b 
-    counter = counter + 1
+    q = p + q 
+    p = q - p
   }
+  // var counter = 0
+  // while (counter < n) {
+  //   s = s + q / p
+  //   var a = p 
+  //   var b = q
+  //   q = a + b 
+  //   p = b 
+  //   counter = counter + 1
+  // }
     console.log(s.toFixed(4))
 </script>
 
 <script type="xxx" id="ch0105/33">
   var n = Number(prompt("Pick a number", "第n项"))
-  var p = 1
-  var s = 0
-  var counter = 0
-  while (counter < n) {
-    s = s + 1 / p
-    if (p % 2 == 1) {
-      p++
-      p = -p
-    } else {
-      p = -p
-      p++
-    }
-    counter = counter + 1
+  var sum = 0
+  var sign = 1
+  for (var i = 1 ; i < n ; i++) {
+    sum = sum + sign * 1 / i
+    sign = -sign
   }
-    console.log(s.toFixed(4))
+  console.log(s.toFixed(4))
+
+  // var n = Number(prompt("Pick a number", "第n项"))
+  // var p = 1
+  // var s = 0
+  // var counter = 0
+  // while (counter < n) {
+  //   s = s + 1 / p
+  //   if (p % 2 == 1) {
+  //     p++ 
+  //     p = -p
+  //   } else {
+  //     p = -p
+  //     p++
+  //   }
+  //   counter = counter + 1
+  // }
+  //   console.log(s.toFixed(4))
 </script>
 
 <script type="xxx" id="ch0105/34">
@@ -1086,20 +1142,28 @@
     console.log(s)
 </script>
 
-<script type="xxx" id="ch0105/35">
+<script type="xx" id="ch0105/35">
   var n = Number(prompt("Pick a number", "第n项"))
   var p = 1
-  var s = 0
-  var i = 0
-  while (i <= n ) {
+  var s = 1
+  for (var i = 1 ; i <= n ; i++) {
     p = p * i
-    if (p == 0) {
-      p = 1
-    }
     s = s + 1 / p
-    i++
   }
-    console.log(s.toFixed(10))
+  console.log(s.toFixed(10))
+  // var n = Number(prompt("Pick a number", "第n项"))
+  // var p = 1
+  // var s = 0
+  // var i = 0
+  // while (i <= n ) {
+  //   p = p * i
+  //   if (p == 0) {
+  //     p = 1
+  //   }
+  //   s = s + 1 / p
+  //   i++
+  // }
+  //   console.log(s.toFixed(10))
 </script>
 
 <script type="xxx" id="ch0105/36">
@@ -1125,123 +1189,286 @@
     console.log(s.toFixed(2))
 </script>
 
-<script type="xxx" id="ch0105/38">未完成
-  var m = Number(prompt("Pick a number", "m"))
-  var n = Number(prompt("Pick a number", "n"))
-  var x = Number(prompt("Pick a number", "x"))
-  var power = 0
-  for (var i = 0 ; i < n ; i++) {
- 
+<script type="xxx" id="ch0105/38">
+  var x = Number(prompt("Pick a number", "x组方程"))
+  var str = ""
+  var First = true
+  for (var i = 0 ; i < x ; i++) {
+    var n = Number(prompt("Pick a number", "最高次项"))
+    if (n == 0) {
+      var c = Number(prompt("Pick a number", "多项式系数"))
+      console.log(0)
+    } else {
+        for (var j = n ; j >= 0 ; j--) {
+          var c = Number(prompt("Pick a number", "多项式系数"))
+          var m = c * j 
+          if (j != 0) {
+             if (First) {
+              str += m
+            } else {
+              str += " " + m
+            }
+            First = false
+          }
+          if (j == 0) {
+            First = true
+          }
+        }
+        console.log(str)
+        str = ""
+    }  
   }
-    console.log(s.toFixed(2))
 </script>
 
 <script type="xxx" id="ch0105/39">
   var x = Number(prompt("Pick a number", "x"))
   var s = 0
-  var i = 1
-  while (i <= x) {
-    var y = i
-    var m = y % 10
-    var n = (y - m) / 10
-    if (y % 7 == 0 || m == 7 || n == 7) {
-      y = 0
+  for (var i = 1 ; i <= x ; i++) {
+    var n = i // 把i的值给n,n做计算，i递增
+    var m =false //与七有关设定为假
+    if (n % 7 == 0) {
+      m = true
+    } else {
+        while (n > 0) {
+          var d = n % 10
+          if (d == 7) {
+            m = true
+          break
+          }
+          n = (n - d) / 10
+        }
+        if (!m) {
+          s += i**
+        }
     }
-    s = s + y * y
-    i++
   }
-    console.log(s)
+  console.log(s)
+  // var x = Number(prompt("Pick a number", "x"))
+  // var s = 0
+  // var i = 1
+  // while (i <= x) {
+  //   var y = i
+  //   var m = y % 10
+  //   var n = (y - m) / 10
+  //   if (y % 7 == 0 || m == 7 || n == 7) {
+  //     y = 0
+  //   }
+  //   s = s + y * y
+  //   i++
+  // }
+  //   console.log(s)
 </script>
 
 <script type="xxx" id="ch0105/40">
   var x = Number(prompt("Pick a number", "x"))
-  var s = 1
-  var i = 1
-  while (i <= x) {
-    var m = i 
-    var n = i 
-    while (n >= 10) {
-      m = n % 10
-      n = (n - m) / 10
-      if (m == 1 || n == 1) {
-        s = s + 1
+  var s = 0
+  for (var i = 1 ; i <= x ; i++) {
+    var n = i // 把i的值给n,n做计算，i递增
+      while (n > 0) {
+        var d = n % 10
+        if (d == 1) {
+          s += 1
+        }
+        n = (n - d) / 10
       }
-      if  (m == 1 && n == 1) {
-        s = s + 1
-      }
-    } 
-    i++
   }
-    console.log(s)
+  console.log(s)
+
+  // var x = Number(prompt("Pick a number", "x"))
+  // var s = 1
+  // var i = 1
+  // while (i <= x) {
+  //   var m = i 
+  //   var n = i 
+  //   while (n >= 10) {
+  //     m = n % 10
+  //     n = (n - m) / 10
+  //     if (m == 1 || n == 1) {
+  //       s = s + 1
+  //     }
+  //     if  (m == 1 && n == 1) {
+  //       s = s + 1
+  //     }
+  //   } 
+  //   i++
+  // }
+  //   console.log(s)
 </script>
 
 <script type="xxx" id="ch0105/41">
-  var l = Number(prompt("Pick a number", "L"))
-  var r = Number(prompt("Pick a number", "R"))
-  var i = l
+  var l = Number(prompt("Pick a number", "l"))
+  var r = Number(prompt("Pick a number", "r"))
   var s = 0
-  while (i <= r) {
-    var m = i 
-    var n = i 
-    while (n >= 10) {
-      m = n % 10
-      n = (n - m) / 10
-      if (m == 2 || n == 2) {
-        s = s + 1
+  for (var i = l ; i <= r ; i++) {
+    var n = i // 把i的值给n,n做计算，i递增
+      while (n > 0) {
+        var d = n % 10
+        if (d == 2) {
+          s += 1
+        }
+        n = (n - d) / 10
       }
-      if  (m == 2 && n == 2) {
-        s = s + 1
-      }
-    } 
-    if (i == 2) {
-      s = s + 1
-    }
-    i++
   }
-    console.log(s)
+  console.log(s)
+  // var l = Number(prompt("Pick a number", "L"))
+  // var r = Number(prompt("Pick a number", "R"))
+  // var i = l
+  // var s = 0
+  // while (i <= r) {
+  //   var m = i 
+  //   var n = i 
+  //   while (n >= 10) {
+  //     m = n % 10
+  //     n = (n - m) / 10
+  //     if (m == 2 || n == 2) {
+  //       s = s + 1
+  //     }
+  //     if  (m == 2 && n == 2) {
+  //       s = s + 1
+  //     }
+  //   } 
+  //   if (i == 2) {
+  //     s = s + 1
+  //   }
+  //   i++
+  // }
+  //   console.log(s)
 </script>
 
 <script type="xxx" id="ch0105/42">
-  var a = Number(prompt("Pick a number", "宽"))
-  var b = Number(prompt("Pick a number", "高"))
-  var c = String(prompt("Pick a number", "字符"))
-  var d = Number(prompt("Pick a number", "1 or 0"))
-  var x = String()
-  var y = String()
-  for (var i = 1 ; i <= a ; i++) {
-    var x = x + c
-    if (i > 2) {
-      y = y + " "
-      var z = c + y + c
+  var w = Number(prompt("Pick a number", "宽"))
+  var h = Number(prompt("Pick a number", "高"))
+  var char = String(prompt("Pick a number", "字符"))
+  var fill = Number(prompt("Pick a number", "1 or 0"))
+  var str = ""
+  // for (var i = 0 ; i < w ; i++) {
+  //   for (var j = 0 ; j < h ; j++) {
+  //     if (i == 0 || j == 0 || i == w - 1 || j == h - 1 ) {
+  //       str += char
+  //     } else {
+  //       if (fill) {
+  //         str += char
+  //       } else {
+  //         str += " "
+  //       }
+  //     }
+  //   }
+  //   if (i != w) {
+  //     str += "\n"
+  //   }
+  // }
+  // 字符一个接一个排列拼接
+
+  //按行进行拼接，先拼好一行，分为两种状态
+  var w = Number(prompt("Pick a number", "宽"))
+  var h = Number(prompt("Pick a number", "高"))
+  var char = String(prompt("Pick a number", "字符"))
+  var fill = Number(prompt("Pick a number", "1 or 0"))
+  var edgeline = ""
+  for (var i = 1 ; i <= w ; i++) {
+    edgeline += char
+  }
+  var midline = char
+  for (var i = 1 ; i <= w - 2 ; i++) {
+    if (fill) {
+      midline += char
     } else {
-      z = x
+      midline += " "
     }
   }
-  for (var i = 1 ; i <= b ; i++) {
-    if (d == 1) {
-      console.log(x)
-    }
-    if (d == 0 && (i == 1 || i == b)) {
-      console.log(x)
-    } else if (d == 0 && i > 1){
-      console.log(z)
+  midline += char
+
+  var result = edgeline + '\n'
+  for (var i = 1 ; i <= h - 2 ; i++ ) {
+    result += midline + "\n"
+  }
+  result += edgeline
+
+  console.log(result) 
+
+
+   //按行进行拼接，先拼好一行，分为两种状态
+  // var a = Number(prompt("Pick a number", "宽"))
+  // var b = Number(prompt("Pick a number", "高"))
+  // var c = String(prompt("Pick a number", "字符"))
+  // var d = Number(prompt("Pick a number", "1 or 0"))
+  // var x = String()
+  // var y = String()
+  // for (var i = 1 ; i <= a ; i++) {
+  //   var x = x + c
+  //   if (i > 2) {
+  //     y = y + " "
+  //     var z = c + y + c
+  //   } else {
+  //     z = x
+  //   }
+  // }
+  // for (var i = 1 ; i <= b ; i++) {
+  //   if (d == 1) {
+  //     console.log(x)
+  //   }
+  //   if (d == 0 && (i == 1 || i == b)) {
+  //     console.log(x)
+  //   } else if (d == 0 && i > 1){
+  //     console.log(z)
+  //   }
+  // }
+</script>
+
+<script type="xxx" id="ch0105/43">
+  var n = Number(prompt("Pick a number", "正整数"))
+  for (var i = 2 ; i * i <= n ; i++) {
+    if (n % i == 0) {
+      console.log(n / i)
+      break
     }
   }
 </script>
 
-<script type="xxx" id="ch0105/43">未完成
+<script type="" id="ch0105/44">
   var n = Number(prompt("Pick a number", "正整数"))
-  var m = Math.sqrt(n)
- 
+  var count = 0
+  for (var i = 2 ; ; i++) {
+    var iIsPrime = true //假设i是素数
+
+    for (var j = 2 ; j < i ; j++) {
+      if (i % j == 0) {
+        iIsPrime = false
+        break
+      }//i不是素数就停止，进行下一个判断
+    }
+
+    if (iIsPrime) {
+      count++
+      if (count == n) {
+        console.log(i)
+        break
+      }
+    }
+  }
+  // var n = Number(prompt("Pick a number", "正整数"))
+  // var s = 0
+  // var sum = 0
+  // for (var i = 2 ; ;i++) {
+  //   for (var j = 2 ; j <= i + 1 ; j++) {
+  //     var x = i % j
+  //     if (x == 0) {
+  //       s += 1
+  //     }
+  //   }
+  //   if (s == 1) {
+  //       sum += 1
+  //     }
+  //   s = 0
+  //   if (sum == n) {
+  //     console.log(i)
+  //     break
+  //   }
+  // }
+  
 </script>
 
-<script type="xxx" id="ch0105/44">未完成
-  var n = Number(prompt("Pick a number", "正整数"))
-S
- 
-</script>
-
-<script type="" id="ch0105/45">
+<script type="xxx" id="ch0105/45">
  
   var n = Number(prompt("Pick a number", "领n天工资"))
   var all = 0
@@ -1250,7 +1477,7 @@ S
     var m = i
     var all = all + m
     for (var j = 1 ; j < i ; j++) {
-       s = s + 1
+      s = s + 1
       if (s == n) {
         break
       }
