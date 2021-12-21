@@ -1108,7 +1108,7 @@
   var n = Number(prompt("Pick a number", "第n项"))
   var sum = 0
   var sign = 1
-  for (var i = 1 ; i < n ; i++) {
+  for (var i = 1 ; i <= n ; i++) {
     sum = sum + sign * 1 / i
     sign = -sign
   }
@@ -1179,15 +1179,27 @@
     console.log(s.toFixed(2))
 </script>
 
-<script type="xxx" id="ch0105/37">未完成
-  var m = Number(prompt("Pick a number", "m"))
-  var n = Number(prompt("Pick a number", "n"))
-  var x = Number(prompt("Pick a number", "x"))
-  var power = 0
-  for (var i = 0 ; i < n ; i++) {
- 
+<script type="xxx" id="ch0105/37">
+  var M = Number(prompt("Pick a number", "m"))
+  var N = Number(prompt("Pick a number", "n"))
+  var X = Number(prompt("Pick a number", "x"))
+  var a  = 0
+  
+  for (var i = 1 ; i <= X ; i++) {
+    a = a + i * N
+    if (a >= M) {
+      a = M
+      X = X - i
+      N = N + Math.trunc(a / N)
+      i = 0
+    }
+    a = 0
+    if (X == 0) {
+      break
+    }
   }
-    console.log(s.toFixed(2))
+  console.log(N)
+   
 </script>
 
 <script type="xxx" id="ch0105/38">
@@ -1432,7 +1444,7 @@
   for (var i = 2 ; ; i++) {
     var iIsPrime = true //假设i是素数
 
-    for (var j = 2 ; j * j < i ; j++) {
+    for (var j = 2 ; j * j <= i ; j++) {
       if (i % j == 0) {
         iIsPrime = false
         break
@@ -1481,8 +1493,9 @@
     if (godday == day) {
       god++ 
       day++
-      godday == 0
+      godday = 0
     }
+    
   }
   console.log(all)
  
