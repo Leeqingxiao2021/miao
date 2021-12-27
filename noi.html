@@ -1469,7 +1469,7 @@
   //       s += 1
   //     }
   //   }
-  //   if (s == 1) {
+  //   if (s == 1) { //只能被2以上的数整除一次（被自己本身）的是素数
   //       sum += 1
   //     }
   //   s = 0
@@ -1559,7 +1559,7 @@
   
 </script>
 
-<script type="XXX" id="narcissistics">
+<script type="xxx" id="narcissistics">
   function numberdigits(n) {  //计算数的位数
     var count = 0
     var m = n
@@ -1586,11 +1586,27 @@
     } 
       return false
   }
-  for (var i = 0; i <= 10000; i++) {
-    if (isNarcissistic(i)) {
-      console.log(i)
+  // for (var i = 0; i <= 10000; i++) {
+  //   if (isNarcissistic(i)) {
+  //     console.log(i)
+  //   }
+  // } 
+  var sum = 0
+  for (var i = 100; i < 1000; i++) {
+    var m = i
+    while (m != 0) {
+      var x = m % 10
+      sum += Math.pow(x, 3)
+      m = (m - x) / 10
     }
-  } 
+  
+    if (i == sum) {
+      console.log(i)
+      
+    }
+    sum = 0
+    
+  }
 </script>
 
 <script type="XXX" id="palindrom">
@@ -1656,6 +1672,9 @@
   }
 
   function completenumberb(n) {     // 优化版本  减少计算次数
+    if (n == 1) {
+      return false
+    }
     var sum = 1
  
     for (var i = 2; i * i < n; i++) {
@@ -1680,16 +1699,12 @@
   }
 </script>
 
-<script type="xxx" id="prime"> // 判断素数
+<script type="xxx" id="primes"> // 判断素数
   function isprime(n) {
     var isPrime = true
     if (n <= 1) {
       return false
     }
-    if ( n == 2 || n == 3) {
-      return true
-    }
-    
     for (var i = 2; i * i <= n; i++) {
       
       if (n % i == 0) {
@@ -1825,7 +1840,7 @@
 </script>
 
 
-<script type="XXX" id="itoa">
+<script type="" id="itob">
   function numbertoChar(n) {
     if (n == 0) {
       return "0"
@@ -1858,7 +1873,7 @@
       return "9"
     }
   }
-  function itoa(n) {
+  function itob(n) {
     var result = ""
     if (n == 0) {
       result = numbertoChar(n) + result
@@ -1873,6 +1888,6 @@
   }
 
   var n = Number(prompt("number"))
-  var result = itoa(n)
+  var result = itob(n)
   console.log(result)
 </script>

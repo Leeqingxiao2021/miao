@@ -1,0 +1,49 @@
+<script type="" id="function">
+  function sqrt(n) {    //  二分法
+    var left = 0, right = n
+    do {
+      var mid = (left + right) / 2
+      if (mid * mid < n) {
+        left = mid
+      } else if (mid * mid > n) {
+        right = mid
+      } else {
+        return mid
+      }
+    } while (Math.abs(mid * mid - n) > 0.0001)
+    return mid
+  }
+
+
+  function Sqrt(n) {   // 牛顿迭代求平方根
+    var x = n 
+    while (Math.abs(x * x - n) > 0.0001) {
+      x = x / 2 + n / x / 2
+    }
+    return x
+  }
+
+
+  function isprime(n) {  // 判断素数
+    var isPrime = true
+    if (n <= 1) {
+      return false
+    }
+    for (var i = 2; i * i <= n; i++) {
+      
+      if (n % i == 0) {
+        isPrime = false
+        break
+      } else {
+        isPrime = true
+      }
+    }
+    if (isPrime) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+
+</script>
