@@ -1699,7 +1699,7 @@
   }
 </script>
 
-<script type="xxx" id="primes"> // 判断素数
+<script type="xxx" id="prime"> // 判断素数
   function isprime(n) {
     var isPrime = true
     if (n <= 1) {
@@ -1725,6 +1725,34 @@
     console.log('YES')
   } else {
     console.log('NO')
+  }
+</script>
+
+<script type="xxx" id="primes"> // 判断素数
+  function isprime(n) {
+    var isPrime = true
+    if (n <= 1) {
+      return false
+    }
+    for (var i = 2; i * i <= n; i++) {
+      
+      if (n % i == 0) {
+        isPrime = false
+        break
+      } else {
+        isPrime = true
+      }
+    }
+    if (isPrime) {
+      return true
+    } else {
+      return false
+    }
+  }
+  for (var i = 0; i < 100; i++) {
+    if (isprime(i)) {
+      console.log(i)
+    }
   }
 </script>
 
@@ -1840,7 +1868,7 @@
 </script>
 
 
-<script type="" id="itob">
+<script type="xxx" id="itob">
   function numbertoChar(n) {
     if (n == 0) {
       return "0"
@@ -1888,6 +1916,12 @@
   }
 
   var n = Number(prompt("number"))
-  var result = itob(n)
+  var result = ""
+  if (n < 0) {
+    n = -n
+    result ="-" + itob(n)
+  } else {
+    result = itob(n)
+  }
   console.log(result)
 </script>
