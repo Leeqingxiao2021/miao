@@ -140,7 +140,40 @@ var leeqingxiao100 = {
         return i
       }
     }
-
     return -1
   },
+
+  reverse: function reverse(array) { // 反转array，使得第一个元素变为最后一个元素，第二个元素变为倒数第二个元素，依次类推。
+    var i = 0
+    var j = array.length - 1
+    while (i < j) {
+      var text = array[i]
+      array[i] = array[j]
+      array[j] = text
+      i++
+      j--
+    }
+    return array
+  },
+
+  uniq: function uniq(array) { // 创建一个去重后的array数组副本。使用了SameValueZero 做等值比较。只有第一次出现的元素才会被保留。
+    var res = []
+    for (var i = 0; i < array.length; i++) {
+      if (res.indexOf(array[i]) == -1) {
+        res.push(array[i])
+      }
+    }
+    return res
+  },
+
+  without: function without(array, ...values) { // 创建一个去重后的array数组副本。使用了SameValueZero 做等值比较。只有第一次出现的元素才会被保留。
+    var res = []
+    for (var i = 0; i < array.length; i++) {
+      if (values.indexOf((array[i])) == -1) {
+        res.push(array[i])
+      }
+    }
+    return res
+  },
+
 }
