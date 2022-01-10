@@ -1,5 +1,5 @@
-<script type="" id="function">
-  function sqrt(n) {    //  二分法
+<script type="" id="leetcode题"> //leetcode题目及算法
+  function sqrt(n) {    //  二分法 求平方根
     var left = 0, right = n
     do {
       var mid = (left + right) / 2
@@ -13,6 +13,24 @@
     } while (Math.abs(mid * mid - n) > 0.0001)
     return mid
   }
+
+  var mySqrt = function(x) {  //  二分法 求整数平方根
+    var left = 0, right = x
+    while (right - left > 0) {
+      var mid = Math.floor((left + right) / 2)
+      if (mid * mid < x) {
+        left = mid + 1
+      } else if (mid * mid > x) {
+        right = mid
+      } else {
+        return mid
+      }
+    }
+     if (x < 2) {
+        return x
+     }
+       return right - 1
+  };
 
 
   function Sqrt(n) {   // 牛顿迭代求平方根
@@ -44,6 +62,654 @@
       return false
     }
   }
+
+
+  var countPrimes = function(n) {  //厄拉多塞筛选法  n个数有多少质数
+    var isPrimes = Array(n).fill(true)
+    for (var i = 2; i * i < n; i++) {
+        if (isPrimes[i]) {
+            for (var j = 2 * i; j < n; j += i) {
+                isPrimes[j] = false
+            }
+        }
+    }
+    var count = 0
+    var length = isPrimes.length
+    for (var i = 2; i < length; i++) {
+        if (isPrimes[i]) {
+            count++
+        }
+    }
+    return count
+  };
+
+
+  var countPrimes = function(n) {  //厄拉多塞筛选法 优化  n个数有多少质数
+    if (n < 3) {
+      return 0    // 优化部分
+    }
+
+    var isPrimes = Array(n).fill(true) 
+
+    var count = Math.floor(n / 2)  // 假设奇数都是质数 1 代替 2 表示一个质数
+
+    for (var i = 3; i * i < n; i += 2) {
+        if (isPrimes[i]) {
+            var step = 2 * i // 减少循环中的计算  + i 是偶数，所以加2辈的i
+            for (var j = i * i; j < n; j += step) {  // i*i是因为重复项被之前的减去了，从i*i才出现有没有false的
+              if (isPrimes[j]) {  // 减少重复数被重复定义false
+                isPrimes[j] = false 
+                count--  // 不是素数的奇数被减去
+              }
+                
+            }
+        }
+    }
+    return count
+  };
+
+  var myPow = function(x, n) {   //  x 的n次幂 递归求法
+    if (n < 0) {
+      return 1 / myPow(x, -n)
+    }
+    if (n == 0) {
+      return 1
+    }
+    if (n % 2 == 0) {
+      return myPow(x * x , n / 2)
+    } else {
+      return myPow(x * x, Math.floor((n - 1) / 2 )) * x
+    }
+       
+  };
+
+
+  var myPow = function(x, n) {//  x 的n次幂 幂累加求法  多次循环
+    if (n < 0) {
+      return 1 / myPow(x, -n)
+    }
+
+    var result = 1
+    var stillneed = n  //需要累乘的次数
+
+    while (stillneed != 0) {
+      var start = x
+      var count = 1
+      while (count * 2 <= stillneed) {   
+        start = start * start 
+        count = 2 * count
+      }
+      result *= start     
+      stillneed = stillneed - count //还需要累乘的次数
+    }
+    return result
+  };
+
+  var myPow = function(x, n) {//  x 的n次幂 幂累加求法  一次循环
+    if (n < 0) {
+      return 1 / myPow(x, -n)
+    }
+
+    var result = 1
+    var start = x
+
+    while (n != 0) {
+      var digit = n % 2
+      if (digit == 1) {   // 将n转化成二进制表示，根据1 选择将当前start累计到result
+         result= result* start 
+      }
+      start = start * start
+      n = (n - digit) / 2
+    }
+    return result
+  };
+
+
+  var removeDuplicates = function(nums) {  // 删除有序数组中的重复项   双指针
+    var lang = 1
+    var length = nums.length
+    for (var i = 1; i < length; i++) {
+        if (nums[i] !== nums[i - 1]) {
+            nums[lang++] = nums[i]
+        } 
+    }
+    return lang
+  };
+
+  var twoSum = function(numbers, target) {  // 双指针 有序数组两项之和等于某数 ，输出他们在原数组的项
+    var j = numbers.length - 1
+    var i = 0
+    while (i < j) {
+      var sum = numbers[i] + numbers[j] 
+      if (sum > target) {
+        j--
+      } else if (sum < target) {
+        i++
+      } else {
+        return [i + 1, j + 1]
+      }
+    }
+  };
+
+
+
+  var plusOne = function(digits) {   //给数组加1 按十进制进位
+    var l = digits.length - 1
+      digits[l]++
+    for (var i = l; i > 0; i--) {
+      if (digits[i] == 10) {
+          digits[i] = 0
+          digits[i - 1]++
+      }
+    }
+    if (digits[0] == 10) {
+          digits[0] = 0
+          digits.unshift(1)
+      }
+    return digits
+  };
+
+
+  var num = []        //斐波那契数列   递归   优化无重复计算版本
+  var fib = function(n) {
+   
+    if (n == 0) {
+        return 0
+    }
+    if (n == 1) {
+        return 1
+    }
+    if (num[n]) {
+        return num[n]
+    } else {
+        var result = fib(n - 1) + fib(n - 2)
+        num[n] = result
+        return result
+    }
+  }
+
+ 
+  var count = 0         // 爬楼梯 递归写法
+  var climbStairs = function(n) {
+    if (n == 0) {
+      count++
+      return
+    }
+    if (n < 0) {
+      return
+    } 
+    climbStairs(n - 1)
+    climbStairs(n - 2)
+    return count
+  };
+
+
+  var uniquePaths = function(m, n) {   // m个选择n 个写法  C m n   路径问题， 向右或者向下
+    m = m - 1
+    n = n - 1
+    var path = 1
+    var sum = m + n
+    while (n != 0) {
+        path = path * sum / n
+        n = n - 1
+        sum = sum - 1
+    }
+    return path
+  };
+
+  var count = 0                       //  路径问题， 向右或者向下  递归写法  ，count计数  不记录路径
+  var uniquePaths = function(m, n) {
+    if (m < 1 || n < 1) {
+      return 
+    }
+    if (m == 1 && n == 1) {
+      count++
+      return 
+    }
+    uniquePaths(m - 1, n)
+    uniquePaths(m, n - 1)
+    return count 
+  }
+
+
+  function findSolution(numbers) {    //  路径问题， 向右或者向下  递归写法  记录路径
+    var max = 0
+    var maxHistory = null
+
+    function find(x, y, sum, history) {
+      if (x == numbers.length - 1) { // 已经走到最后一行了
+        if (sum + numbers[x][y] > max) {
+          max = sum + numbers[x][y]
+          maxHistory = history
+        }
+        return
+      }
+      find(x + 1, y,     sum + numbers[x][y], history + '左')
+      find(x + 1, y + 1, sum + numbers[x][y], history + '右')
+    }
+
+    find(0, 0, 0, '')
+
+    return [max, maxHistory]
+  }
+
+
+
+  var minimumTotal = function(triangle) {   // leecode 120题  三角形数组最小路径和  从最底层最小累计 
+    for (var i = triangle.length - 2; i >= 0; i--) {
+      for (var j = 0; j <= i; j++) {
+        triangle[i][j] += Math.min(triangle[i + 1][j], triangle[i + 1][j + 1])
+      }
+    }
+    return triangle[0][0]
+  };
+
+
+  var minimumTotal = function(triangle) {  // leecode 120题  三角形数组最小路径和  递归写法  有重复计算
+    function minSum(i, j) {
+      if (i == triangle.length - 1) {
+        return triangle[i][j]
+      }
+      return  triangle[i][j] + Math.min(minSum(i + 1, j), minSum(i + 1, j + 1))
+    }
+    return minSum(0,0)
+  };
+
+
+  function randomAry(n) {     // 生成n个由n以内的整数组成的随机数组
+    var ary = []
+    for (var i = 0; i < n; i++) {
+      var rand = Math.random()
+      ary.push(  Math.floor(rand * n)  )
+    }
+    return ary
+  }
+
+
+  function isSorted(ary) {     // 判断一个数组是否是升序的
+    for (var i = 1; i < ary.length; i++) {
+      if (ary[i] < ary[i - 1]) {
+        return false
+      }
+    }
+    return true
+  }
+
+  // 排序算法四种 插入 选择 冒泡  归并
+  var sortArray = function(nums) {       //数组排序 双重循环 选择排序  速度慢 从前到后排序   重点  面试题
+    var l = nums.length 
+    for (var i = 0; i < l - 1; i++) {    // i   0到 数组倒数第二的位置  
+      var min = i                        // 只需要记录最小数的下标 假设从 i 开始是最小的 i 递增
+      for (var j = i + 1; j < l; j++) {   // j    1到 组倒数第一的位置  比较大小
+        if (nums[min] > nums[j]) {        // 后续某位上的数比假定 最小值小 ，变更最小值下标  不需要等于
+          min = j
+        }
+      }
+      if (nums[min] < nums[i]) {       //   如果最小值小于假定最小值 ，交换两位 的数字 ，最小值到假定最小值
+        var max = nums[i]             //  i递增 只需要检查后续  重复运算
+        nums[i] = nums[min]
+        nums[min] = max 
+      }
+    }   
+    return nums
+  };
+
+  var insertSortArray = function(nums) {       //数组排序 双重循环 插入排序 从前到后排序  较快   重点  面试题
+    var l = nums.length            
+    for (var i = 1; i < l; i++) {         // i从 1 到最后一位
+      var sign = nums[i]                 // 记录此时i位置的值  
+      for (var j = i - 1; j >= 0; j--) {  // j  从i 位 到 0位 倒序排序
+        if (nums[j] > sign) {    // 如果前一位大于i  把后一位值变更到 i 位，这时会修改i位的值 所以需要sign
+          nums[j + 1] = nums[j]         // 循环中 前一位大于后一位  把后一位变更为 前一位   会将之前变为有序
+        } else {
+          break                        //  如果前一位比后一位小 循环跳出 不执行后续赋值  i 进行下一个 进行判断
+        }
+        nums[j] = sign                 // 把前一位赋原来i位的值，相当于交换前后位置 循环继续判断
+      }
+    }
+    return nums
+  };
+
+  var bubbleSortArray = function(nums) {       //数组排序 双重循环 冒泡排序 从后往前排序 速度慢   重点 面试题  
+    var l = nums.length 
+    for (var i = l - 2; i >= 0; i--) {    // i 从倒数第二位开始向 0 位递减  i > 0时最后排的是 0 1 2 位， 必须i>=0
+      var swap = false                    //  设置提前结束条件，假设每次都没有发生交换
+      for (var j = 0; j <= i; j++) {   // j  从0 到i 项  j + 1 到达最后一项 循环从最后向前 位依次递减
+        if (nums[j] > nums[j + 1]) {     // 将最大值通过交换 变更到最后一项 后续比较 依次减少一位
+          var max = nums[j]
+          nums[j] = nums[j + 1]         // 当i = 0 时 比较 0 和 1 位 完成最后对比
+          nums[j + 1] = max
+          swap = true                 // 进入判断后 即发生了交换  如果某次遍历前j 项没有发生交换 即排序完成
+        }
+      }
+      if (!swap) {          // 某次遍历完没有发生交换 排序完成 swap 仍为假 非假进入判断 提前结束
+        return nums
+      }
+    }
+    return nums
+  };
+
+  /**
+ * 时间复杂度：n*log(n)
+ * 空间复杂度：n + log(n)
+ */
+  var mergeSortArray = function(nums) {           //归并排序 拆分数组 递归写法   重点 面试题 该方法无法在原数组就地修改 排序
+    if (nums.length < 2) {                        // 递归结束条件 当数组长度小于2 时，不需要排序 返回
+      return nums
+    }
+    var mid = Math.floor(nums.length / 2)    // 将数组一分为二  
+    var left = nums.slice(0,mid)             // 需创建新数组 承接 拆分的原数组 ，无法在原数组就地排序
+    var right = nums.slice(mid)              //  每次递归都会 拆分参数承接的数组
+
+    mergeSortArray(left)                      // 递归 给数组左边排序
+    mergeSortArray(right)                     // 递归 给数组右边排序
+     // 合并数组
+    var i = 0                                             // 左边数组下标  排序被k接收后递增
+    var j = 0                                             // 右边数组下标  排序被k接收后递增
+    var k = 0                                             // 原数组下标，用于排序时按大小序接受 左右数组的数 
+    while (i < left.length && j < right.length) {         // 循环条件 左右数组都没有排完时
+      if (left[i] < right[j]) {                           // 上面递归后左右数组都是有序的，比较left right 数组的最左边大小
+        nums[k++] = left[i++]                             // left 小填进原数组 同时 位 加一
+      } else {
+        nums[k++] = right[j++]                            // right 小 或者两边相等 填进原数组 同时 位 加一
+      }
+    }
+    while (i < left.length) {                             // 上面循环结束后 只有left 或者right 一个数组没有排完
+      nums[k++] = left[i++]                               // 没有排位的数组进入循环 
+    }
+    while (j < right.length) {
+      nums[k++] = right[j++]
+    }
+    return nums                                          // 返回排位序的数组
+  };
+
+  var plusOne = function(digits) {  //数组 末位加1 按十进制表示
+    var l = digits.length - 1
+      digits[l]++
+    for (var i = l; i > 0; i--) {
+      if (digits[i] == 10) {
+          digits[i] = 0
+          digits[i - 1]++
+      }
+    }
+    if (digits[0] == 10) {
+          digits[0] = 0
+          digits.unshift(1)
+      }
+    return digits
+  };
+
+
+  var hammingWeight = function (n) {   // 二进制数 数1 的个数    位运算的计算题
+    let count = 0;
+    while (n) {
+      // 先判断整数二进制表示中最后边一位是不是1，
+      if (n & 1) {
+        count++;
+      }
+      // 把输入的整数右移一位，此时原来从右边数起的第二位被移到了最右边
+      n = n >>> 1; // 因为除法的效率比移位运算要低的多，应尽可能的用移位运算符代替乘除法
+    // 如果是输入这个的话  就会在-1陷入死循环  hammingWeight(-2147483648)
+    // 所以不能用 n = n >> 1;  因为题目的原话是输入是一个无符号整数（以二进制串的形式）  所以这里用无符号右移
+    // 再判断是否当前位是1
+   }
+    // 有符号右移 a >> b 将 a 的二进制表示向右移 b (< 32) 位，丢弃被移出的位。
+    // 无符号右移 a >>> b 将 a 的二进制表示向右移 b (< 32) 位，丢弃被移出的位，并使用 0 在左侧填充。
+    return count;
+  };
+
+  var firstUniqChar = function(s) {   // 387 题  运用对象映射关系 找出字符串第一个不重复项   减少循环次数
+    var l = s.length
+    var a = {}
+    for (var i = 0; i < l; i++) {
+      var char = s[i]
+      if (char in a) {
+        a[char]++
+      } else {
+        a[char] = 1
+      }
+    }
+    for (var i = 0; i < l; i++) {
+      var char = s[i]
+      if (a[char] == 1) {
+        return  i
+      }
+    }
+    return -1
+  };
+
+  var lengthOfLongestSubstring = function(s) {  // leecode 第三题 运用对象映射  找出字符串最长连续字符串    面试题   重点
+    var l = s.length
+    var i = 0   
+    var j = 0    // 双指针
+    var max = 0
+    var obj = {}  // 创建数组  利用映射
+
+    while (j < l) {
+      var str = s[j]
+      if (str in obj){   //如果字符出现过1次 ，对象属性加一
+        obj[str]++ 
+        if (obj[str] == 2) {   //  出现两次移动i 减去重复的字符 
+          while (i < j) {
+            var char = s[i++]
+            obj[char]--        // 之前出现的字符从左到右依次减去 直到减去重复项
+            if (obj[char] == 1) {
+              break
+            }
+          }
+        }
+      
+      } else {    //如果字符没有在对象中出现过 ，对象属性赋值1
+        obj[str] = 1
+      }
+      if (j - i + 1 > max) {    // 长度大于现在的最大值后 改变最大值为现在最长的长度
+        max = j - i + 1 
+      }
+      j++
+    }
+    return max
+  };
+
+  function deepEqual(a,b) { //深度对比两者是否相同 判断对象属性值是否相同，   面试题  重点
+    if (a === b) {         // 两个对象属性与值都相同  两者并不相等  
+      return true 
+    }
+    if (a !== a && b !== b) { // 判断a和b 是否都是NaN
+      return true 
+    }
+
+    // 两个都是数组
+    if (Array.isArray(a) && Array.isArray(b)) {
+      if (a.length !== b.length) {
+        return false
+      } else {
+        for (var i = 0; i < a.length; i++) {
+          if (!deepEqual(a[i], b[i])) {
+            return false
+          }
+        }
+        return true
+      }
+    }
+
+    // 两个都是对象
+    if (!Array.isArray(a) && !Array.isArray(b) && a && b && typeof a === 'object' && typeof b === 'object') {  // 避免 null 的 typeof 为 object 的情况 a && b
+      for (var key in a) {
+        // a的每个属性都要在b里
+        // 一旦不在，就返回false
+        if (!(key in b)) {
+          return false
+        }
+      }
+      for (var key in b) {
+        // b的每个属性都要在a里
+        // 一旦不在，就返回false
+        if (!(key in a)) {
+          return false
+        }
+      }
+
+      for (var key in a) {
+        if (!deepEqual(a[key], b[key])) {
+          return false
+        }
+      }
+      return true
+    }
+    return false
+  }
+
+  function insert(list, n, val) { // 链表中指定位置n 插入val val的位置变成n 其他结点后移
+    var node = {
+      val: val,
+      next: null,
+    }
+    if (n == 0) {
+      node.next = list
+      return node
+    }
+    var prev = list // 设置变量指代链表 设置计数器 寻找n的前一项 第n-1项 才能使插入项变成第n项
+    var count = 0
+    while (prev && count < n - 1) {   // 当链表结点存在 并且未到指定地点 循环
+      count++                     //  计数 小于n -1就进入下一个结点
+      prev = prev.next
+    }
+
+    //  var p = prev.next //记录原来第n项的指针
+    //  prev.next = node   // 设置指向
+    //  node.next = p
+    node.next = prev.next
+    prev    return list
+  }
+
+
+  var reverseList = function(head) {   // 反转链表 leecode 206题
+    var a = null 
+    var b = null
+    while (head) {
+      a = b              //顺着结点向下
+      b = head           //顺着结点向下
+      head = head.next   // 记录后续结点
+      b.next = a         // 反转指向关系
+    }
+    return b
+  };
+
+  var reverseList = function(head) {   // 反转链表 leecode 206题  递归写法
+    if (!head || !head.next) {     // 结点位空 或者 结点的下一结点为空  返回该结点  顺序不能乱**
+      return head
+    }
+    var newlist = reverseList(head.next)       // head 剩下的部分递归 最后返回的结点就是新的头节点  下面两行改变指向关系
+    head.next.next = head                  // 变更指向  head.next是head 之后的部分 指向他的前一个结点 每一层递归都会指向前一层
+    head.next = null                       // 前一层的头节点 断开一开始的指向 设置指向空  返回上一层时会重新链接
+    // var prev = head.next  
+    // var newlist = reverseList(prev)      另一种写法 顺序不能乱                       
+    // prev.next = head  
+    // head.next = null                  
+    return newlist      
+  } 
+
+  var mergeTwoLists = function(list1, list2) { // 合并两个有序链表 原链表消失 21题
+    var dummy = {val:0, next: null}            // 创建1个虚假结点 用来链接排序后的链表
+    var prev = dummy                           // 创建变量  进入循环 串联
+    while (list1 && list2) {                   // 当 链表都存在时 比较两者的值大小 开始串联
+      if (list1.val < list2.val) {
+        prev.next =list1
+        list1 = list1.next
+      } else {
+        prev.next =list2
+        list2 = list2.next
+      }
+      prev =prev.next                         // 变量串联一次 进入下一结点 继续循环直到某个链表为空
+    }
+    prev.next = list1 || list2                //出循环后 某一链表为空 将剩下链表串联
+    return dummy.next                         // 返回标记的头节点下一个结点 即新链表的头结点
+  };
+
+  var mergeTwoLists = function(list1, list2) { // 合并两个有序链表 递归写法  原链表消失 21题
+
+    if (!list1) {                                  // 链表1为空 返回链表2
+      return list2
+    }
+    if (!list2) {                                  // 链表2为空 返回链表1
+      return list1
+    }
+    if (list1.val < list2.val ) {                   // 链表1结点值小于链表2结点  合并的头结点就是链表1
+      list1.next = mergeTwoLists(list1.next, list2)  // 结点指向后续部分
+      return list1                                  //  返回头 结点
+    } else {                                      // 链表2结点值小于链表1结点  合并的头结点就是链表2
+      list2.next =  mergeTwoLists(list1, list2.next)  // 结点指向后续部分
+      return list2                                     //  返回头 结点
+    }
+  };
+
+  var mergeTwoLists = function(list1, list2) {   // 合并两个有序链表 原链表结构不变 返回新链表 21题
+    var dummy = {val:0, next: null}
+    var prev = dummy
+    while (list1 && list2) { 
+      if (list1.val < list2.val) {
+        prev.next = {val:list1.val, next: null}
+        list1 = list1.next
+      } else {
+        prev.next = {val:list2.val, next: null}
+        list2 = list2.next
+      }
+      prev =prev.next
+    }
+    while (list1) {
+      prev.next = {val:list1.val, next: null}
+      list1 = list1.next
+      prev =prev.next
+    }
+    while (list2) {
+      prev.next = {val:list2.val, next: null}
+      list2 = list2.next
+      prev =prev.next
+    }
+    return dummy.next
+  };
+
+   //   结构化数据
+   // 将CSV格式文本  转换成数组，每一项为对象的形式 值为字符形式，没有考虑类型转换
+  str = `num,name,score  
+        1,张三,78
+        2,李四,89
+        3,五王,87
+        4,赵六,67`  
+  function parseCsv(csvStr) {  // 将csv格式 转换成数组，每一项为对象的形式 值为字符形式，没有考虑类型转换
+    var lines = csvStr.split('\n')    //将原字符串按换行符 拆分，结果是数组 原字符串不变
+    var firstLine = lines.shift()     // 将数组第一位取出 结果是字符 ， 原数组被改变，只剩下值
+    var headers = firstLine.split(',')  //将表头字符按 ， 拆分，结果是数组
+
+    var result = []   //将结果储存在 数组中
+                      
+    lines.forEach(function(line) {     // foreach 遍历lines 数组 将数组每一项依次传递给（）中函数，line接参
+        var values = line.split(',')    // 将每一项按 ， 拆分成数组
+        var obj = {}                    // 用对象保留 对应关系
+        for (var i = 0; i < headers.length; i++) {   //遍历表头
+            var h = headers[i]                       //关系 与 值 一一对应  循环处理
+            var v = values[i]
+            obj[h] = v                              // 关系 与 值 一一对应， obj储存值
+        }
+        result.push(obj)                              // 遍历一遍后， obj储存值，将obj保存到数组中
+    })                                        
+
+    return result                            // 返回结果
+  }
+   // 将URL编码格式文本  转换成对象 值为字符形式，没有考虑类型转换
+  str = "ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=a&fenlei=256&rsv_pq=921a30fd0007f6f3&rsv_t=0fc0qr0S0dMcVQ12%2BegHKNzbfLOHy2%2F5miAb050iQl6x8JAeTyjMkdXXBeE&rqlang=cn&rsv_dl=tb&rsv_enter=0&rsv_sug3=2&rsv_sug1=1&rsv_sug7=100&rsv_btype=i&prefixsug=a&rsp=0&inputT=1112&rsv_sug4=1322"
+  function parseQueryString(str) {
+    var pairs = str.split('&')      //将字符按 & 拆分，结果为数组 保留到新的数组 原字符不变
+    var obj = {}                    //创建对象 
+    pairs.forEach(function(pair) {  // foreach 遍历拆分后的数组每一项
+        var parts = pair.split('=')  // 将每一项按 = 拆分 结果是数组
+        var key = parts[0]          // 新数组值只有两项， 分别赋值
+        var val = parts[1]
+        obj[key] = val              //按照 对应关系 保存到对象中
+    })
+    return obj                      //返回对象
+}
+
 
 
 </script>

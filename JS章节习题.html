@@ -1,0 +1,300 @@
+<script>
+  // 第四章章节练习
+  function sum(numbers) {   //求和函数  数组中每一项相加
+    var result = 0
+    for (var i = 0; i < numbers.length; i++) {
+      result += numbers[i]
+    }
+    return result
+  }
+
+  function rang(start, end, step = 1) {      // step = 1 给形参设定默认值        // rang函数 生成一组数字 放在数组中
+    var argCount = arguments.length  // 读取输入参数数量
+    if (argCount == 1) { //如果输入一个参数 ，把这个参数当作end 设置从1开始
+      end = start
+      start = 1
+    }
+    var result = []
+    for (var i = start; step > 0 ? i <= end : i >= end; i += step) {
+      result.push(i)
+    }
+    return result
+  }
+
+  function reverseArray(array) {  //创建新的倒序数组并返回
+    var l = array.length
+    var result = Array(l)   // 创建长度为原数组长度的空数组
+    for (var i = l - 1; i >= 0; i--) {
+      result[l - i - 1] = array[i]
+    }
+    return result
+  }
+
+  function reverseArrayInPlace(array) {// 就地倒序数组  不包括稀疏数组
+    var l = array.length - 1
+    for (var i = 0; i < l; i++) {
+      var num = array[i]
+      array[i] = array[l]
+      array[l] = num
+      l--
+    }
+    return array
+  }
+
+
+  function deepEqual(a, b) { //深度对比两者是否相同 判断对象属性值是否相同，   面试题
+    if (a === b) {         // 两个对象属性与值都相同  两者并不相等  
+      return true
+    }
+    if (a !== a && b !== b) { // 判断a和b 是否都是NaN
+      return true
+    }
+
+    // 两个都是数组
+    if (Array.isArray(a) && Array.isArray(b)) {
+      if (a.length !== b.length) {
+        return false
+      } else {
+        for (var i = 0; i < a.length; i++) {
+          if (!deepEqual(a[i], b[i])) {
+            return false
+          }
+        }
+        return true
+      }
+    }
+
+    // 两个都是对象
+    if (!Array.isArray(a) && !Array.isArray(b) && a && b && typeof a === 'object' && typeof b === 'object') {  // 避免 null 的 typeof 为 object 的情况 a && b
+      for (var key in a) {
+        // a的每个属性都要在b里
+        // 一旦不在，就返回false
+        if (!(key in b)) {
+          return false
+        }
+      }
+      for (var key in b) {
+        // b的每个属性都要在a里
+        // 一旦不在，就返回false
+        if (!(key in a)) {
+          return false
+        }
+      }
+
+      for (var key in a) {
+        if (!deepEqual(a[key], b[key])) {
+          return false
+        }
+      }
+      return true
+    }
+    return false
+  }
+
+
+  function arrayToList1(array) {  // 将数组每一项转成 链表结点 再进行拼接
+
+    if (array.length == 0) {   // 如果 数组长度为 0 返回空链表
+      return null             // 链表为空 用 null表示
+    }
+
+    var nodes = []    //  该方法需要遍历结点  无法使用对象创建链表
+    for (var i = 0; i < array.length; i++) {  //将数组每一项 创建为一个结点， 依次填入创建的数组中
+      var node = {
+        value: array[i],
+        next: null,
+      }
+      nodes.push(node)
+    }
+
+
+    for (var i = 0; i < array.length - 1; i++) { // 数组nodes 的每一项的next 指向 下一结点的对象 注意长度关系
+      nodes[i].next = nodes[i + 1]
+    }
+
+    return nodes[0] // 如果返回数组nodes， 看到的还是每一结点 在nodes中的排列 
+    //每一项的结点中指向后续结点 结果是多个长度递减的链表
+    //  返回第0项才可以看到指向关系 单条链表
+  }
+
+  function arrayToList2(array) {// 将数组每一项转成 链表  一次生成
+    if (array.length == 0) {
+      return null
+    }
+
+    var head = {          // 创建头节点 0
+      value: array[0],
+      next: null,
+    }
+
+    var prev = head  // 创建变量 进入循环 链接结点 prev变量值会变化 
+
+    for (var i = 1; i < array.length; i++) {  //从1结点开始
+      var node = {       // 创建结点
+        value: array[i],
+        next: null,
+      }
+      prev.next = node   // 添加下一个结点
+      prev = node       //  变量 变为下个结点
+    }
+    return head      // 返回链表 头结点
+  }
+
+  function arrayToList3(array) {// 将数组每一项转成 链表  一次生成  利用虚假结点 
+
+    var dummy = {          // 创建虚假结点 
+      value: 0,
+      next: null,
+    }
+
+    var prev = dummy  // 创建变量 进入循环 链接结点 prev变量值会变化 
+
+    for (var i = 0; i < array.length; i++) {  //从0结点开始
+      var node = {       // 创建结点
+        value: array[i],
+        next: null,
+      }
+      prev.next = node   // 添加下一个结点 
+      prev = node       //  变量 变为下个结点
+    }
+    return dummy.next      // 返回链表 头结点
+  }
+
+
+  function arrayToList4(array) {// 将数组每一项转成 链表  一次生成  倒序生成链表
+
+    var prev = null // 创建变量 进入循环 链接结点 prev变量值会变化 
+
+    for (var i = array.length - 1; i >= 0; i--) {  //从0结点开始
+      var node = {       // 创建结点
+        value: array[i],
+        next: null,
+      }
+      node.next = prev   // 添加下一个结点 
+      prev = node       //  变量 变为当前结点
+    }
+    return prev     // 返回链表 头结点
+  }
+
+  function arrayToListR(array) {// 将数组每一项转成 链表  一次生成  递归写法 利用slice 空间复杂度为n平方
+    if (array.length == 0) {
+      return null
+    }
+    var head = {
+      val: array[0],  //slice 后 下标0 就是之前的下一项   递归相当于 倒序生成链表
+      next: null
+    }
+    head.next = arrayToListR(array.slice(1))  // 将数组裁剪第一项，没有改变原数组 ，从下标1开始往后形成一个新数组
+    return head      // 返回链表 头结点
+  }
+
+  function arrayToListR2(array, start = 0) {// 将数组每一项转成 链表  一次生成  递归写法  加参数  优化版本
+    if (start == array.length) {
+      return null
+    }
+    var head = {
+      val: array[start],
+      next: null,
+    }
+    head.next = arrayToListR2(array, start + 1)  // 从下标1开始往后
+    return head      // 返回链表 头结点
+  }
+
+  function listToArray(head) { // 将链表转成数组
+
+    if (head == null) {
+      return []
+    }
+
+    var result = []
+    while (head) {
+      result.push(head.val)
+      head = head.next
+    }
+    return result
+  }
+
+  function listToArrayR(head) { // 将链表转成数组 递归写法
+
+    if (head == null) {
+      return []
+    }
+
+    var ary = listToArrayR(head.next)   //倒序拼接 
+    return [head.val].concat(ary)  //将当前值的数组 与后续的值形成的数组 拼接
+  }
+
+  function prepend(val, head) { //将val 添加到链表head 的开始位置
+    return {
+      val = val,
+      next = head
+    }
+  }
+
+  function append(val, head) {  //将val 添加到链表head 的末位位置
+    var node = {
+      val: val,
+      next: null,
+    }
+    if (head == null) {
+      return node
+    }
+    var pver = head
+    while (pver.next) {
+      pver = pver.next
+    }
+    pver.next = node
+    return head
+  }
+
+  function nth(list, n) {  // 返回链表中指定位置的元素
+    if (list == null || n < 0) {  //链表为空或者负值位置 返回
+      return undefined
+    }
+    var pver = list // 设置变量指代链表 设置计数器 寻找第n项
+    var count = 0
+    while (pver && count < n) {   // 当链表结点存在 并且未到指定地点 循环
+      count++                     //  计数 小于n就进入下一个结点
+      pver = pver.next
+    }
+    if (pver) {                     // 循环结束后 如果pver存在 返回值，不存在返回undefined
+      return pver.val
+    } else {
+      return undefined
+    }
+  }
+
+  function nth2(list, n) {   //递归版本  返回链表中指定位置的元素
+    if (list == null || n < 0) {
+      return undefined
+    }
+    if (n == 0) {
+      return list.val
+    }
+    return nth2(list.next, n - 1)
+  }
+
+  function insert(list, n, val) { // 链表中指定位置n 插入val val的位置变成n 其他结点后移
+    var node = {
+      val: val,
+      next: null,
+    }
+    if (n == 0) {
+      node.next = list
+      return node
+    }
+    var pver = list // 设置变量指代链表 设置计数器 寻找n的前一项 第n-1项 才能使插入项变成第n项
+    var count = 0
+    while (pver && count < n - 1) {   // 当链表结点存在 并且未到指定地点 循环
+      count++                     //  计数 小于n -1就进入下一个结点
+      pver = pver.next
+    }
+
+    //  var p = pver.next //记录原来第n项的指针
+    //  pver.next = node   // 设置指向
+    //  node.next = p
+    node.next = pver.next
+    pver.next = node
+    return list
+  }
+</script>
