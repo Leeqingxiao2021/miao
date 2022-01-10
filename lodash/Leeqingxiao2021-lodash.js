@@ -1,4 +1,4 @@
-var leeqingxiao2021 = {
+var Leeqingxiao2021 = {
   chunk: function (array, size) {
 
   }
