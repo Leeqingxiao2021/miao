@@ -52,7 +52,7 @@ var leeqingxiao100 = {
     for (var i = start; i < end; i++) {
       array[i] = value
     }
-    return res
+    return array
   },
 
   flatten: function flatten(array) { // 减少一级array嵌套深度。
@@ -70,21 +70,77 @@ var leeqingxiao100 = {
   },
 
 
-  flattenDeep: function flattenDeep(array) { // 将array递归为一维数组。
-    var i = 0
-    var res = []
-    while (i < array.length) {
-      if (Array.isArray(array[i])) {
-        flattenDeep(array[i])
-      } else {
-        var value = array[i]
+  fromPairs: function fromPairs(pairs) { // 与_.toPairs正好相反；这个方法返回一个由键值对pairs构成的对象。
+    let res = {}
+    for (var i = 0; i < pairs.length; i++) {
+      for (var j = 0; j < pairs[i].length - 1; j++) {
+        res[pairs[i][j]] = pairs[i][j + 1]
       }
-      i++
+    }
+    return res
+  },
+
+  head: function head(array) { //获取数组 array 的第一个元素。
+    if (array.length == 0) {
+      return undefined
+    }
+    return array[0]
+  },
+
+  indexOf: function indexOf(array, value, fromIndex = 0) { //使用SameValueZero 等值比较，返回首次 value 在数组array中被找到的 索引值， 
+    if (fromIndex > array.length || -fromIndex > array.length) {  //如果 fromIndex 为负值，将从数组array尾端索引进行匹配
+      return -1
+    }
+    if (fromIndex >= 0) {
+      for (var i = fromIndex; i < array.length; i++) {
+        if (array[i] == value) {
+          return i
+        }
+      }
+    } else {
+      for (var i = array.length + fromIndex; i >= 0; i--) {
+        if (array[i] == value) {
+          return i
+        }
+      }
+    }
+    return -1
+  },
+
+  heinitialad: function initial(array) { //获取数组array中除了最后一个元素之外的所有元素（注：去除数组array中的最后一个元素）。
+    if (array.length > 0) {
+      array.length = array.length - 1
+    }
+    return array
+  },
+
+  join: function join(array, separator = ',') { //将 array 中的所有元素转换为由 separator 分隔的字符串。
+    var str = ""
+    for (var i = 0; i < array.length - 1; i++) {
+      str = str + array[i] + separator
+    }
+    str = str + array[array.length - 1]
+    return str
+  },
+
+  last: function last(array) { //获取array中的最后一个元素。
+    if (array.length == 0) {
+      return undefined
+    }
+    return array[array.length - 1]
+  },
+
+  lastIndexOf: function lastIndexOf(array, value, fromIndex = array.length - 1) { //  这个方法类似_.indexOf ，区别是它是从右到左遍历array的元素。 
+    if (fromIndex > array.length) {
+      return -1
+    }
+    var i = array.length - fromIndex
+    for (fromIndex == array.length - 1 ? i = array.length : i; i >= 0; i--) {
+      if (array[i] == value) {
+        return i
+      }
     }
 
-    res.push(value)
-
-    return res
-
+    return -1
   },
 }
