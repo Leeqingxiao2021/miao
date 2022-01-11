@@ -335,7 +335,7 @@
     return true
   }
 
-  // 排序算法四种 插入 选择 冒泡  归并
+  // 排序算法五种 插入 选择 冒泡  归并 快排
   var sortArray = function(nums) {       //数组排序 双重循环 选择排序  速度慢 从前到后排序   重点  面试题
     var l = nums.length 
     for (var i = 0; i < l - 1; i++) {    // i   0到 数组倒数第二的位置  
@@ -422,6 +422,11 @@
     }
     return nums                                          // 返回排位序的数组
   };
+
+  var quickSort = function(nums) {
+    
+  }
+
 
   var plusOne = function(digits) {  //数组 末位加1 按十进制表示
     var l = digits.length - 1
@@ -559,6 +564,13 @@
     return false
   }
 
+
+
+  function ListNode(val, next) {   //链表题 新建一个空结点 创建 dummy结点
+      this.val = (val===undefined ? 0 : val)
+      this.next = (next===undefined ? null : next)
+  }
+
   function insert(list, n, val) { // 链表中指定位置n 插入val val的位置变成n 其他结点后移
     var node = {
       val: val,
@@ -669,6 +681,26 @@
     return dummy.next
   };
 
+
+  var removeNthFromEnd = function(head, n) { // 删除链表倒数第n项 19题
+    var dummy = new ListNode(0)     // 创建dummy结点指向原链表头部
+    dummy.next = head 
+    var prev = dummy                //变量 遍历结点
+    while (n > 0) {                 //第一个指针从dummy结点走n步后 与第一个结点一起走
+      prev = prev.next
+      n-- 
+    }
+    var q = dummy          
+    while (prev.next) {         //  第二个指针开始从dummy结点走 当第一个结点走到最后一个结点停
+      prev = prev.next          // 第一个指针走n步后 两个一起走
+      q = q.next                // 第一个走到最后 第二个指向倒数第n个结点的前一个结点
+    }
+    q.next =q.next.next         // 第二个指针指向倒数第n个结点的下一项
+    return dummy.next           // 返回头结点
+  };
+
+
+
    //   结构化数据
    // 将CSV格式文本  转换成数组，每一项为对象的形式 值为字符形式，没有考虑类型转换
   str = `num,name,score  
@@ -710,6 +742,38 @@
     return obj                      //返回对象
 }
 
+  function stringify(value) {   // JSON.stringify   方法实现  运用递归   将数组或对象转换成 JSON 文档格式
+    if (typeof value == 'number' || typeof value == 'boolean') {
+        return value + ''
+    }
+    if (typeof value == 'string') {
+        return '"' + value + '"'
+    }
+    if (value === null) {
+        return 'null'
+    }
 
+    if (Array.isArray(value)) { //  [1,2,{a:1,b:2}]??
+        var str = '['
+        value.forEach(it => {
+            str += stringify(it)
+            str += ','
+        })
+        str = str.slice(0, -1)
+        str += ']'
+        return str 
+    } else if (value && typeof value == 'object') {  // {x:1,y:[1,2,3]}
+        var str = '{'
+        for (var key in value) {
+            var it = value[key]
+            str += '"' + key + '":' + stringify(it)
+            str += ','
+        }
+        str = str.slice(0, -1)
+        str += '}'
+        return str 
+    }
+  } 
 
+  
 </script>

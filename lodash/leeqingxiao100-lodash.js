@@ -131,7 +131,7 @@ var leeqingxiao100 = {
   },
 
   lastIndexOf: function lastIndexOf(array, value, fromIndex = array.length - 1) { //  这个方法类似_.indexOf ，区别是它是从右到左遍历array的元素。 
-    if (fromIndex > array.length) {
+    if (fromIndex > array.length || -fromIndex > array.length) {
       return -1
     }
     var i = array.length - fromIndex
