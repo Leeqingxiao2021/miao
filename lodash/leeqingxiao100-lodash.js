@@ -26,6 +26,18 @@ var leeqingxiao100 = {
     return res
   },
 
+  difference: function difference(array, values) { // 创建一个具有唯一array值的数组，每个值不包含在其他给定的数组中。
+    var result = []
+    for (var i = 0; i < array.length; i++) {
+      if (values.indexOf(array[i]) == -1) {
+        result.push(array[i])
+      }
+    }
+    return result
+  },
+
+ 
+
   drop: function drop(array, n = 1) { // 创建一个切片数组，去除array前面的n个元素。（n默认值为1。）
     if (n >= array.length) {
       return []
@@ -48,6 +60,17 @@ var leeqingxiao100 = {
     return res
   },
 
+  // dropRightWhile: function dropRightWhile(array, predicate) {
+  //   let res = [] 
+  //   array.forEach((value, index, array) => {
+  //     predicate(value, index, array) 
+
+  //     }
+      
+  //   });
+  // },
+
+
   fill: function fill(array, value, start = 0, end = array.length) { // 使用 value 值来填充（替换） array，从start位置开始, 到end位置结束(但不包含end位置)。
     for (var i = start; i < end; i++) {
       array[i] = value
@@ -69,6 +92,23 @@ var leeqingxiao100 = {
     return res
   },
 
+  flattenDeep: function flattenDeep(array) { // 将多维数组变成一维array。
+    let res = []
+    for (var i = 0; i < array.length; i++) {
+      var item = array[i]
+      if (Array.isArray(item)) {
+        item = flattenDeep(item)
+        for (var j = 0; j <item.length; j++) {
+          res.push(item[j])
+        }
+      } else {
+        res.push(array[i])
+      }
+    }
+    return res
+  },
+
+
 
   fromPairs: function fromPairs(pairs) { // 与_.toPairs正好相反；这个方法返回一个由键值对pairs构成的对象。
     let res = {}
@@ -87,21 +127,10 @@ var leeqingxiao100 = {
     return array[0]
   },
 
-  indexOf: function indexOf(array, value, fromIndex = 0) { //使用SameValueZero 等值比较，返回首次 value 在数组array中被找到的 索引值， 
-    if (fromIndex > array.length || -fromIndex > array.length) {  //如果 fromIndex 为负值，将从数组array尾端索引进行匹配
-      return -1
-    }
-    if (fromIndex >= 0) {
-      for (var i = fromIndex; i < array.length; i++) {
-        if (array[i] == value) {
-          return i
-        }
-      }
-    } else {
-      for (var i = array.length + fromIndex; i >= 0; i--) {
-        if (array[i] == value) {
-          return i
-        }
+  indexOf: function indexOf(array, value, fromIndex = 0) { //使用SameValueZero 等值比较，返回首次 value 在数组array中被找到的 索引值，
+    for (var i = fromIndex; i < array.length; i++) {       //如果 fromIndex 为负值，将从数组array尾端索引进行匹配
+      if (array[i] == value) {
+        return i
       }
     }
     return -1

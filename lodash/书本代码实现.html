@@ -1,0 +1,814 @@
+<script>  //松鼠人  第四章
+  var JOURNAL = [   // 记录的数据 记录每天做了什么，记录时间 有没有变身
+    {
+      "events": ["carrot", "exercise", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["bread", "pudding", "brushed teeth", "weekend", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "nachos", "brushed teeth", "cycling", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["brussel sprouts", "ice cream", "brushed teeth", "computer", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["potatoes", "candy", "brushed teeth", "exercise", "weekend", "dentist"],
+      "squirrel": false
+    }, {
+      "events": ["brussel sprouts", "pudding", "brushed teeth", "running", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "brushed teeth", "computer", "work", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["bread", "beer", "brushed teeth", "cycling", "work"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "brushed teeth", "cycling", "work"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "nachos", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["brushed teeth", "weekend", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["lettuce", "brushed teeth", "television", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["brushed teeth", "computer", "work"],
+      "squirrel": false
+    }, {
+      "events": ["lettuce", "nachos", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "brushed teeth", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "reading", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["bread", "brushed teeth", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "brushed teeth", "exercise", "work"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "brushed teeth", "reading", "work"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "ice cream", "brushed teeth", "television", "work"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "nachos", "work"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "ice cream", "brushed teeth", "cycling", "work"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "peanuts", "computer", "weekend"],
+      "squirrel": true
+    }, {
+      "events": ["potatoes", "ice cream", "brushed teeth", "computer", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["potatoes", "ice cream", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["peanuts", "brushed teeth", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["potatoes", "exercise", "work"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "ice cream", "computer", "work"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "ice cream", "work"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "candy", "reading", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "nachos", "brushed teeth", "running", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["potatoes", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "work"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "beer", "work", "dentist"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "pudding", "cycling", "work"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "brushed teeth", "reading", "work"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "pudding", "television", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["bread", "brushed teeth", "exercise", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "peanuts", "work"],
+      "squirrel": true
+    }, {
+      "events": ["pizza", "work"],
+      "squirrel": false
+    }, {
+      "events": ["potatoes", "exercise", "work"],
+      "squirrel": false
+    }, {
+      "events": ["brushed teeth", "exercise", "work"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "brushed teeth", "television", "work"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "cycling", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "brushed teeth", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "beer", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "peanuts", "candy", "work"],
+      "squirrel": true
+    }, {
+      "events": ["carrot", "peanuts", "brushed teeth", "reading", "work"],
+      "squirrel": false
+    }, {
+      "events": ["potatoes", "peanuts", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "nachos", "brushed teeth", "exercise", "work"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "peanuts", "brushed teeth", "television", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "brushed teeth", "cycling", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "peanuts", "brushed teeth", "computer", "work", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["lettuce", "brushed teeth", "television", "work"],
+      "squirrel": false
+    }, {
+      "events": ["potatoes", "brushed teeth", "computer", "work"],
+      "squirrel": false
+    }, {
+      "events": ["bread", "candy", "work"],
+      "squirrel": false
+    }, {
+      "events": ["potatoes", "nachos", "work"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "pudding", "brushed teeth", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "brushed teeth", "exercise", "weekend", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["brussel sprouts", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["lettuce", "brushed teeth", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["candy", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["brussel sprouts", "brushed teeth", "computer", "work"],
+      "squirrel": false
+    }, {
+      "events": ["bread", "brushed teeth", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "brushed teeth", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "candy", "television", "work", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "pudding", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["lettuce", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "ice cream", "brushed teeth", "cycling", "work"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["spaghetti", "peanuts", "exercise", "weekend"],
+      "squirrel": true
+    }, {
+      "events": ["bread", "beer", "computer", "weekend", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["brushed teeth", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["lettuce", "peanuts", "brushed teeth", "work", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "brushed teeth", "television", "work"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "brushed teeth", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "brushed teeth", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "reading", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["carrot", "peanuts", "reading", "weekend"],
+      "squirrel": true
+    }, {
+      "events": ["potatoes", "brushed teeth", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["lasagna", "ice cream", "work", "touched tree"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "peanuts", "brushed teeth", "cycling", "work"],
+      "squirrel": false
+    }, {
+      "events": ["pizza", "brushed teeth", "running", "work"],
+      "squirrel": false
+    }, {
+      "events": ["lettuce", "brushed teeth", "work"],
+      "squirrel": false
+    }, {
+      "events": ["bread", "brushed teeth", "television", "weekend"],
+      "squirrel": false
+    }, {
+      "events": ["cauliflower", "peanuts", "brushed teeth", "weekend"],
+      "squirrel": false
+    }
+  ]
+
+  var journal = []  // 创建空数组，记录每天做了什么，记录时间 有没有变身
+
+  function addEntry(events, didITurn) {//创建函数记录每天做了什么，事件，有没有变身
+
+    joernal.push({    // 将记录创建对象，保存在数组中  数组的每一项为对象
+      events: events,
+      squirrel: didITurn,
+    })
+  }
+
+  function phi(table) {  // 计算某个事件与变身的关联性 ，运用公式 
+
+    return (table[3] * table[0] - table[1] * table[2]) /   // 使用length为4的数组 储存某事件与变身的关联性 数据
+      Math.sqrt((table[0] + table[1]) *    //  0位表示无事件无变身 1位表示有事件无变身
+        (table[1] + table[3]) *    //  2位表示无事件有变身 3位表示有事件有变身
+        (table[0] + table[2]) *
+        (table[2] + table[3]))
+  }
+
+  function hasevent(event, entry) { // 判断记录的日志中 某一天是否有指定事件， 有，返回真
+    return entry.events.indexOf(event) != -1   // .indexOf() 可以查找数组中某属性是否有某个属性值，有返回下标，没有返回-1
+  }                                            // 在这 对象属性events的值 是数组 该属性是一个数组
+
+  function tableFor(event, journal) {   // 从数组中将对象 事件进行统计 用数组table记录 用于phi函数计算
+
+    var table = [0, 0, 0, 0]  // 使用length为4的数组 储存某事件与变身的关联性 数据   
+
+    for (var i = 0; i < journal.length; i++) {   // 遍历记录的数据
+      var entry = journal[i]   // 以entry 取出日志数组中的第i项 读取该项 对象，与上一个函数对应
+      var index = 0    // 以此记录table数组索引， 以 0  1 ，2 ，3 标记记录位置
+
+      if (hasevent(event, entry)) { index += 1 }   // 有事件储存在 数组1位
+      if (entry.squirrel) { index += 2 }           // 有变身储存在 数组2位
+
+      table[index]++             // 无保存在数组0位 ，两种情况都有储存在数组3位  index 与数组下标特点的结合使用                  精妙之处
+    }
+    return table          //返回某事件 在记录中 与变身的关联性数据
+  }
+
+  // 统计 某事件 及其与变身关联性数据
+
+  var result = {}                     // 创建对象，用于某事件储存在 对象中 属性名
+
+  for (i = 0; i < JOURNAL.length; i++) { // 对数据数组进行遍历
+    var events = JOURNAL[i].events                // 取出 数组某项上的对象 用events 记录
+    for (var j = 0; j < events.length; j++) {         // 遍历 记录某天事件的对象，查看事件
+      var event = events[j]                          //  取出 对象中某一项
+      if (!(event in result)) {                       // 某一事件如果没有存在result对象中，表明需要计算，
+        result[event] = phi(tableFor(event, JOURNAL))    // 将事件作为属性名，关联性作为值
+      }                           // 已经存储在结果中，表明已经计算完成，减少重复计算
+    }
+  }
+
+  // 找出关联性较大的事件 输出查看结果
+  for (var event in result) {     // 对象中的循环，event 可以改成别的值,对应部分也需要修改，这样不影响遍历对象 关键字 for  in
+    var relevance = result[event]
+    if (relevance > 0.1 || relevance < -0.1) { // 关联性大的事件选出来 包括反向事件
+      console.log(event, relevance)   // 输出事件与关联性值 发现较大的正向值和反向值
+    }
+  }
+
+
+
+  for (var i = 0; i < JOURNAL.length; i++) {       //遍历原纪录
+    var entry = JOURNAL[i]                         //取出数据数组中某项，取得对象
+    if ((!hasevent("brushed teeth", entry)) &&     //  用函数 判断记录的日志中 某一天是否有指定事件， 有，返回真
+      hasevent("peanuts", entry)) {                //  在属性名events中选择出  不刷牙并且吃花生的那一项
+      entry.events.push("吃花生不刷牙")             //  将吃花生不刷牙 这一新事件  添加到该项中
+    }
+  }
+  console.log(phi(tableFor("吃花生不刷牙", JOURNAL)))  //查看  吃花生不刷牙 这一新事件 与 变身的关联值
+</script>
+
+<script> //  Haverbeke 的祖先   第五章
+  var ANCESTRY_FILE = JSON.stringify([{
+    "name": "Carolus Haverbeke",
+    "sex": "m",
+    "born": 1832,
+    "died": 1905,
+    "father": "Carel Haverbeke",
+    "mother": "Maria van Brussel"
+  }, {
+    "name": "Emma de Milliano",
+    "sex": "f",
+    "born": 1876,
+    "died": 1956,
+    "father": "Petrus de Milliano",
+    "mother": "Sophia van Damme"
+  }, {
+    "name": "Maria de Rycke",
+    "sex": "f",
+    "born": 1683,
+    "died": 1724,
+    "father": "Frederik de Rycke",
+    "mother": "Laurentia van Vlaenderen"
+  }, {
+    "name": "Jan van Brussel",
+    "sex": "m",
+    "born": 1714,
+    "died": 1748,
+    "father": "Jacobus van Brussel",
+    "mother": "Joanna van Rooten"
+  }, {
+    "name": "Philibert Haverbeke",
+    "sex": "m",
+    "born": 1907,
+    "died": 1997,
+    "father": "Emile Haverbeke",
+    "mother": "Emma de Milliano"
+  }, {
+    "name": "Jan Frans van Brussel",
+    "sex": "m",
+    "born": 1761,
+    "died": 1833,
+    "father": "Jacobus Bernardus van Brussel",
+    "mother": null
+  }, {
+    "name": "Pauwels van Haverbeke",
+    "sex": "m",
+    "born": 1535,
+    "died": 1582,
+    "father": "N. van Haverbeke",
+    "mother": null
+  }, {
+    "name": "Clara Aernoudts",
+    "sex": "f",
+    "born": 1918,
+    "died": 2012,
+    "father": "Henry Aernoudts",
+    "mother": "Sidonie Coene"
+  }, {
+    "name": "Emile Haverbeke",
+    "sex": "m",
+    "born": 1877,
+    "died": 1968,
+    "father": "Carolus Haverbeke",
+    "mother": "Maria Sturm"
+  }, {
+    "name": "Lieven de Causmaecker",
+    "sex": "m",
+    "born": 1696,
+    "died": 1724,
+    "father": "Carel de Causmaecker",
+    "mother": "Joanna Claes"
+  }, {
+    "name": "Pieter Haverbeke",
+    "sex": "m",
+    "born": 1602,
+    "died": 1642,
+    "father": "Lieven van Haverbeke",
+    "mother": null
+  }, {
+    "name": "Livina Haverbeke",
+    "sex": "f",
+    "born": 1692,
+    "died": 1743,
+    "father": "Daniel Haverbeke",
+    "mother": "Joanna de Pape"
+  }, {
+    "name": "Pieter Bernard Haverbeke",
+    "sex": "m",
+    "born": 1695,
+    "died": 1762,
+    "father": "Willem Haverbeke",
+    "mother": "Petronella Wauters"
+  }, {
+    "name": "Lieven van Haverbeke",
+    "sex": "m",
+    "born": 1570,
+    "died": 1636,
+    "father": "Pauwels van Haverbeke",
+    "mother": "Lievijne Jans"
+  }, {
+    "name": "Joanna de Causmaecker",
+    "sex": "f",
+    "born": 1762,
+    "died": 1807,
+    "father": "Bernardus de Causmaecker",
+    "mother": null
+  }, {
+    "name": "Willem Haverbeke",
+    "sex": "m",
+    "born": 1668,
+    "died": 1731,
+    "father": "Lieven Haverbeke",
+    "mother": "Elisabeth Hercke"
+  }, {
+    "name": "Pieter Antone Haverbeke",
+    "sex": "m",
+    "born": 1753,
+    "died": 1798,
+    "father": "Jan Francies Haverbeke",
+    "mother": "Petronella de Decker"
+  }, {
+    "name": "Maria van Brussel",
+    "sex": "f",
+    "born": 1801,
+    "died": 1834,
+    "father": "Jan Frans van Brussel",
+    "mother": "Joanna de Causmaecker"
+  }, {
+    "name": "Angela Haverbeke",
+    "sex": "f",
+    "born": 1728,
+    "died": 1734,
+    "father": "Pieter Bernard Haverbeke",
+    "mother": "Livina de Vrieze"
+  }, {
+    "name": "Elisabeth Haverbeke",
+    "sex": "f",
+    "born": 1711,
+    "died": 1754,
+    "father": "Jan Haverbeke",
+    "mother": "Maria de Rycke"
+  }, {
+    "name": "Lievijne Jans",
+    "sex": "f",
+    "born": 1542,
+    "died": 1582,
+    "father": null,
+    "mother": null
+  }, {
+    "name": "Bernardus de Causmaecker",
+    "sex": "m",
+    "born": 1721,
+    "died": 1789,
+    "father": "Lieven de Causmaecker",
+    "mother": "Livina Haverbeke"
+  }, {
+    "name": "Jacoba Lammens",
+    "sex": "f",
+    "born": 1699,
+    "died": 1740,
+    "father": "Lieven Lammens",
+    "mother": "Livina de Vrieze"
+  }, {
+    "name": "Pieter de Decker",
+    "sex": "m",
+    "born": 1705,
+    "died": 1780,
+    "father": "Joos de Decker",
+    "mother": "Petronella van de Steene"
+  }, {
+    "name": "Joanna de Pape",
+    "sex": "f",
+    "born": 1654,
+    "died": 1723,
+    "father": "Vincent de Pape",
+    "mother": "Petronella Wauters"
+  }, {
+    "name": "Daniel Haverbeke",
+    "sex": "m",
+    "born": 1652,
+    "died": 1723,
+    "father": "Lieven Haverbeke",
+    "mother": "Elisabeth Hercke"
+  }, {
+    "name": "Lieven Haverbeke",
+    "sex": "m",
+    "born": 1631,
+    "died": 1676,
+    "father": "Pieter Haverbeke",
+    "mother": "Anna van Hecke"
+  }, {
+    "name": "Martina de Pape",
+    "sex": "f",
+    "born": 1666,
+    "died": 1727,
+    "father": "Vincent de Pape",
+    "mother": "Petronella Wauters"
+  }, {
+    "name": "Jan Francies Haverbeke",
+    "sex": "m",
+    "born": 1725,
+    "died": 1779,
+    "father": "Pieter Bernard Haverbeke",
+    "mother": "Livina de Vrieze"
+  }, {
+    "name": "Maria Haverbeke",
+    "sex": "m",
+    "born": 1905,
+    "died": 1997,
+    "father": "Emile Haverbeke",
+    "mother": "Emma de Milliano"
+  }, {
+    "name": "Petronella de Decker",
+    "sex": "f",
+    "born": 1731,
+    "died": 1781,
+    "father": "Pieter de Decker",
+    "mother": "Livina Haverbeke"
+  }, {
+    "name": "Livina Sierens",
+    "sex": "f",
+    "born": 1761,
+    "died": 1826,
+    "father": "Jan Sierens",
+    "mother": "Maria van Waes"
+  }, {
+    "name": "Laurentia Haverbeke",
+    "sex": "f",
+    "born": 1710,
+    "died": 1786,
+    "father": "Jan Haverbeke",
+    "mother": "Maria de Rycke"
+  }, {
+    "name": "Carel Haverbeke",
+    "sex": "m",
+    "born": 1796,
+    "died": 1837,
+    "father": "Pieter Antone Haverbeke",
+    "mother": "Livina Sierens"
+  }, {
+    "name": "Elisabeth Hercke",
+    "sex": "f",
+    "born": 1632,
+    "died": 1674,
+    "father": "Willem Hercke",
+    "mother": "Margriet de Brabander"
+  }, {
+    "name": "Jan Haverbeke",
+    "sex": "m",
+    "born": 1671,
+    "died": 1731,
+    "father": "Lieven Haverbeke",
+    "mother": "Elisabeth Hercke"
+  }, {
+    "name": "Anna van Hecke",
+    "sex": "f",
+    "born": 1607,
+    "died": 1670,
+    "father": "Paschasius van Hecke",
+    "mother": "Martijntken Beelaert"
+  }, {
+    "name": "Maria Sturm",
+    "sex": "f",
+    "born": 1835,
+    "died": 1917,
+    "father": "Charles Sturm",
+    "mother": "Seraphina Spelier"
+  }, {
+    "name": "Jacobus Bernardus van Brussel",
+    "sex": "m",
+    "born": 1736,
+    "died": 1809,
+    "father": "Jan van Brussel",
+    "mother": "Elisabeth Haverbeke"
+  }])
+
+  // This makes sure the data is exported in node.js —
+  // `require("./path/to/ancestry.js")` will get you the array.
+  if (typeof module != "undefined" && module.exports) module.exports = ANCESTRY_FILE;
+
+  var ancestry = JSON.parse(ANCESTRY_FILE)
+
+  var byName = {}                  // 按人名映射对应的个人信息 
+  ancestry.forEach(person => {
+    byName[person.name] = person
+  });
+
+  function keyBy(array, keyword) {  // 函数形式  以数组的某对象中的属性名 作为属性名映射到原对象 
+    return array.reduce((obj, item) => {
+      obj[item[keyword]] = item
+      return obj
+    }, {})
+  }
+  var byName = keyBy(ancestry, "name")  //  按人名映射对应的个人信息 调用函数
+
+
+  // 重点 就地修改数组中对象， 还原对象中的树状结构 面试题
+  ancestry.forEach(person => {             // 还原树状关系，将父母的信息的对象 添加到 自己的信息中
+    var fatherName = person.father          // 以person拿到每个人信息的对象
+    var motherName = person.mother          // 拿到个人信息的对象中 父母的名字
+    person.fatherobj = byName[fatherName]    // 就地添加属性名 ，以人名 在之前新创建的对象byname中找到对应对象
+    person.motherobj = byName[motherName]    // 父母的映射关系 对应到其父母的个人信息对象上 
+  })
+
+
+
+  function gene(name) {                     // 按人名查询基因来源祖先的比例
+    if (name === 'Pauwels van Haverbeke') {  //是祖先本人，基因比例为1
+      return 1
+    }
+    var person = byName[name]             // 人名创建祖先名单中没有个人信息对象的 不存在他的基因
+    if (!person) {
+      return 0
+    }
+    var fatherfrom = gene(person.father)   //  查询其父亲的基因来源
+    var motherfrom = gene(person.mother)   //  查询其母亲的基因来源
+    return (fatherfrom + motherfrom) / 2   //  基因来自父母基因的一半
+  }
+  var MarijnFromPauwels = gene("Philibert Haverbeke") / 4  //作者基因来源祖先 来自他祖父来源的4分之一
+
+  function gen(name) {         // 按人名查询是祖先的第几代  查询父系  
+    if (name === 'Pauwels van Haverbeke') {  //是祖先本人 返回
+      return 0
+    }
+    var person = byName[name]       // 查询人名对应对象
+    return gen(person.father) + 1   // 递归其父亲代数数量 加上1 即为查询人 名的代数数量
+  }
+
+  function age70(name) {   //查询某人祖先中年龄大于70的人 有重复计数
+    var person = byName[name]
+    if (!person) {
+      return 0
+    }
+    if (person.died - person.born >= 70) {
+      return age70(person.father) + age70(person.mother) + 1
+    } else {
+      return age70(person.father) + age70(person.mother)
+    }
+  }
+
+  function cunzai(name) {   //查询某人祖先数  有重复计数
+    var person = byName[name]
+    if (!person) {
+      return 0
+    }
+    if (person) {
+      return cunzai(person.father) + cunzai(person.mother) + 1
+    }
+  }
+
+  function average(array) {            // 计算数组每一项累计后的平均值
+    return array.reduce((a, b) => a + b) / array.length
+  }
+
+  //课本第五章章节练习 计算母亲生子的平均年龄
+  var bornage = ancestry.filter(person => {
+    return byName[person.mother]          //母亲名字对应的对象在族谱中 返回该对象，  母亲名字存在，但不在族谱中，无法查询到母亲出生年龄的情况 map时会报错
+  }).map(person => {                      //所以不能以母亲名直接作为筛选条件
+    var mother = byName[person.mother]    //拿到母亲名字对应的对象
+    return person.born - mother.born      // 返回孩子出生时，母亲年龄
+  })
+
+  var bornaverage = average(bornage)      // 计算母亲生孩子的时候 年龄平均值
+
+  //课本第五章章节练习 计算平均寿命
+
+  var century = ancestry.reduce((obj, item) => {   //计算出每个世纪有那些人 本质是  以某种条件将数组分类 返回对象 下方为函数写法
+    var key = Math.ceil(item.died / 100)
+    if (key in obj) {
+      obj[key].push(item)
+    } else {
+      obj[key] = [item]
+    }
+    return obj
+  }, {})
+
+  //  // groupBy 根据条件将数组项分类  返回对象  数组方法 面试题
+  //  function groupBy(ary, predicate) {   // predicate 为函数
+  //   var grouped = {}                   //需要返回的对象 
+  //   ary.forEach(item => {              //遍历数组 取到每一项
+  //     var groupName = predicate(item)  //函数predicate 对数组每一项进行操作，返回值作为  组名 （对象属性名）
+  //     if (grouped[groupName]) {        //如果组名存在 对象中属性名存在 往属性值中添加 原数组该项
+  //       grouped[groupName].push(item)
+  //     } else {
+  //       grouped[groupName] = [item]    //如果组名不存在 即对象中属性名不存在 往属性值中 以原数组该项创建数组 
+  //     }
+  //   })
+  //   return grouped       //返回分类后的对象 以原数组每项某个特征 为属性名，相同类型的项放在数组中 作为 属性值
+  // }
+
+
+  // 计算出每个世纪的祖先的平均年龄  调用mapValues 函数
+  var centuryage = mapValues(century, num => {  // num 之后是函数部分 最终返回的是mapValues的值
+    return average(num.map((person) => person.died - person.born))
+  })
+
+
+  // var a = mapValues(groupBy(ancestry, item => Math.ceil(item.died / 100)), num => {  // num 之后是函数部分 最终返回的是mapValues的值
+  //   return average(num.map((person) => {
+  //     return person.died - person.born
+  //   }))
+  // })   合并计算 计算出每个世纪的祖先的平均年龄 
+
+
+
+  function mapValues(obj, mapper) { // 对 对象中的属性值进行计算并返回新对象  mapper的参数必然是属性值 以属性值计算结果
+    var result = {}                 // 新对象重点属性名 与原对象一致
+    for (var key in obj) {
+      result[key] = mapper(obj[key])
+    }
+    return result
+  }
+
+  // groupBy 根据条件将数组项分类  返回对象  数组方法 面试题
+  function groupBy(ary, predicate) {   // predicate 为函数
+    var grouped = {}                   //需要返回的对象 
+    ary.forEach(item => {              //遍历数组 取到每一项
+      var groupName = predicate(item)  //函数predicate 对数组每一项进行操作，返回值作为  组名 （对象属性名）
+      if (grouped[groupName]) {        //如果组名存在 对象中属性名存在 往属性值中添加 原数组该项
+        grouped[groupName].push(item)
+      } else {
+        grouped[groupName] = [item]    //如果组名不存在 即对象中属性名不存在 往属性值中 以原数组该项创建数组 
+      }
+    })
+    return grouped       //返回分类后的对象 以原数组每项某个特征 为属性名，相同类型的项放在数组中 作为 属性值
+  }
+
+  // reduce 版本  groupBy 根据条件将数组项分类  返回对象  数组方法 面试题
+  function groupBy(ary, predicate) {       // predicate 为函数       
+    return ary.reduce((grouped, item) => {              //遍历数组 取到每一项
+      var groupName = predicate(item)     //函数predicate 对数组每一项进行操作，返回值作为  组名 （对象属性名）
+      if (!grouped[groupName]) {          //如果组名不存在 即对象中属性名不存在 往属性值中 以原数组该项创建数组 
+        grouped[groupName] = []
+      }
+      grouped[groupName].push(item)
+      return grouped
+    }, {})
+  }
+
+
+  //bind 函数的实现方式   forEach 、 filter 、map 、reduce 书本上几个方法的实现  自己写一遍 未完成
+
+  //  实现  bind   绑定参数方法   先输入的参数 在函数中先占据位置，函数没有运行 ，后续参数传入后 按顺序读取参数 实现函数 实现绑定效果
+  function bind(f, ...fixedArgs) { //将函数的前若干参数绑定为 fixedArgs， 接收一个函数 返回一个函数 
+    return function (...arys) {   // 返回一个函数，函数中调用原函数，并需要重新输入参数
+      return f(...fixedArgs, ...arys)   // 返回原函数，其中fixedArgs中的参数已经被传入，只需要接...arys部分的参数
+    }
+  }
+  // 把函数f的前若干个参数固定为fixedArgs   不用bind null + 参数数组的方法绑定参数
+
+  //  实现  bind   绑定参数方法  上面一种更好用
+  function bind(f) {                //不用展开运算符的方法 实现bind方法 bind(null, 参数数组) 
+    var fixedArgs = Array.from(arguments).slice(1)  // 第一个参数是函数，将需要绑定参数通过arguments通过类型转变成数组内容
+    return function () {                             // 拿到需要绑定的参数数组，第一个参数是函数，从下标1开始读取
+      var args = fixedArgs.concat(Array.from(arguments))  // 后续输入的参数 再次转变成数组，与绑定的参数数组拼接
+      return f.apply(null, args)                         // 通过apply方法将多个参数传给 f 返回
+    }
+  }
+
+
+
+</script>
+
+<script>   // 绘制表格 ，给一组对象形式的数据 将其生成 表格形式 第六章
+
+</script>

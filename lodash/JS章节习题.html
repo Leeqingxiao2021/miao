@@ -226,8 +226,8 @@
 
   function prepend(val, head) { //将val 添加到链表head 的开始位置
     return {
-      val = val,
-      next = head
+      val: val,
+      next: head
     }
   }
 
@@ -296,5 +296,212 @@
     node.next = pver.next
     pver.next = node
     return list
+  }
+
+  //第五章习题
+
+  //数组降维
+  function flatten1(ary) {                //用reduce和concat方法将二维数组转换成一维数组
+    return array.reduce((nums, item) => {   //将结果返回 不需要重新定义变量 初始值为空数组 [] 
+      return nums.concat(...item)          //  ...展开运算符可以将item参数 展开一层数组 得到数组里面每个项
+    }, [])                                //  concat可以将数组展开一层， 将数组里面的每一项处理 按顺序拼接到另一个数组中 
+  }                                         // 直接返回每一次拼接后的，concat 返回新数组
+
+  // 等价写法    ...展开运算符和concat 结合使用可以达到 二维数组变一维效果
+  function flatten1(ary) {        //用reduce和concat方法将二维数组转换成一维数组
+    return [].concat(...ary)      //  ...展开运算符可以将item参数 展开一层数组 得到数组里面每个项
+  }                                 //  concat可以将数组展开一层， 将数组里面的每一项处理 按顺序拼接到另一个数组中 
+
+
+  function flatten2(ary) {  // 二维数组转一维数组常规写法
+    var result = []
+    for (var i = 0; i < ary.length; i++) {
+      var item = ary[i]
+      if (Array.isArray(item)) {
+        for (var j = 0; j < item.length; j++) {  // for 循环可以改成一条语句
+          result.push(item[j])                  // result.push(...item)    展开运算符可以展开一层数组
+        }
+      } else {
+        result.push(item)
+      }
+    }
+    return result
+  }
+
+  function flattenDeep(ary) {   // 多维数组转一维数组  递归
+    var result = []
+    for (var i = 0; i < ary.length; i++) {
+      var item = ary[i]                                 //拿到数组每一项 判断是数组 递归，不是数组按顺序 放到新数组中
+      if (Array.isArray(item)) {                        // 是数组递归处理
+        item = flattenDeep(item)                        // 将数组里面的数组里面的项放到一维数组中
+        for (var j = 0; j < item.length; j++) {          // 递归后返回值是一维数组
+          result.push(item[j])
+        }
+      } else {
+        result.push(item)
+      }
+    }
+    return result
+  }
+
+  function flattenDeep(ary) {   // 多维数组转一维数组  递归 reduce 写法
+    return ary.reduce((result, item) => {
+      if (Array.isArray(item)) {
+        return result.concat(flattenDeep(item))
+      }
+      return result.concat(item)
+    }, [])
+  }
+
+
+  function flattrnDepth(ary, n = 1) {  // 多维数组减 n维数组  调用已经实现的二维转一维 
+    while (n > 0) {
+      ary = flatten1(ary)              //问题 n输入为无穷大时会死循环
+      n--
+    }
+    return ary
+  }
+
+  function flattrnDepth(ary, n = 1) {  // 多维数组减 n维数组  调用已经实现的多维转一维  递归
+    if (n == 0) {
+      return ary.slice()     //返回新数组而不是原数组 的原因是 下方返回新数组  为逻辑一致性  所以应该都返回新数组
+    }
+    return ary.reduce((result, item) => {
+      if (Array.isArray(item)) {
+        return result.concat(flattrnDepth(item, n - 1))
+      }
+      return result.concat(item)
+    }, [])
+  }
+
+  function every(ary, predicate) {  //接收数组 和 一个预测函数，预测函数以数组元素为参数 返回值均为true 为真 其他情况为假
+    for (var i = 0; i < ary.length; i++) {
+      if (!predicate(ary[i])) {
+        return false
+      }
+    }
+    return true
+  }
+
+  function some(ary, predicate) {  //接收数组 和 一个预测函数，预测函数以数组元素为参数 返回值均为false为假 其他情况为真
+    for (var i = 0; i < ary.length; i++) {
+      if (predicate(ary[i])) {
+        return true
+      }
+    }
+    return false
+  }
+
+  function negate(f) { // 返回原函数的反函数, 原函数返回真时 创建的函数返回假
+    return function (...arys) {
+      return !f(...arys)
+    }
+  }
+  // predicate         反函数 fp
+  //  fp = function(...arys) { return !predicate(...arys)}
+  // 运用反函数写every和some  必须先实现一个
+  function some(ary, predicate) {
+    var fp = function (...arys) {
+      return !predicate(...arys)
+    }
+    return !ary.every(fp)
+  }
+
+  // function some(ary, predicate) {
+  //   return !ary.every(negate(predicate))
+  // }
+
+  //用反函数写法 
+
+  // function every(ary, predicate) {
+  //   return !ary.some(negate(predicate))
+  // }
+
+  function every(ary, predicate) {
+    var fp = function (...arys) {
+      return !predicate(...arys)
+    }
+    return !ary.some(fp)
+  }
+  // every 等价于  && ，some 等价于 ||
+  //  a || b || c == !(!a && !b && !c)  等价转换  摩根定律
+  //  a && b && c == !(!a || !b || !c)  等价转换
+
+
+  //第六章习题
+
+  function Vector(x, y) {  // 向量的构造函数
+    this.x = x
+    this.y = y
+  }
+
+  Vector.prototype.plus = function plus(vector) {  //向量加法运算
+    var m = this.x + vector.x
+    var n = this.y + vector.y
+    return new Vector(m, n)
+  }
+
+  Vector.prototype.minus = function minus(vector) { // 向量减法运算
+    var m = this.x - vector.x
+    var n = this.y - vector.y
+    return new Vector(m, n)
+  }
+
+  Vector.prototype.getter = function getter() {  // 计数向量到原点距离
+    var m = this.x * this.x
+    var n = this.y * this.y
+    return Math.sqrt(m + n)
+  }
+
+  function Complex(real, imag) {  // 虚数的构造函数
+    this.real = real
+    this.imag = imag + "i"
+  }
+
+  Complex.prototype.plus = function plus(imaginary) { //虚数加法运算
+    var m = this.real + imaginary.real
+    var len = imaginary.imag.length - 1
+    var leng = this.imag.length - 1
+    var n = Number(this.imag.slice(0, leng)) + Number(imaginary.imag.slice(0, len))
+    return new Complex(m, n)
+  }
+
+  Complex.prototype.minus = function minus(imaginary) { //虚数减法运算
+    var m = this.real - imaginary.real
+    var len = imaginary.imag.length - 1
+    var leng = this.imag.length - 1
+    var n = Number(this.imag.slice(0, leng)) - Number(imaginary.imag.slice(0, len))
+    return new Complex(m, n)
+  }
+
+  Complex.prototype.mul = function mul(imaginary) { //虚数乘法运算
+    var len = imaginary.imag.length - 1
+    var leng = this.imag.length - 1
+
+    var q = this.real
+    var w = Number(this.imag.slice(0, leng))
+
+    var e = imaginary.real
+    var r = Number(imaginary.imag.slice(0, len))
+
+    var m = q * e - w * r
+    var n = q * r + w * e
+
+    return new Complex(m, n)
+  }
+
+  Complex.prototype.div = function div(imaginary) {//虚数除法运算
+    var len = imaginary.imag.length - 1
+    var leng = this.imag.length - 1
+
+    var q = this.real
+    var w = Number(this.imag.slice(0, leng))
+
+    var e = imaginary.real
+    var r = Number(imaginary.imag.slice(0, len))
+
+    var m = (q * e + w * r) / (e * e + r * r)
+    var n = (-q * r + w * e) / (e * e + r * r)
+    return new Complex(m, n)
   }
 </script>

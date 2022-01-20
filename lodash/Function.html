@@ -210,8 +210,8 @@
   };
 
 
-  var num = []        //斐波那契数列   递归   优化无重复计算版本
-  var fib = function(n) {
+  // var num = []         写在这里是全局变量  写在函数体中 递归返回的 无法累加   写在默认参数中可以避免这个问题  
+  var fib = function(n, num = []) {   //斐波那契数列   递归   优化无重复计算版本
    
     if (n == 0) {
         return 0
@@ -222,15 +222,15 @@
     if (num[n]) {
         return num[n]
     } else {
-        var result = fib(n - 1) + fib(n - 2)
+        var result = fib(n - 1, num) + fib(n - 2, num)
         num[n] = result
         return result
     }
   }
 
  
-  var count = 0         // 爬楼梯 递归写法
-  var climbStairs = function(n) {
+  // var count = 0         写在这里是全局变量  写在函数体中 递归返回的count 是从 0 开始 无法累加   写在默认参数中可以避免这个问题  
+  var climbStairs = function(n， count = 0) {  // 爬楼梯 递归写法 
     if (n == 0) {
       count++
       return
@@ -238,8 +238,8 @@
     if (n < 0) {
       return
     } 
-    climbStairs(n - 1)
-    climbStairs(n - 2)
+    climbStairs(n - 1, count)
+    climbStairs(n - 2, count)
     return count
   };
 
@@ -257,8 +257,8 @@
     return path
   };
 
-  var count = 0                       //  路径问题， 向右或者向下  递归写法  ，count计数  不记录路径
-  var uniquePaths = function(m, n) {
+  // var count = 0     写在这里是全局变量  写在函数体中 递归返回的count 是从 0 开始 无法累加   写在默认参数中可以避免这个问题                 
+  var uniquePaths = function(m, n， count = 0) { //  路径问题， 向右或者向下  递归写法  ，count计数  不记录路径
     if (m < 1 || n < 1) {
       return 
     }
@@ -266,8 +266,8 @@
       count++
       return 
     }
-    uniquePaths(m - 1, n)
-    uniquePaths(m, n - 1)
+    uniquePaths(m - 1, n, count)
+    uniquePaths(m, n - 1, count)
     return count 
   }
 
@@ -336,6 +336,12 @@
   }
 
   // 排序算法五种 插入 选择 冒泡  归并 快排
+  function swap(ary, i, j) { //交换数组 两项上的值 下标不变
+    var temp = ary[i]
+    ary[i] = ary[j]
+    ary[j] = temp
+  }
+
   var sortArray = function(nums) {       //数组排序 双重循环 选择排序  速度慢 从前到后排序   重点  面试题
     var l = nums.length 
     for (var i = 0; i < l - 1; i++) {    // i   0到 数组倒数第二的位置  
@@ -362,10 +368,11 @@
         if (nums[j] > sign) {    // 如果前一位大于i  把后一位值变更到 i 位，这时会修改i位的值 所以需要sign
           nums[j + 1] = nums[j]         // 循环中 前一位大于后一位  把后一位变更为 前一位   会将之前变为有序
         } else {
-          break                        //  如果前一位比后一位小 循环跳出 不执行后续赋值  i 进行下一个 进行判断
+          break                        //  如果前一位比后一位小 循环跳出 不执行后续赋值  i 进行下一个 进行判断     break 时 j-- 不执行
         }
-        nums[j] = sign                 // 把前一位赋原来i位的值，相当于交换前后位置 循环继续判断
+        // nums[j] = sign                 // 把前一位赋原来i位的值，相当于交换前后位置 循环继续判断
       }
+      nums[j + 1] = sign                  // 放在这里减少计算 与上面一行 二选一           小于sign的下标是j,j + 1已经移到 j + 2位 将j+1赋值一开始的i 的值 这一轮排序完成开始下一轮
     }
     return nums
   };
@@ -423,11 +430,126 @@
     return nums                                          // 返回排位序的数组
   };
 
-  var quickSort = function(nums) {
-    
-  }
+  //不创建新数组 原数组就地排序  空间占用少 排序最优方法
+   /**
+ * 时间复杂度：n*log(n)
+ * 空间复杂度：log(n)  当相同值较多或者大部分有序时 空间复杂度会退化
+ */
+  var qSort = function(ary, start = 0, end = ary.length - 1) { //第一遍的排序范围是整个数组， 哨兵元素将数组分为三部分 小于哨兵，哨兵，大于哨兵
+    if (start >= end) {  //  当遍历范围相等时 即有一个元素 ，遍历范围左边大于右边时，即为空数组 返回
+      return ary
+    }
+
+    var pivotIdx = Math.floor(Math.random() * (end - start + 1) + start)  // 在排序范围内随机取数组下标 为哨兵下标
+    var pivot = ary[pivotIdx]    //将哨兵下标上的元素赋值为哨兵
+
+    swap(ary, pivotIdx, end)   //交换哨兵与排序范围最后一项上的值 哨兵元素到排序范围最后一项
+
+    var i = start   //计数器    哨兵元素的下标最后变成i
+    for (var j = start; j < end; j++) {  // 遍历排序范围  不遍历哨兵元素位
+      if (ary[j] < pivot) {  // 小于哨兵元素的值与计数器位置交换 计数器+1 移动  遇到大于哨兵的，i 为大于哨兵元素的值的下标，
+        swap(ary, i, j)      // 当 j 遍历到小于 哨兵元素的 i 与 j 位上的值交换   i 后移一位  第一遍 遍历后 i左边是小于哨兵元素 i及右边是大于等于哨兵元素
+        i++                  // 升序排序，降序 条件改为  (ary[j] > pivot)
+      }
+    }
+    // 交换两个下标位上的元素值，下标不变
+    swap(ary, i, end)       // 哨兵元素在最后一项 i位大于等于哨兵元素 将两者位置互换，此时数组 哨兵位左边小于哨兵，哨兵位，右边大于等于哨兵位
+
+    qSort(ary, start, i - 1)  // 将哨兵元素位左边排序 
+    qSort(ary, i + 1, end)    // 将哨兵元素位右边排序 哨兵位不用再排序    每次递归拆分范围 将数组拆分到一项时，排序完成
+    return ary                // 返回原数组 
+  }   
+  
+  // 将与哨兵元素相同的值放在一起 减少重复排序  不创建新数组 就地排序
+  var qSort2 = function(ary, start = 0, end = ary.length - 1) { 
+    if (start >= end) {  
+      return ary
+    }
+
+    var pivotIdx = Math.floor(Math.random() * (end - start + 1) + start)  
+    var pivot = ary[pivotIdx]   
+
+    swap(ary, pivotIdx, end)   //哨兵元素放在最后一位
+
+    var i = start  // i 左边是小于哨兵元素的值 i与j 相等时为等于或者大于哨兵元素的值，遍历一遍后右边是大于哨兵元素的值
+    var j = start 
+    for (var k = start; k < end; k++) {  //哨兵元素在最后一位 不用遍历最后一位
+      if (ary[k] < pivot) { // 升序排序， 小于哨兵元素 换到i位 i 与 j 加一  值大于哨兵元素时 i j 不用动
+        swap(ary, i, k)
+        if (i != j) {       // i 和 j 不相等时 k 与 j 再交换一次  
+          swap(ary, j, k)   // i左边是小与哨兵元素，i 与 j 之间的为与哨兵元素相等的，j指向大于哨兵元素
+        }
+        i++
+        j++
+      } else if (ary[k] == pivot) {  // 与哨兵元素相等时 j与遍历到的数交换位置，j加一 j的左边即为等于哨兵元素的值
+        swap(ary, j, k)   
+        j++                          // j 指向后一位 
+      }
+    }
+
+    swap(ary, j, end)                // 将哨兵元素换回来 i 到 j(包括j) 为 相同的数
+
+    qSort2(ary, start, i - 1)        // 左边排序
+    qSort2(ary, j + 1, end)          // 右边排序
+    return ary                       // 完成
+  }   
 
 
+  // 对数组ary的从start到end（包含）的元素进行快排
+  // predicate函数接的参数是数组项  针对数组中的元素返回一个确定其顺序的数值 可以对数组里面元素是对象的数组排序  
+  // 排序算法会根据这个数值来元素元素在数组中的有序位置
+  var qSortBy = function(ary, predicate = it => it, start = 0, end = ary.length - 1) { 
+    if (start >= end) {  
+      return ary
+    }
+
+    var pivotIdx = Math.floor(Math.random() * (end - start + 1) + start)  
+    var pivot = ary[pivotIdx]    
+
+    swap(ary, pivotIdx, end)   
+
+    var i = start   
+    for (var j = start; j < end; j++) {  
+      if (predicate(ary[j]) < predicate(pivot)) {  // < 升序    > 降序
+        swap(ary, i, j)     
+        i++                
+      }
+    }
+
+    swap(ary, i, end)      
+
+    qSortBy(ary, predicate, start, i - 1)  
+    qSortBy(ary, predicate, i + 1, end)    
+    return ary              
+  }   
+
+  // 对数组ary的从start到end（包含）的元素进行快排
+  // compare函数接收数组中的两个元素，返回正，负，零以告诉排序算法谁大谁小或再者相同
+  var qSortWith = function(ary, compare = (a, b) => a - b, start = 0, end = ary.length - 1) {   
+    if (start >= end) {  
+      return ary
+    }
+
+    var pivotIdx = Math.floor(Math.random() * (end - start + 1) + start)  
+    var pivot = ary[pivotIdx]    
+
+    swap(ary, pivotIdx, end)   
+
+    var i = start   
+    for (var j = start; j < end; j++) {  
+      if (compare(ary[j], pivot) < 0) {  // < 0 升序    > 0 降序
+        swap(ary, i, j)     
+        i++                
+      }
+    }
+
+    swap(ary, i, end)      
+
+    qSortWith(ary, compare, start, i - 1)  
+    qSortWith(ary, compare, i + 1, end)    
+    return ary              
+  }   
+  
   var plusOne = function(digits) {  //数组 末位加1 按十进制表示
     var l = digits.length - 1
       digits[l]++
@@ -699,6 +821,22 @@
     return dummy.next           // 返回头结点
   };
 
+   // 重点 就地修改数组中对象， 还原对象中的树状结构 面试题  书本案例 byname是以人名对应对象的 对象
+
+   var byName = {}                  // 按人名映射对应的个人信息 
+  ancestry.forEach(person => {
+    byName[person.name] = person
+  });
+
+  // 还原数据中的树状关系 形成链表 一个对象中指向另一个对象，每个数据处理一遍  确定指向关系 ***重点***
+  // 就地修改 关联的数据间 就形成了链表  最终所有数据中有对应关系的 都确定了指向关系 根据关系的链表就生成了
+  
+  ancestry.forEach(person => {             // 还原树状关系，将父母的信息的对象 添加到 自己的信息中
+    var fatherName = person.father          // 以person拿到每个人信息的对象
+    var motherName = person.mother          // 拿到个人信息的对象中 父母的名字
+    person.fatherobj = byName[fatherName]    // 就地添加属性名 ，以人名在 之前新创建的对象byname中找到对应对象
+    person.motherobj = byName[motherName]    // 父母的映射关系 对应到其父母的个人信息对象上 
+  })
 
 
    //   结构化数据
@@ -728,6 +866,9 @@
 
     return result                            // 返回结果
   }
+
+
+
    // 将URL编码格式文本  转换成对象 值为字符形式，没有考虑类型转换
   str = "ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=a&fenlei=256&rsv_pq=921a30fd0007f6f3&rsv_t=0fc0qr0S0dMcVQ12%2BegHKNzbfLOHy2%2F5miAb050iQl6x8JAeTyjMkdXXBeE&rqlang=cn&rsv_dl=tb&rsv_enter=0&rsv_sug3=2&rsv_sug1=1&rsv_sug7=100&rsv_btype=i&prefixsug=a&rsp=0&inputT=1112&rsv_sug4=1322"
   function parseQueryString(str) {
@@ -774,6 +915,14 @@
         return str 
     }
   } 
-
+ 
+  function mapValues(obj, mapper) { // 对 对象中的属性值进行计算并返回
+    var result = {}
+    for (var key in obj) { 
+      result[key] =  mapper(obj[key],key)
+    }
+    return result
+  }
   
+
 </script>
