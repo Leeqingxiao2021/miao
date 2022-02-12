@@ -805,6 +805,16 @@
     }
   }
 
+    // 将参数传递给函数f, 参数不够时 返回等待接后续参数的函数f  
+    function curry(f, n = f.length) {  // f.length 为 函数f 参数的数量
+      return function (...args) {
+        if (args.length < n) {
+          return curry(f.bind(null, ...args), n - args.length)
+        } else {
+          return f(...args)
+        }
+      }
+    }
 
 
 </script>

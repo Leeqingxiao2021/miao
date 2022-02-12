@@ -1059,10 +1059,10 @@
 </script>
 
 <script type="xxx" id="ch0105/31">
-  var n = Number(prompt("Pick a number", "N盏灯")) 
+  var n = Number(prompt("Pick a number", "N盏灯"))   //灯的编号是人编号倍数 都会被该人 操作 输出关闭的灯编号
   var m = Number(prompt("Pick a number", "M个人"))
   var lights = String("")
-  var First = true
+  var First = true                 //表示第一盏灯， 第一盏灯拼接字符方法与后续不同
   for (var i = 1 ; i <= n ; i++) {
     var light = true
     for (var j = 1 ; j <= m ; j++) {

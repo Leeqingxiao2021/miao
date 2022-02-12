@@ -26,10 +26,20 @@ var leeqingxiao100 = {
     return res
   },
 
-  difference: function difference(array, values) { // 创建一个具有唯一array值的数组，每个值不包含在其他给定的数组中。
+  difference: function difference(array, ...values) { // 创建一个具有唯一array值的数组，每个值不包含在其他给定的数组中。
     var result = []
+    var res = []
+
+    for (var i = 0; i < values.length; i++) {
+      var item = values[i]
+      if (Array.isArray(item)) {
+        for (var j = 0; j < item.length; i++) {
+          res.push(item[j])
+        }
+      }
+    }
     for (var i = 0; i < array.length; i++) {
-      if (values.indexOf(array[i]) == -1) {
+      if (res.indexOf(array[i]) == -1) {
         result.push(array[i])
       }
     }
