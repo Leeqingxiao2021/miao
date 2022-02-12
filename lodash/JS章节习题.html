@@ -299,6 +299,7 @@
   }
 </script>
 
+
 <script>//第五章习题
 
 
@@ -461,24 +462,24 @@
   // 虚数的构造函数
   function Complex(real, imag) { // 虚数的构造函数
     this.real = real
-            this.imag = imag
-          }
+    this.imag = imag
+  }
 
           // 虚数的构造函数 如果没有用 new 调用， 避免错误，只要调用该函数，返回该构造函数的实例
           function Complex1(real, imag) {
-            //1 if (!(this instanceof Complex)) { //运用new 创建的对象 是构造函数的实例 运用运算符instanceof 判断是否用new 调用
-            // return new Complex(real, imag)
-            // }
+    //1 if (!(this instanceof Complex)) { //运用new 创建的对象 是构造函数的实例 运用运算符instanceof 判断是否用new 调用
+    // return new Complex(real, imag)
+    // }
 
-            //2 if (this.__proto__ !== Complex.prototype) { // 实例的原型 是构造函数的prototype属性 不是的情况即为没有用 new
-            // return new Complex(real, imag)
-            // }
+    //2 if (this.__proto__ !== Complex.prototype) { // 实例的原型 是构造函数的prototype属性 不是的情况即为没有用 new
+    // return new Complex(real, imag)
+    // }
 
-            //3 if (this == window) { // this 是 window 说明 不是用new 调用 而是当函数调用 this 即为window
-            // return new Complex(real, imag)
-            // }
-            this.real = real
-            this.imag = imag
+          //3 if (this == window) { // this 是 window 说明 不是用new 调用 而是当函数调用 this 即为window
+          // return new Complex(real, imag)
+          // }
+          this.real = real
+          this.imag = imag
   }
 
   Complex.prototype.plus = function plus(imaginary) { //虚数加法运算
@@ -488,17 +489,17 @@
   }
 
   Complex.prototype.minus = function minus(imaginary) { //虚数减法运算
-            var real = this.real - imaginary.real
-            var imag = this.imag - imaginary.imag
-            return new Complex(real, imag)
-          }
+    var real = this.real - imaginary.real
+    var imag = this.imag - imaginary.imag
+    return new Complex(real, imag)
+  }
 
           Complex.prototype.mul = function mul(imaginary) { //虚数乘法运算 537复数乘法 已完成
             var real = this.real * imaginary.real - this.imag * imaginary.imag
             var imag = this.real * imaginary.imag + this.imag * imaginary.real
 
-            return new Complex(real, imag)
-          }
+          return new Complex(real, imag)
+        }
 
           Complex.prototype.div = function div(imaginary) {//虚数除法运算
             var item = new Complex(imaginary.real, -imaginary.imag)
@@ -516,7 +517,7 @@
           }
 
 
-          //实现集合 Set 构造函数 实现功能即可 不要求显示形态与浏览器一致 
+  //实现集合 Set 构造函数 实现功能即可 不要求显示形态与浏览器一致 
 
           function Myset(initial = []) { // 可接一个数组作为参数 设置初始值为空 this._elements=[] // 属性名可以用$ 及 _  用_在这里表示私有属性， 不希望被用户直接读写 
             initial.forEach(it => {
@@ -774,40 +775,40 @@
 
           class Stack2 {
 
-            #head = null
-            #size = 0
+          #head = null
+          #size = 0
 
-            constructor(initials = []) {
-              initials.forEach(it => {
-                this.push(it)
-              })
-            }
+          constructor(initials = []) {
+            initials.forEach(it => {
+              this.push(it)
+            })
+          }
 
-            pop() { // 出栈
-              if (this.#head) {
-                var val = this.#head.val
-                this.#head = this.#head.next
-                this.#size--
-                return val
-              }
-            }
-
-            push(val) { //进栈
-              var node = {
-                val: val,
-                next: this.#head
-              }
-              this.#head = node
-              this.#size++
-              return this
-            }
-
-            peek() { // 返回栈顶元素
-              if (this.#head) {
-                return this.#head.val
-              }
+          pop() { // 出栈
+            if (this.#head) {
+              var val = this.#head.val
+              this.#head = this.#head.next
+              this.#size--
+              return val
             }
           }
+
+          push(val) { //进栈
+            var node = {
+              val: val,
+              next: this.#head
+            }
+            this.#head = node
+            this.#size++
+            return this
+          }
+
+          peek() { // 返回栈顶元素
+            if (this.#head) {
+              return this.#head.val
+            }
+          }
+        }
 
           // 用链表实现队列 先进先出
           function Queue() {// 队列构造函数 只存储 指向头尾结点的指针
@@ -858,44 +859,44 @@
           Queue.prototype = {
             constructor: Queue,
 
-            enqueue: function enqueue(val) { // 从链表尾结点进队
-              var node = { // 创建要进队元素的结点
-                val: val,
-                next: null
-              }
-              if (!this._head) {
-                this._head = node
-                this._tail = node
-              } else {
-                this._tail.next = node
-                this._tail = node
-              }
-              this._size++
-              return this
-            },
+          enqueue: function enqueue(val) { // 从链表尾结点进队
+            var node = { // 创建要进队元素的结点
+              val: val,
+              next: null
+            }
+            if (!this._head) {
+              this._head = node
+              this._tail = node
+            } else {
+              this._tail.next = node
+              this._tail = node
+            }
+            this._size++
+            return this
+          },
 
-            dequeue: function dequeue() { //从链表头结点出队
-              if (this._head) {
-                var val = this._head.val
-                this._head = this._head.next
-                if (this._head == null) {
-                  this._tail = null
-                }
-                this._size--
-                return val
+          dequeue: function dequeue() { //从链表头结点出队
+            if (this._head) {
+              var val = this._head.val
+              this._head = this._head.next
+              if (this._head == null) {
+                this._tail = null
               }
-            },
+              this._size--
+              return val
+            }
+          },
 
-            peek: function peek() { // 查看栈顶元素
-              if (this._head) {
-                return this._head.val
-              }
-            },
+          peek: function peek() { // 查看栈顶元素
+            if (this._head) {
+              return this._head.val
+            }
+          },
 
-            get size() {
-              return this._size
-            },
-          }
+          get size() {
+            return this._size
+          },
+        }
 
           class Queue2 {
             #head = null
@@ -970,218 +971,218 @@
           *
           */
 
-          // class BasicMap {} 需要继承时提前写好
+  // class BasicMap {} 需要继承时提前写好
 
           // 使用class 实现 Mymap 必须使用new调用 不然会报错
           class Mymap2 {
 
-            // class Mymap2 extends BasicMap {} **extends 继承 构造函数中必须有super（）
-            // 继承关系写法 构造函数Mymap2 继承来自构造函数BasicMap，BasicMap需要在继承关系时提前写好
-            // Mymap2.prototype.__proto__ === BasicMap.prototype
-            // Mymap2.__proto__ === BasicMap 特殊情况
+    // class Mymap2 extends BasicMap {} **extends 继承 构造函数中必须有super（）
+    // 继承关系写法 构造函数Mymap2 继承来自构造函数BasicMap，BasicMap需要在继承关系时提前写好
+    // Mymap2.prototype.__proto__ === BasicMap.prototype
+    // Mymap2.__proto__ === BasicMap 特殊情况
 
-            // 静态方法 函数名前 + 静态 static
-            // 即以Mymap2.isMap(val)的形式调用
-            // 静态方法挂在构造函数上 不在构造函数的pro属性上 实例访问不到
-            static isMap() {
+          // 静态方法 函数名前 + 静态 static
+          // 即以Mymap2.isMap(val)的形式调用
+          // 静态方法挂在构造函数上 不在构造函数的pro属性上 实例访问不到
+          static isMap() {
 
-            }
-            static fromPairs() {
+          }
+          static fromPairs() {
 
-            }
-            // 构造函数 constructor
+          }
+    // 构造函数 constructor
 
-            // #mapKeys = [] privart class field 语法 类字段
-            // #mapVals = [] 私有属性写法 不常用 #标识私有属性
-            // 相当于在构造函数{}内（下面的写法）使用this.xxx 调用
+    // #mapKeys = [] privart class field 语法 类字段
+    // #mapVals = [] 私有属性写法 不常用 #标识私有属性
+    // 相当于在构造函数{}内（下面的写法）使用this.xxx 调用
 
-            // size = 0; class field 这个 语法有坑
-            // count = 0; 在class里声明字段 而不是在构造函数内声明这个用法有问题
-            // 这个类型 Mymap2 所有对象都有写在这里的字段
+    // size = 0; class field 这个 语法有坑
+    // count = 0; 在class里声明字段 而不是在构造函数内声明这个用法有问题
+    // 这个类型 Mymap2 所有对象都有写在这里的字段
 
-            // 构造函数中不需要外部参数就能确定的属性名和值 写在外面
-            // 在外边定义的属性名 访问函数之外的属性值 一同写在外面的属性值
-            // 不能被同样写在外面的表达式读取
-            // 外面写了 class field 构造函数为空 可以不写构造函数
-            constructor(initialPairs = []) {
-              this._mapKeys = []// 在外面写带#的属性名之后 这里才可以用那个有#的属性名
-              this._mapVals = []
-              initialPairs.forEach(pair => {
-                var key = pair[0]
-                var val = pair[1]
-                this.set(key, val) // 增加初始映射对 [ [xx, yy] 、、、] 写法
-              })
+          // 构造函数中不需要外部参数就能确定的属性名和值 写在外面
+          // 在外边定义的属性名 访问函数之外的属性值 一同写在外面的属性值
+          // 不能被同样写在外面的表达式读取
+          // 外面写了 class field 构造函数为空 可以不写构造函数
+          constructor(initialPairs = []) {
+            this._mapKeys = []// 在外面写带#的属性名之后 这里才可以用那个有#的属性名
+            this._mapVals = []
+            initialPairs.forEach(pair => {
+              var key = pair[0]
+              var val = pair[1]
+              this.set(key, val) // 增加初始映射对 [ [xx, yy] 、、、] 写法
+            })
 
-              // super() 调用父类构造函数 有父类（继承）必须写 没有父类不能写
-              // super.xxx() 调用来自父类的方法 这里的this 为父类构造函数 BasicMap
-              // this 写在super后面
-            }
+          // super() 调用父类构造函数 有父类（继承）必须写 没有父类不能写
+          // super.xxx() 调用来自父类的方法 这里的this 为父类构造函数 BasicMap
+          // this 写在super后面
+        }
 
 
-            // 以下为定义在原型上的方法 class写法 默认不可枚举
-            get(key) {
-              var idx = this._mapKeys.indexOf(key)
-              if (idx >= 0) {
-                return this._mapVals[idx]
-              }
-            }
-
-            set(key, val) {
-              var idx = this._mapKeys.indexOf(key)
-              if (idx == -1) {
-                this._mapKeys.push(key)
-                this._mapVals.push(val)
-              } else {
-                this.val[idx] = val
-              }
-              return this
-            }
-            has(key) {
-              return this._mapKeys.includes(key)
-            }
-            delete(key) {
-              var idx = this._mapKeys.indexOf(key)
-              if (idx == -1) {
-                return false
-              } else {
-                this._mapKeys.splice(idx, 1)
-                this._mapVals.splice(idx, 1)
-              }
-              return this
-            }
-            clear() {
-              this._mapKeys = []
-              this._mapVals = []
-              return this
-            }
-            // 以下是定义在原型上的getter/setter/accsser
-            get size() {
-              return this._mapKeys.length
-            }
-            set size(val) {
-              return ("Ignoring attempt to set size to" + val)
+          // 以下为定义在原型上的方法 class写法 默认不可枚举
+          get(key) {
+            var idx = this._mapKeys.indexOf(key)
+            if (idx >= 0) {
+              return this._mapVals[idx]
             }
           }
+
+          set(key, val) {
+            var idx = this._mapKeys.indexOf(key)
+            if (idx == -1) {
+              this._mapKeys.push(key)
+              this._mapVals.push(val)
+            } else {
+              this.val[idx] = val
+            }
+            return this
+          }
+          has(key) {
+            return this._mapKeys.includes(key)
+          }
+          delete(key) {
+            var idx = this._mapKeys.indexOf(key)
+            if (idx == -1) {
+              return false
+            } else {
+              this._mapKeys.splice(idx, 1)
+              this._mapVals.splice(idx, 1)
+            }
+            return this
+          }
+          clear() {
+            this._mapKeys = []
+            this._mapVals = []
+            return this
+          }
+          // 以下是定义在原型上的getter/setter/accsser
+          get size() {
+            return this._mapKeys.length
+          }
+          set size(val) {
+            return ("Ignoring attempt to set size to" + val)
+          }
+        }
 
           var id = 0 // 给对象 数组 函数类型添加编号的计数器 全局变量
           class HashTable { // 链式哈希表 通过链表储存数值 通过字符串映射到值
 
-            //构造函数
-            constructor() {
-              this._maps = Array(32).fill(null) // 每个位置idx 是哈希计算后的下标 存储相同下标属性名的链表 头结点
-              this._size = 0
-            }
+          //构造函数
+          constructor() {
+            this._maps = Array(32).fill(null) // 每个位置idx 是哈希计算后的下标 存储相同下标属性名的链表 头结点
+            this._size = 0
+          }
 
-            //以下 是构造函数上的原型属性 实例的原型上的方法
+    //以下 是构造函数上的原型属性 实例的原型上的方法
 
-            // 通过映射的key计算出一个整数
-            // 期望的目标是对不同的字符串都计算出不同的值 属性名是字符串
+    // 通过映射的key计算出一个整数
+    // 期望的目标是对不同的字符串都计算出不同的值 属性名是字符串
 
 
-            //哈希计算 通过不同的key值获得不同的结果 希望每个key的结果是唯一的
-            hashCode(key) { //通过属性名字符串 计算获得存储位置下标
-              var hash = 131313131
-              var seed = 131
-              for (var i = 0; i < key.length; i++) {
-                hash = (((hash * seed) >>> 0) + key.charCodeAt(i)) >>> 0
-                // 便捷的哈希公式 >>> 0 确保数值过大超出范围时 补码得到负值 确保得到正整数
-              }
-              return hash % this._maps.length // 得到正整数，模运算数组长度后得到下标
+          //哈希计算 通过不同的key值获得不同的结果 希望每个key的结果是唯一的
+          hashCode(key) { //通过属性名字符串 计算获得存储位置下标
+            var hash = 131313131
+            var seed = 131
+            for (var i = 0; i < key.length; i++) {
+              hash = (((hash * seed) >>> 0) + key.charCodeAt(i)) >>> 0
+              // 便捷的哈希公式 >>> 0 确保数值过大超出范围时 补码得到负值 确保得到正整数
             }
+            return hash % this._maps.length // 得到正整数，模运算数组长度后得到下标
+          }
 
-            hashCode2(key) { //判断属性名类型 增加前缀变成字符类型 计算获得存储位置下标
-              if (typeof key == "number") { // 三种基本类型转换
-                key = 'N-' + key
-              } else if (typeof key == "string") {
-                key = 'S-' + key
-              } else if (typeof key == "boolean") {
-                key = 'B-' + key
-              } else if (key == null) {
-                key = 'NIl-' + key
-              } else { // 数组 函数 对象 添加一个属性值objectId 属性值为 id id应为全局变量用于生成字符作为标记
-                if ("my_hashtable_objectId" in key) {
-                  key = key.my_hashtable_objectId
-                } else {
-                  key = key.my_hashtable_objectId = "O-" + String(id++) // 另外三种类型出现一次 编一个号
-                } // 除了NaN 无法映射
-              }
-              var hash = 131313131
-              var seed = 131
-              for (var i = 0; i < key.length; i++) {
-                hash = (((hash * seed) >>> 0) + key.charCodeAt(i)) >>> 0
-                // 便捷的哈希公式 >>> 0 确保数值过大超出范围时 补码得到负值 确保得到正整数
-              }
-              return hash % this._maps.length // 得到正整数，模运算数组长度后得到下标
+          hashCode2(key) { //判断属性名类型 增加前缀变成字符类型 计算获得存储位置下标
+            if (typeof key == "number") { // 三种基本类型转换
+              key = 'N-' + key
+            } else if (typeof key == "string") {
+              key = 'S-' + key
+            } else if (typeof key == "boolean") {
+              key = 'B-' + key
+            } else if (key == null) {
+              key = 'NIl-' + key
+            } else { // 数组 函数 对象 添加一个属性值objectId 属性值为 id id应为全局变量用于生成字符作为标记
+              if ("my_hashtable_objectId" in key) {
+                key = key.my_hashtable_objectId
+              } else {
+                key = key.my_hashtable_objectId = "O-" + String(id++) // 另外三种类型出现一次 编一个号
+              } // 除了NaN 无法映射
             }
-            set(key, val) { // 增加属性名与属性值
-              var idx = this.hashCode(key)
-              var p = this._maps[idx]
-              while (p) {
-                if (p.key === key) {
-                  p.val = val
-                  return this
-                }
-                p = p.next
-              }
-              this._maps[idx] = {
-                val: val,
-                key: key,
-                next: this._maps[idx]
-              }
-              this._size++
-              if (this._size / this._maps.length > 0.75) { // 扩容条件 达到四分之三 扩容 这个条件可以修改
-                this.#toBig()
-              }
-              return this
+            var hash = 131313131
+            var seed = 131
+            for (var i = 0; i < key.length; i++) {
+              hash = (((hash * seed) >>> 0) + key.charCodeAt(i)) >>> 0
+              // 便捷的哈希公式 >>> 0 确保数值过大超出范围时 补码得到负值 确保得到正整数
             }
-            get(key) { // 获取 属性名上的属性值
-              var idx = this.hashCode(key)
-              var p = this._maps[idx]
-              while (p) {
-                if (p.key === key) {
-                  return p.val
-                }
-                p = p.next
-              }
-              return undefined
-            }
-            has(key) { // 是否存在某个属性名
-              var idx = this.hashCode(key)
-              var p = this._maps[idx]
-              while (p) {
-                if (p.key === key) {
-                  return true
-                }
-                p = p.next
-              }
-              return false
-            }
-            delete(key) { // 删除某个属性及其属性值
-              var idx = this.hashCode(key)
-              var p = this._maps[idx]
-              if (p === null) {
-                return false
-              }
+            return hash % this._maps.length // 得到正整数，模运算数组长度后得到下标
+          }
+          set(key, val) { // 增加属性名与属性值
+            var idx = this.hashCode(key)
+            var p = this._maps[idx]
+            while (p) {
               if (p.key === key) {
-                this._maps[idx] = p.next
-                this._size--
-                if (this._maps.length > 32 && this._size / this._maps.length < 0.2) { // 注意0.2比例的选取， 避免缩容后 增加一位 后立刻需要扩容 长度大于32才需要缩容 
-                  this.#toSmall()
-                } return true
-              } while (p.next) {
-                if (p.next.key === key) {
-                  p.next = p.next.next
-                  this._size--
-                  if (this._maps.length > 32 && this._size / this._maps.length < 0.2) { this.#toSmall() } return true
-                } p = p.next
+                p.val = val
+                return this
               }
+              p = p.next
+            }
+            this._maps[idx] = {
+              val: val,
+              key: key,
+              next: this._maps[idx]
+            }
+            this._size++
+            if (this._size / this._maps.length > 0.75) { // 扩容条件 达到四分之三 扩容 这个条件可以修改
+              this.#toBig()
+            }
+            return this
+          }
+          get(key) { // 获取 属性名上的属性值
+            var idx = this.hashCode(key)
+            var p = this._maps[idx]
+            while (p) {
+              if (p.key === key) {
+                return p.val
+              }
+              p = p.next
+            }
+            return undefined
+          }
+          has(key) { // 是否存在某个属性名
+            var idx = this.hashCode(key)
+            var p = this._maps[idx]
+            while (p) {
+              if (p.key === key) {
+                return true
+              }
+              p = p.next
+            }
+            return false
+          }
+          delete(key) { // 删除某个属性及其属性值
+            var idx = this.hashCode(key)
+            var p = this._maps[idx]
+            if (p === null) {
               return false
             }
-            clear() { // 清空哈希表 
-              this._maps = Array(32).fill(null)
-              this._size = 0
-              return this
+            if (p.key === key) {
+              this._maps[idx] = p.next
+              this._size--
+              if (this._maps.length > 32 && this._size / this._maps.length < 0.2) { // 注意0.2比例的选取， 避免缩容后 增加一位 后立刻需要扩容 长度大于32才需要缩容 
+                this.#toSmall()
+              } return true
+            } while (p.next) {
+              if (p.next.key === key) {
+                p.next = p.next.next
+                this._size--
+                if (this._maps.length > 32 && this._size / this._maps.length < 0.2) { this.#toSmall() } return true
+              } p = p.next
             }
+            return false
+          }
+          clear() { // 清空哈希表 
+            this._maps = Array(32).fill(null)
+            this._size = 0
+            return this
+          }
 
             //实例上的私有方法
             #toBig() { //扩容 数组长度加倍 
@@ -1212,7 +1213,7 @@
                 }
               }
             }
-          }
+            } 
 
           // 利用已经实现的映射表（哈希表） 创建自己的映射表
           // JS 中的对象就是一个已经实现的映射表 
@@ -1260,16 +1261,18 @@
             has(val) {
               return this.map.get(val) === '在'
             }
-          }
+              } 
+
+
           //堆 优先队列 大顶堆 （小顶堆）
           class PriorityQueue {
             constructor() {
               this._elements = []
             }
-            push(val) {
+            push(val) { 
 
-            }
-      pop() {
+          }
+          pop() { 
 
       }
       peek() {
