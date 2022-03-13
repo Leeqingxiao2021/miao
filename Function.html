@@ -823,7 +823,7 @@
 
    // 重点 就地修改数组中对象， 还原对象中的树状结构 面试题  书本案例 byname是以人名对应对象的 对象
 
-  var byName = {}                  // 按人名映射对应的个人信息 
+   var byName = {}                  // 按人名映射对应的个人信息 
   ancestry.forEach(person => {
     byName[person.name] = person
   });
@@ -881,7 +881,7 @@
         obj[key] = val              //按照 对应关系 保存到对象中
     })
     return obj                      //返回对象
-  }
+}
 
   function stringify(value) {   // JSON.stringify   方法实现  运用递归   将数组或对象转换成 JSON 文档格式
     if (typeof value == 'number' || typeof value == 'boolean') {
@@ -919,49 +919,10 @@
   function mapValues(obj, mapper) { // 对 对象中的属性值进行计算并返回
     var result = {}
     for (var key in obj) { 
-      result[key] =  mapper(obj[key],key)
+      result[key] =  mapper(obj[key])
     }
     return result
   }
   
-  //两个字符串中最长的相同部分 不用连续； 字符串中最长子序列
-  function lcs(a, b) {
-    if (a == "" || b == "") {
-      return ""
-    }
-    if (a[0] == b [0]) {
-      return a[0] + lcs(a.slice(1), b.slice(1))
-    } else {
-      var s = lcs(a, b.slice(1))
-      var t = lcs(a.slice(1), b)
-      return s.length > t.length ? s : t
-    }
-  }
 
-  // 函数调用过程传入的参数是类数组对象 
-  // 查看函数调用过程 默认参数是什么
-    function f(...args) {
-      console.log(args);
-      return 1
-    }
-
- 
-  // String.raw``所见即所得 不用转义  可以插值 ${表达式} 例子${3 + 4}  可以用在构造正则表达式 new RegExp(String.raw`字符串`) 字符串自动转义完成
-  // `字符串` 反引号调用时候 插值将字符串间隔开 字符生成类数组对象 
-  // 类数组对象第0项是一个数组 是原字符串被插值分开的片段 依次放入 
-  // 类数组对象第0项数组中有raw属性可以读取 raw  原字符串被插值分开的片段 依次放入 已经被实现转义
-  // 类数组对象第1项及后续 是${}插值 计算值
-
-  // 打标签的模板字符串 实现该函数 反引号调用函数
-  // 只能通过反引号调用 进行字符自动转义 模板化 通过（）调用报错
-  function raw(ary, ...interplots) { //数组及插值 插值interplots 比ary长度少一个
-    var result = ary.raw[0] 
-    for (var i = 0; i < ary.length - 1; i++) { //  ary.length - 1;很关键 插值分割字符永远比字符长度少一个
-      result += interplots[i]  //拼上插值 
-      result += ary.raw[i + 1]  // 一开始就拼了一个字符 后面通过 i+1拿到 刚好所有字符都被用上
-    }
-    return result
-  }
-
-  
 </script>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawing board</title>
+  <style>
+    html {
+      height: 100%;
+      width: 100%;
+      user-select: none;
+      /*是否可以选择文本 */
+    }
+
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: rgb(210, 220, 234);
+      margin: 0px;
+    }
+
+    .title_tool {
+      height: 80px;
+      width: 80%;
+      margin: auto;
+      background-color: rgb(245, 246, 247);
+      border-bottom: 1px solid silver;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .title_tool>*:hover {
+      background-color: pink;
+    }
+
+    .title_tool input[name] {
+      visibility: hidden;
+    }
+
+
+    .title_tool span {
+      width: 50px;
+      height: 80px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      background-color: 'none';
+      cursor: pointer;
+    }
+
+    .title_tool label {
+      width: 50px;
+      height: 80px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      background-color: 'none';
+      cursor: pointer;
+    }
+
+    .title_tool #colorSelect {
+      width: 50px;
+      height: 50px;
+      margin: 0;
+      align-self: center;
+      cursor: pointer;
+    }
+
+    .title_tool #colorFill {
+      width: 50px;
+      height: 50px;
+      margin: 0;
+      align-self: center;
+      cursor: pointer;
+    }
+
+    .title_tool .select-colors.selected {
+      background-color: rgb(150, 198, 245);
+    }
+
+    .title_tool #color_chose {
+      width: 330px;
+      height: 68px;
+      display: flex;
+      flex-wrap: wrap;
+      align-self: center;
+    }
+
+    .title_tool #color_chose:hover {
+      background-color: #fff;
+    }
+
+    .title_tool #color_chose span {
+      align-self: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid silver;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .title_tool #color_chose span:hover {
+      border: 1px solid red;
+    }
+
+
+    .svg-wrapper {
+      width: 80%;
+      height: 80%;
+      margin: auto;
+      position: relative;
+      background-color: rgb(255, 255, 255);
+    }
+
+    .svg-wrapper svg {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    .foot {
+      width: 80%;
+      margin: auto;
+      position: relative;
+    }
+
+    .foot p {
+      margin: 0px;
+      font: .5em sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="title_tool">
+    <span class="save">保存</span>
+    <span class="pre">撤销</span>
+    <span class="next">恢复</span>
+    <input type="radio" name="tool" id="t_brush">
+    <label for="t_brush" style="background-color: rgb(150, 198, 245);" class="字体族">画 笔</label>
+    <input type="radio" name="tool" id="t_line">
+    <label for="t_line" class="字体族">直 线</label>
+    <input type="radio" name="tool" id="t_circle">
+    <label for="t_circle" class="字体族">贝塞尔</label>
+    <input type="radio" name="tool" id="t_ellipse">
+    <label for="t_ellipse" class="字体族">椭圆形</label>
+    <input type="radio" name="tool" id="t_rect">
+    <label for="t_rect" class="字体族">矩 形</label>
+    <input type="radio" name="tool" id="t_polygon">
+    <label for="t_polygon" class="字体族">多边形</label>
+    <input type="radio" name="tool" id="t_eraser">
+    <label for="t_eraser" class="字体族">橡 皮</label>
+    <input type="checkbox" name="tool" id="fill">
+    <label for="fill" class="字体族">填 充</label>
+    <input type="range" id="strokeWidthSelect" value="3" min="1" max="20" step="1">
+
+    <input type="color" class="select-colors selected" id="colorSelect" value="#0f0f00">
+    <!-- <label for="colorSelect" class="字体族"></label> -->
+    <input type="color" class="select-colors" id="colorFill" value="#f00f0f">
+    <!-- <label for="colorFill" class="字体族"></label> -->
+
+    <div id="color_chose">
+      <span style="background-color: #000000;"></span>
+      <span style="background-color: #7F7F7F;"></span>
+      <span style="background-color: #880015;"></span>
+      <span style="background-color: #ED1C24;"></span>
+      <span style="background-color: #FF7F27;"></span>
+      <span style="background-color: #FFF200;"></span>
+      <span style="background-color: #22B14C;"></span>
+      <span style="background-color: #00A2E8;"></span>
+      <span style="background-color: #3F48CC;"></span>
+      <span style="background-color: #A349A4;"></span>
+      <span style="background-color: #FFFFFF;"></span>
+      <span style="background-color: #C3C3C3;"></span>
+      <span style="background-color: #B97A57;"></span>
+      <span style="background-color: #FFAEC9;"></span>
+      <span style="background-color: #FFC90E;"></span>
+      <span style="background-color: #EFE4B0;"></span>
+      <span style="background-color: #B5E61D;"></span>
+      <span style="background-color: #99D9EA;"></span>
+      <span style="background-color: #7092BE;"></span>
+      <span style="background-color: #C8BFE7;"></span>
+    </div>
+  </div>
+
+  <div class="svg-wrapper">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <footer class="foot">
+    <P>按住 Shift 启用正交模式： 画正圆/正方形/水平和垂直线</P>
+    <p>Ctrl + Z 撤销 Ctrl + Y 恢复</p>
+    <P>点击 Fill 按钮使用 填充模式</P>
+  </footer>
+  <script>
+    class Stack {
+      #head = null
+      #size = 0
+      constructor(initials = []) {
+        initials.forEach(it => {
+          this.push(it)
+        })
+      }
+
+      pop() { // 出栈
+        if (this.#head) {
+          var val = this.#head.val
+          this.#head = this.#head.next
+          this.#size--
+          return val
+        }
+      }
+
+      push(val) { //进栈
+        var node = {
+          val: val,
+          next: this.#head
+        }
+        this.#head = node
+        this.#size++
+        return this
+      }
+
+      peek() { // 返回栈顶元素
+        if (this.#head) {
+          return this.#head.val
+        }
+      }
+    }
+
+    var node //创建path 节点 全局对象 便于后续修改
+    var svg = document.querySelector('svg')
+    var color1 = document.querySelector('#colorSelect') // 线条颜色
+    var color2 = document.querySelector('#colorFill')
+    var strokeWidthSelect = document.querySelector('#strokeWidthSelect') // 线条粗细
+    var tool = "t_brush"
+    var stack = new Stack  // 用栈保存撤销和恢复的节点 
+    var startdot  // 记录画笔第一次点击svg的位置
+    var labelbgc = document.querySelectorAll("[type='radio']")
+    var spans = document.querySelectorAll('div#color_chose span')
+    svg.addEventListener('mousedown', function (e) {
+      if (e.which == 1) {
+        startdot = mouse(svg)
+        if (tool == 't_brush') {
+          node = svgElt('path', {
+            d: `M ${startdot.x} ${startdot.y} L ${startdot.x} ${startdot.y} `,
+            fill: 'none',
+            stroke: colorSelect.value,    // line 颜色 
+            'stroke-width': strokeWidthSelect.value,  // 宽度
+            'stroke-linecap': 'round', //line 的形状 线形
+          })
+          svg.append(node)
+        }
+        if (tool == 't_eraser') {
+          node = svgElt('path', {
+            d: `M ${startdot.x} ${startdot.y} L ${startdot.x} ${startdot.y} `,
+            fill: 'none',
+            stroke: 'rgb(255,255,255)',    // line 颜色 
+            'stroke-width': strokeWidthSelect.value,  // 宽度
+            'stroke-linecap': 'round', //line 的形状 线形
+          })
+          svg.append(node)
+        }
+        if (tool == 't_line') {
+          node = svgElt('line', {
+            x1: startdot.x,
+            y1: startdot.y,
+            x2: startdot.x,
+            y2: startdot.y,
+            // fill: 'none',
+            stroke: colorSelect.value,    // line 颜色 
+            'stroke-width': strokeWidthSelect.value,  // 宽度
+            'stroke-linecap': 'round', //line 的形状 线形
+          })
+          svg.append(node)
+        }
+        if (tool == 't_rect') {
+          node = svgElt('rect', {
+            x: startdot.x,
+            y: startdot.y,
+            width: 0,
+            height: 0,
+            rx: 0,
+            ry: 0,
+            fill: 'none',
+            stroke: colorSelect.value,    // line 颜色 
+            'stroke-width': strokeWidthSelect.value,  // 宽度
+            'stroke-linecap': 'round', //line 的形状 线形
+          })
+          svg.append(node)
+        }
+        if (tool == 't_ellipse') {
+          node = svgElt(e.shiftKey ? 'circle' : 'ellipse', {
+            cx: 0,
+            cy: 0,
+            fill: 'none',
+            stroke: colorSelect.value,    // line 颜色 
+            'stroke-width': strokeWidthSelect.value,  // 宽度
+            'stroke-linecap': 'round', //line 的形状 线形
+          })
+          svg.append(node)
+        }
+        // if (tool == 't_polygon') {
+        //   node = svgElt('polygon', {
+        //     points: `${startdot.x} ${startdot.y} `,
+        //     fill: 'none',
+        //     stroke: colorSelect.value,    // line 颜色 
+        //     'stroke-width': strokeWidthSelect.value,  // 宽度
+        //     'stroke-linecap': 'round', //line 的形状 线形
+        //   })
+        //   svg.addEventListener('mousedown', function polygondraw(e) {
+        //     var pos = mouse(svg)
+        //     var a = node.getAttribute('points')
+        //     a += `${pos.x} ${pos.y} `;
+        //     node.setAttribute('points', a)
+        //   })
+        //   svg.append(node)
+        // }
+        window.addEventListener('mousemove', onMove) //绑在window 避免在svg元素外不触发 进出位置连直线
+      }
+    })
+
+    function onMove(e) {
+      if (e.which !== 1) {
+        window.removeEventListener('mousemove', onMove)
+        return
+      }
+      var pos = mouse(svg)
+      if (tool == 't_brush') {
+        var d = node.getAttribute('d')
+        d += `L ${pos.x} ${pos.y}`
+        node.setAttribute('d', d)
+      }
+      if (tool == 't_eraser') {
+        var d = node.getAttribute('d')
+        d += `L ${pos.x} ${pos.y}`
+        node.setAttribute('d', d)
+      }
+      if (tool == 't_line') {
+        if (e.shiftKey) {
+          var x2 = startdot.x - pos.x
+          if (x2 < 0) {
+            x2 = -x2
+          }
+          var y2 = startdot.y - pos.y
+          if (y2 < 0) {
+            y2 = -y2
+          }
+          if (x2 > y2) {
+            node.setAttribute('x2', pos.x)
+            node.setAttribute('y2', startdot.y)
+          } else {
+            node.setAttribute('x2', startdot.x)
+            node.setAttribute('y2', pos.y)
+          }
+        } else {
+          node.setAttribute('x2', pos.x)
+          node.setAttribute('y2', pos.y)
+        }
+      }
+      if (tool == 't_rect') {
+        if (fill.checked) {
+          node.setAttribute('fill', colorFill.value)
+        }
+        if (e.shiftKey) {
+          var length = Math.min(Math.abs(pos.x - startdot.x), Math.abs(pos.y - startdot.y))
+          node.setAttribute('width', length)
+          node.setAttribute('height', length)
+          if (pos.x - startdot.x > 0) {
+            node.setAttribute('x', startdot.x)
+          } else {
+            node.setAttribute('x', startdot.x - length)
+          }
+          if (pos.y - startdot.y > 0) {
+            node.setAttribute('y', startdot.y)
+          } else {
+            node.setAttribute('y', startdot.y - length)
+          }
+        } else {
+          node.setAttribute('width', Math.abs(pos.x - startdot.x))
+          node.setAttribute('height', Math.abs(pos.y - startdot.y))
+          if (pos.x - startdot.x > 0) {
+            node.setAttribute('x', startdot.x)
+          } else {
+            node.setAttribute('x', pos.x)
+          }
+          if (pos.y - startdot.y > 0) {
+            node.setAttribute('y', startdot.y)
+          } else {
+            node.setAttribute('y', pos.y)
+          }
+        }
+      }
+      if (tool == 't_ellipse') {
+        if (fill.checked) {
+          node.setAttribute('fill', colorFill.value)
+        }
+        if (e.shiftKey) {
+          var r = Math.min(Math.abs(pos.x - startdot.x), Math.abs(pos.y - startdot.y)) / 2
+          node.setAttribute('r', r)
+          if (pos.x - startdot.x < 0) {
+            node.setAttribute('cx', startdot.x - r)
+          } else {
+            node.setAttribute('cx', startdot.x + r)
+          }
+          if (pos.y - startdot.y < 0) {
+            node.setAttribute('cy', startdot.y - r)
+          } else {
+            node.setAttribute('cy', startdot.y + r)
+          }
+        } else {
+          var cx = (pos.x + startdot.x) / 2
+          var cy = (pos.y + startdot.y) / 2
+          node.setAttribute('cx', cx)
+          node.setAttribute('cy', cy)
+          node.setAttribute('rx', Math.abs(pos.x - startdot.x) / 2)
+          node.setAttribute('ry', Math.abs(pos.y - startdot.y) / 2)
+        }
+      }
+      // if (tool == 't_polygon') {
+      //   if (fill.checked) {
+      //     node.setAttribute('fill', colorFill.value)
+      //   }
+      //   var points = node.getAttribute('points')
+      //   points = `${startdot.x} ${startdot.y} ${pos.x} ${pos.y} `;
+      //   node.setAttribute('points', points)
+      // }
+    }
+
+    window.addEventListener('keydown', function (e) { // 撤销和恢复 ctrl+Z  ctrl+Y
+      //  console.log(e)
+      if (e.ctrlKey && e.code == 'KeyZ') {
+        if (svg.firstChild) {
+          stack.push(svg.removeChild(svg.lastChild))
+        }
+      }
+      if (e.ctrlKey && e.code == 'KeyY') {
+        var child = stack.pop()
+        if (child) {
+          svg.append(child)
+        }
+      }
+    })
+    window.addEventListener('click', function (e) { //点击切换工具
+      // console.log(e)
+      var pos = mouse(svg)
+      if (e.target.id.startsWith('t_')) {
+        tool = e.target.id
+      }
+      if (e.target.type == "radio") {
+        for (var child of labelbgc) {
+          if (child.nextElementSibling.style.backgroundColor) {
+            child.nextElementSibling.style.backgroundColor = ""
+          }
+        }
+        e.target.nextElementSibling.style.backgroundColor = "rgb(150, 198, 245)"
+      }
+      if (e.target.id == "fill") {
+        if (e.target.checked) {
+          e.target.nextElementSibling.style.backgroundColor = "rgb(150, 198, 245)"
+        } else {
+          e.target.nextElementSibling.style.backgroundColor = ''
+        }
+      }
+      if (e.target.closest('span.pre')) {
+        if (svg.firstChild) {
+          stack.push(svg.removeChild(svg.lastChild))
+        }
+
+      }
+      if (e.target.closest('span.next')) {
+        var child = stack.pop()
+        if (child) {
+          svg.append(child)
+        }
+
+      }
+
+    })
+    function mouse(node) {  // 获取点击位置相对外层元素node 的相对横纵坐标
+      var nodePos = node.getBoundingClientRect() //获得一个对象 包括node元素相对窗口左上角的位置信息 x y 与left top对应
+      return {
+        x: window.event.clientX - nodePos.x, //事件相对元素的位置
+        y: window.event.clientY - nodePos.y,
+      }
+    }
+    function svgElt(tagName, attrs = {}, ...children) { //给svg创建带属性名和子节点的svg节点
+      var node = document.createElementNS('http://www.w3.org/2000/svg', tagName)
+      for (var key in attrs) {
+        var val = attrs[key]
+        node.setAttribute(key, val)
+      }
+
+      for (var child of children) {
+        if (typeof child == 'string') {
+          child = document.createTextNode(child)
+        }
+        node.append(child)
+      }
+      return node
+    }
+    function colorRGBtoHex(color) { // rgb 转十六进制色 #
+      var rgb = color.split(',');
+      var r = parseInt(rgb[0].split('(')[1]);
+      var g = parseInt(rgb[1]);
+      var b = parseInt(rgb[2].split(')')[0]);
+      var hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+      return hex;
+    }
+    colorSelect.addEventListener('click', function (e) {
+      colorSelect.classList.add('selected')
+      colorFill.classList.remove('selected')
+      for (var key of spans) {
+        key.style.border = ''
+      }
+    })
+    colorFill.addEventListener('click', function (e) {
+      colorFill.classList.add('selected')
+      colorSelect.classList.remove('selected')
+      for (var key of spans) {
+        key.style.border = ''
+      }
+    })
+    color_chose.addEventListener('click', function (e) {
+      if (e.target.matches('span')) {
+        if (colorSelect.classList.contains('selected')) {
+          colorSelect.value = colorRGBtoHex(e.target.style.backgroundColor)
+        }
+        if (colorFill.classList.contains('selected')) {
+          colorFill.value = colorRGBtoHex(e.target.style.backgroundColor)
+        }
+        for (var key of spans) {
+          key.style.border = ''
+        }
+        e.target.style.border = '1px solid red'
+      }
+    })
+
+    let save = document.querySelector(".save");
+    function beforeQuit(e) {
+      e.returnValue = "退出前请先下载文件！";
+      return e.returnValue;
+    }
+    window.addEventListener("beforeunload", beforeQuit);
+
+    save.addEventListener("click", function (event) {
+      let src = svg.outerHTML;
+      let blob = new Blob(["<?xml version='1.1' encoding='utf-8'?>", src], { type: "image/xml+svg" });
+      let url = URL.createObjectURL(blob);
+      let a = document.createElement("a");
+      a.download = "Machine.svg";
+      a.href = url;
+      a.click();
+      window.removeEventListener("beforeunload", beforeQuit);
+    })
+    // 点击缩小放大效果
+    // save.addEventListener("mousedown", function () {
+    //   save.style.fontSize = "35px";
+    // })
+    // save.addEventListener("mouseup", function () {
+    //   save.style.fontSize = "40px";
+    // })
+    // let pn = document.querySelector("#pn");
+    // pn.addEventListener("mousedown", function (e) {
+    //   e.target.style.fontSize = "35px";
+    // })
+    // pn.addEventListener("mouseup", function (e) {
+    //   e.target.style.fontSize = "40px";
+    // })
+
+    // let draw = document.querySelector("#draw");
+    // draw.addEventListener("mousedown", function (e) {
+    //   e.target.style.fontSize = "35px";
+    // })
+    // draw.addEventListener("mouseup", function (e) {
+    //   e.target.style.fontSize = "40px";
+    // })
+  </script>
+</body>
+
+</html>

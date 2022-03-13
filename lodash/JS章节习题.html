@@ -1,4 +1,4 @@
-<script> // 第四章章节练习
+<script type="xxx" id="第四章数据结构：对象和数组">
 
   function sum(numbers) {   //求和函数  数组中每一项相加
     var result = 0
@@ -300,7 +300,7 @@
 </script>
 
 
-<script>//第五章习题
+<script type="xxx" id="第五章高阶函数">
 
 
   //数组降维
@@ -432,7 +432,7 @@
 
 </script>
 
-<script> //第六章习题
+<script type="xxx" id="第六章深入理解对象">
 
   function Vector(x, y) {  // 向量的构造函数
     this.x = x
@@ -465,8 +465,8 @@
     this.imag = imag
   }
 
-    // 虚数的构造函数 如果没有用 new 调用， 避免错误，只要调用该函数，返回该构造函数的实例
-    function Complex1(real, imag) {
+  // 虚数的构造函数 如果没有用 new 调用， 避免错误，只要调用该函数，返回该构造函数的实例
+  function Complex1(real, imag) {
     //1 if (!(this instanceof Complex)) { //运用new 创建的对象 是构造函数的实例 运用运算符instanceof 判断是否用new 调用
     // return new Complex(real, imag)
     // }
@@ -494,45 +494,109 @@
     return new Complex(real, imag)
   }
 
-    Complex.prototype.mul = function mul(imaginary) { //虚数乘法运算 537复数乘法 已完成
-      var real = this.real * imaginary.real - this.imag * imaginary.imag
-      var imag = this.real * imaginary.imag + this.imag * imaginary.real
+  Complex.prototype.mul = function mul(imaginary) { //虚数乘法运算 537复数乘法 已完成
+    var real = this.real * imaginary.real - this.imag * imaginary.imag
+    var imag = this.real * imaginary.imag + this.imag * imaginary.real
 
     return new Complex(real, imag)
   }
 
-    Complex.prototype.div = function div(imaginary) {//虚数除法运算
-      var item = new Complex(imaginary.real, -imaginary.imag)
-      var fenzhi = this.mul(item)
-      var fenmu = imaginary.mul(item)
-      return new Complex(fenzhi.real / fenmu.real, fenzhi.imag / fenmu.real)
-    }
+  Complex.prototype.div = function div(imaginary) {//虚数除法运算
+    var item = new Complex(imaginary.real, -imaginary.imag)
+    var fenzhi = this.mul(item)
+    var fenmu = imaginary.mul(item)
+    return new Complex(fenzhi.real / fenmu.real, fenzhi.imag / fenmu.real)
+  }
 
-    Complex.prototype.toString = function () { //将复数按字符显示
-      if (this.imag < 0) {
-        return "" + this.real + this.imag + "i"
-      } else {
-        return this.real + "+" + this.imag + "i"
-      }
+  Complex.prototype.toString = function () { //将复数按字符显示
+    if (this.imag < 0) {
+      return "" + this.real + this.imag + "i"
+    } else {
+      return this.real + "+" + this.imag + "i"
     }
+  }
 
-  
+
   //实现集合 Set 构造函数 实现功能即可 不要求显示形态与浏览器一致 
 
-    function Myset(initial = []) { // 可接一个数组作为参数 设置初始值为空 this._elements=[] // 属性名可以用$ 及 _  用_在这里表示私有属性， 不希望被用户直接读写 
-      initial.forEach(it => {
-        this.add(it) // 箭头函数没有this 向外面寻找this的值
-      });
-    }
+  function Myset(initial = []) { // 可接一个数组作为参数 设置初始值为空 this._elements=[] // 属性名可以用$ 及 _  用_在这里表示私有属性， 不希望被用户直接读写 
+    initial.forEach(it => {
+      this.add(it) // 箭头函数没有this 向外面寻找this的值
+    });
+  }
 
-    Myset.prototype.add = function add(val) { //增加元素
+  Myset.prototype.add = function add(val) { //增加元素
+    if (!this.has(val)) {
+      this._elements.push(val)
+    }
+    return this
+  }
+
+  Myset.prototype.delete = function (val) { // 删除元素
+    var item = this._elements.indexOf(val)
+    if (item == -1) {
+      return false
+    } else {
+      this._elements.splice(item, 1)
+      return true
+    }
+  }
+
+  Myset.prototype.has = function has(val) { // 判断集合是否存在某个元素
+    return this._elements.includes(val)
+  }
+
+  Myset.prototype.clear = function clear() { // 清空集合里的元素
+    return this._elements = []
+  }
+
+  Object.defineProperty(Myset.prototype, "size", { // 设置size属性 get设置
+    get: function () {
+      return this._elements.length
+    }
+  })
+
+  Myset.prototype = {
+    add(val) { // add: function(val) {} 的简写 对象的属性是一个普通函数的情况可以简写
+      if (!this.has(val)) {
+        this._elements.push(val)
+      }
+      return this
+    },
+    delete(val) {
+      var item = this._elements.indexOf(val)
+      if (item == -1) {
+        return false
+      } else {
+        this._elements.splice(item, 1)
+        return true
+      }
+    },
+    has(val) {
+      return this._elements.includes(val)
+    },
+    clear() {
+      return this._elements = []
+    },
+    get size() {
+      return this._elements.length
+    }
+  }
+
+  class Myset2 {
+    constructor(initial = []) {
+      this._elements = []
+      initial.forEach(it => {
+        this.add(it)
+      })
+    }
+    add(val) {
       if (!this.has(val)) {
         this._elements.push(val)
       }
       return this
     }
-
-    Myset.prototype.delete = function (val) { // 删除元素
+    delete(val) {
       var item = this._elements.indexOf(val)
       if (item == -1) {
         return false
@@ -541,191 +605,156 @@
         return true
       }
     }
-
-    Myset.prototype.has = function has(val) { // 判断集合是否存在某个元素
+    has(val) {
       return this._elements.includes(val)
     }
-
-    Myset.prototype.clear = function clear() { // 清空集合里的元素
+    clear() {
       return this._elements = []
     }
-
-    Object.defineProperty(Myset.prototype, "size", { // 设置size属性 get设置
-      get: function () {
-        return this._elements.length
-      }
-    })
-
-    Myset.prototype = {
-      add(val) { // add: function(val) {} 的简写 对象的属性是一个普通函数的情况可以简写
-        if (!this.has(val)) {
-          this._elements.push(val)
-        }
-        return this
-      },
-      delete(val) {
-        var item = this._elements.indexOf(val)
-        if (item == -1) {
-          return false
-        } else {
-          this._elements.splice(item, 1)
-          return true
-        }
-      },
-      has(val) {
-        return this._elements.includes(val)
-      },
-      clear() {
-        return this._elements = []
-      },
-      get size() {
-        return this._elements.length
-      }
+    get size() {
+      return this._elements.length
     }
+  }
 
-    class Myset2 {
-      constructor(initial = []) {
-        this._elements = []
-        initial.forEach(it => {
-          this.add(it)
-        })
-      }
-      add(val) {
-        if (!this.has(val)) {
-          this._elements.push(val)
-        }
-        return this
-      }
-      delete(val) {
-        var item = this._elements.indexOf(val)
-        if (item == -1) {
-          return false
-        } else {
-          this._elements.splice(item, 1)
-          return true
-        }
-      }
-      has(val) {
-        return this._elements.includes(val)
-      }
-      clear() {
-        return this._elements = []
-      }
-      get size() {
-        return this._elements.length
-      }
+  // 实现映射 Map 构造函数 实现功能即可 不要求显示形态与浏览器一致
+  function Mymap() {
+    this._mapKeys = []
+    this._mapVals = []
+  }
+
+  Mymap.prototype.set = function set(tag, val) { //增加一对映射
+    var item = this._mapKeys.indexOf(tag)
+    if (item == -1) {
+      this._mapKeys.push(tag)
+      this._mapVals.push(val)
+    } else {
+      this._mapVals[item] = val
     }
+    return this
+  }
 
-    // 实现映射 Map 构造函数 实现功能即可 不要求显示形态与浏览器一致
-    function Mymap() {
-      this._mapKeys = []
-      this._mapVals = []
+  Mymap.prototype.delete = function (tag) { // 删除一对映射
+    var item = this._mapKeys.indexOf(tag)
+    if (item == -1) {
+      return false
+    } else {
+      this._mapKeys.splice(item, 1)
+      this._mapVals.splice(item, 1)
     }
+    return this
+  }
 
-    Mymap.prototype.set = function set(tag, val) { //增加一对映射
-      var item = this._mapKeys.indexOf(tag)
-      if (item == -1) {
-        this._mapKeys.push(tag)
+  Mymap.prototype.get = function get(tag) { // 获取某个映射的值
+    var item = this._mapKeys.indexOf(tag)
+    if (item !== -1) {
+      return this._mapVals[item]
+    }
+  }
+
+  Mymap.prototype.has = function has(tag) { // 判断某个映射（不是其值）是否存在映射中
+    return this._mapKeys.includes(tag)
+  }
+
+  Mymap.prototype.clear = function clear() { //清空映射
+    this._mapKeys = []
+    this._mapVals = []
+    return this
+  }
+
+  Object.defineProperty(Mymap.prototype, "size", {
+    get: function () { return this._mapKeys.length }
+  })
+
+  // 用链表实现映射 写在一起的写法 相当于将实例的原型重置 设置为空，并添加属性 为需要的方法
+  Mymap.prototype = {
+    set(key, val) { // set: function(key,val) {} 的简写 对象的属性是一个普通函数的情况可以简写
+      var idx = this._mapKeys.indexOf(key)
+      if (idx == -1) {
+        this._mapKeys.push(key)
         this._mapVals.push(val)
       } else {
-        this._mapVals[item] = val
+        this.val[idx] = val
       }
       return this
-    }
-
-    Mymap.prototype.delete = function (tag) { // 删除一对映射
-      var item = this._mapKeys.indexOf(tag)
-      if (item == -1) {
+    },
+    get(key) {
+      var idx = this._mapKeys.indexOf(key)
+      if (idx >= 0) {
+        return this._mapVals[idx]
+      }
+    },
+    has(key) {
+      return this._mapKeys.includes(key)
+    },
+    delete(key) {
+      var idx = this._mapKeys.indexOf(key)
+      if (idx == -1) {
         return false
       } else {
-        this._mapKeys.splice(item, 1)
-        this._mapVals.splice(item, 1)
+        this._mapKeys.splice(idx, 1)
+        this._mapVals.splice(idx, 1)
       }
       return this
-    }
-
-    Mymap.prototype.get = function get(tag) { // 获取某个映射的值
-      var item = this._mapKeys.indexOf(tag)
-      if (item !== -1) {
-        return this._mapVals[item]
-      }
-    }
-
-    Mymap.prototype.has = function has(tag) { // 判断某个映射（不是其值）是否存在映射中
-      return this._mapKeys.includes(tag)
-    }
-
-    Mymap.prototype.clear = function clear() { //清空映射
+    },
+    clear() {
       this._mapKeys = []
       this._mapVals = []
       return this
+    },
+    get size() {
+      return this._mapKeys.length
     }
+  }
 
-    Object.defineProperty(Mymap.prototype, "size", {
-      get: function () { return this._mapKeys.length }
+
+  // 用链表实现栈 先进后出
+  function Stack(initials = []) { // 链表形式的栈 构造函数 设置默认初始值
+    this._head = null // _ 表示私有属性 表示用户不能直接修改
+    this._size = 0
+    initials.forEach(it => { // 箭头函数没有this 向外面寻找this的值
+      this.push(it)
     })
+  }
 
-    // 用链表实现映射 写在一起的写法 相当于将实例的原型重置 设置为空，并添加属性 为需要的方法
-    Mymap.prototype = {
-      set(key, val) { // set: function(key,val) {} 的简写 对象的属性是一个普通函数的情况可以简写
-        var idx = this._mapKeys.indexOf(key)
-        if (idx == -1) {
-          this._mapKeys.push(key)
-          this._mapVals.push(val)
-        } else {
-          this.val[idx] = val
-        }
-        return this
-      },
-      get(key) {
-        var idx = this._mapKeys.indexOf(key)
-        if (idx >= 0) {
-          return this._mapVals[idx]
-        }
-      },
-      has(key) {
-        return this._mapKeys.includes(key)
-      },
-      delete(key) {
-        var idx = this._mapKeys.indexOf(key)
-        if (idx == -1) {
-          return false
-        } else {
-          this._mapKeys.splice(idx, 1)
-          this._mapVals.splice(idx, 1)
-        }
-        return this
-      },
-      clear() {
-        this._mapKeys = []
-        this._mapVals = []
-        return this
-      },
-      get size() {
-        return this._mapKeys.length
-      }
+  Stack.prototype.pop = function pop() { // 出栈
+    if (this._head) {
+      var val = this._head.val
+      this._head = this._head.next
+      this._size--
+      return val
     }
+  }
 
-
-    // 用链表实现栈 先进后出
-    function Stack(initials = []) { // 链表形式的栈 构造函数 设置默认初始值
-      this._head = null // _ 表示私有属性 表示用户不能直接修改
-      this._size = 0
-      initials.forEach(it => { // 箭头函数没有this 向外面寻找this的值
-        this.push(it)
-      })
+  Stack.prototype.push = function push(val) { //进栈
+    var node = {
+      val: val,
+      next: this._head
     }
+    this._head = node
+    this._size++
+    return this
+  }
 
-    Stack.prototype.pop = function pop() { // 出栈
+  Stack.prototype.peek = function peek() { // 返回栈顶元素
+    if (this._head) {
+      return this._head.val
+    }
+  }
+
+  Object.defineProperty(Stack.prototype, "size", {
+    get: function () { return this._size }
+  })
+
+  Stack.prototype = { // 合并写法 改写构造函数属性protorype 对象
+    pop() {
       if (this._head) {
         var val = this._head.val
         this._head = this._head.next
         this._size--
         return val
       }
-    }
-
-    Stack.prototype.push = function push(val) { //进栈
+    },
+    push(val) {
       var node = {
         val: val,
         next: this._head
@@ -733,47 +762,18 @@
       this._head = node
       this._size++
       return this
-    }
-
-    Stack.prototype.peek = function peek() { // 返回栈顶元素
+    },
+    peek() {
       if (this._head) {
         return this._head.val
       }
-    }
+    },
+    get size() {
+      return this._size
+    },
+  }
 
-    Object.defineProperty(Stack.prototype, "size", {
-      get: function () { return this._size }
-    })
-
-    Stack.prototype = { // 合并写法 改写构造函数属性protorype 对象
-      pop() {
-        if (this._head) {
-          var val = this._head.val
-          this._head = this._head.next
-          this._size--
-          return val
-        }
-      },
-      push(val) {
-        var node = {
-          val: val,
-          next: this._head
-        }
-        this._head = node
-        this._size++
-        return this
-      },
-      peek() {
-        if (this._head) {
-          return this._head.val
-        }
-      },
-      get size() {
-        return this._size
-      },
-    }
-
-    class Stack2 {
+  class Stack2 {
 
     #head = null
     #size = 0
@@ -810,54 +810,54 @@
     }
   }
 
-    // 用链表实现队列 先进先出
-    function Queue() {// 队列构造函数 只存储 指向头尾结点的指针
-      this._head = null // 指向头结点
-      this._tail = null // 指向尾结点
-      this._size = 0
+  // 用链表实现队列 先进先出
+  function Queue() {// 队列构造函数 只存储 指向头尾结点的指针
+    this._head = null // 指向头结点
+    this._tail = null // 指向尾结点
+    this._size = 0
+  }
+
+  Queue.prototype.enqueue = function enqueue(val) { // 进队 放在队列最后
+    var node = {
+      val: val,
+      next: null
     }
-
-    Queue.prototype.enqueue = function enqueue(val) { // 进队 放在队列最后
-      var node = {
-        val: val,
-        next: null
-      }
-      if (!this._head) {
-        this._head = node
-        this._tail = node
-      } else {
-        this._tail.next = node
-        this._tail = node
-      }
-      this._size++
-      return this
+    if (!this._head) {
+      this._head = node
+      this._tail = node
+    } else {
+      this._tail.next = node
+      this._tail = node
     }
+    this._size++
+    return this
+  }
 
-    Queue.prototype.dequeue = function dequeue() { // 出队 队列第一个元素出去
-      if (this._head) {
-        var val = this._head.val
-        this._head = this._head.next
-        if (this._head == null) {
-          this._tail = null
-        }
-        this._size--
-        return val
+  Queue.prototype.dequeue = function dequeue() { // 出队 队列第一个元素出去
+    if (this._head) {
+      var val = this._head.val
+      this._head = this._head.next
+      if (this._head == null) {
+        this._tail = null
       }
+      this._size--
+      return val
     }
+  }
 
-    Queue.prototype.peek = function peek() { // 查看队头元素
-      if (this._head) {
-        return this._head.val
-      }
+  Queue.prototype.peek = function peek() { // 查看队头元素
+    if (this._head) {
+      return this._head.val
     }
+  }
 
-    Object.defineProperty(Queue.prototype, "size", {
-      get: function () { return this._size }
-    })
+  Object.defineProperty(Queue.prototype, "size", {
+    get: function () { return this._size }
+  })
 
-    //用链表实现队列 先进先出 写在一起的写法 相当于将实例的原型重置 设置为空，并添加属性 为需要的方法
-    Queue.prototype = {
-      constructor: Queue,
+  //用链表实现队列 先进先出 写在一起的写法 相当于将实例的原型重置 设置为空，并添加属性 为需要的方法
+  Queue.prototype = {
+    constructor: Queue,
 
     enqueue: function enqueue(val) { // 从链表尾结点进队
       var node = { // 创建要进队元素的结点
@@ -898,83 +898,83 @@
     },
   }
 
-    class Queue2 {
-      #head = null
-      #tail = null
-      #size = 0
-      constructor(initial = []) {
-        initial.forEach(it => {
-          this.enqueue(it) // 箭头函数没有this 找外面的this
-        })
+  class Queue2 {
+    #head = null
+    #tail = null
+    #size = 0
+    constructor(initial = []) {
+      initial.forEach(it => {
+        this.enqueue(it) // 箭头函数没有this 找外面的this
+      })
+    }
+    enqueue(val) {
+      var node = { // 创建要进队元素的结点
+        val: val,
+        next: null
       }
-      enqueue(val) {
-        var node = { // 创建要进队元素的结点
-          val: val,
-          next: null
-        }
-        if (!this.#head) {
-          this.#head = node
-          this.#tail = node
-        } else {
-          this.#tail.next = node
-          this.#tail = node
-        }
-        this.#size++
-        return this
+      if (!this.#head) {
+        this.#head = node
+        this.#tail = node
+      } else {
+        this.#tail.next = node
+        this.#tail = node
       }
-      dequeue() {
-        if (this.#head) {
-          var val = this.#head.val
-          this.#head = this.#head.next
-          if (this.#head == null) {
-            this.#tail = null
-          }
-          this.#size--
-          return val
+      this.#size++
+      return this
+    }
+    dequeue() {
+      if (this.#head) {
+        var val = this.#head.val
+        this.#head = this.#head.next
+        if (this.#head == null) {
+          this.#tail = null
         }
-      }
-      peek() {
-        if (this.#head) {
-          return this.#head.val
-        }
-      }
-      get size() {
-        return this.#size
+        this.#size--
+        return val
       }
     }
+    peek() {
+      if (this.#head) {
+        return this.#head.val
+      }
+    }
+    get size() {
+      return this.#size
+    }
+  }
 
 
-    /**
-    * 使用上方语法实现一个类（一个构造函数的方法等）的时候
-    * 会存在一些问题：
-    * 代码不是一整块（无法解决 构造函数与构造函数原型属性无法写在一起）
-    * 代码的重复有很多：
-    * 使用第二种写法 统一重置原型对象 可以避免代码重复
-    * 原型上的方法都可以被枚举出来：
-    * 对每个原型上的方法及属性使用defineProperty来定义
-    * 实现继承的时候比较麻烦：
-    * 需要自身重置原型链
-    * 复用父类的构造函数时写法比较奇怪：
-    * 例如 BasicMap.call(this, xxx, yyy)
-    * 构造函数可以不加new调用， 可能返回undefined
-    * 在构造函数内添加判断逻辑（this ）解决
-    * 静态方法也得一块一块的写：
-    * 例 Mymap.xxx = function() {}
-    * Mymap.yyy = function() {}
-    * 没有私有属性 实现比较 麻烦
-    *
-    * 上述在书写代码时都有些麻烦
-    *
-    * 更好方案 写类型的方法
-    *
-    * class
-    *
-    */
+  /**
+  * 使用上方语法实现一个类（一个构造函数的方法等）的时候
+  * 会存在一些问题：
+  * 代码不是一整块（无法解决 构造函数与构造函数原型属性无法写在一起）
+  * 代码的重复有很多：
+  * 使用第二种写法 统一重置原型对象 可以避免代码重复
+  * 原型上的方法都可以被枚举出来：
+  * 对每个原型上的方法及属性使用defineProperty来定义
+  * 实现继承的时候比较麻烦：
+  * 需要自身重置原型链
+  * 复用父类的构造函数时写法比较奇怪：
+  * 例如 BasicMap.call(this, xxx, yyy)
+  * 构造函数可以不加new调用， 可能返回undefined
+  * 在构造函数内添加判断逻辑（this ）解决
+  * 静态方法也得一块一块的写：
+  * 例 Mymap.xxx = function() {}
+  * Mymap.yyy = function() {}
+  * 没有私有属性 实现比较 麻烦
+  *
+  * 上述在书写代码时都有些麻烦
+  *
+  * 更好方案 写类型的方法
+  *
+  * class
+  *
+  */
 
   // class BasicMap {} 需要继承时提前写好
 
-    // 使用class 实现 Mymap 必须使用new调用 不然会报错
-    class Mymap2 {
+  // 使用class 实现 Mymap 必须使用new调用 不然会报错
+  class Mymap2 {
 
     // class Mymap2 extends BasicMap {} **extends 继承 构造函数中必须有super（）
     // 继承关系写法 构造函数Mymap2 继承来自构造函数BasicMap，BasicMap需要在继承关系时提前写好
@@ -1064,8 +1064,8 @@
     }
   }
 
-    var id = 0 // 给对象 数组 函数类型添加编号的计数器 全局变量
-    class HashTable { // 链式哈希表 通过链表储存数值 通过字符串映射到值
+  var id = 0 // 给对象 数组 函数类型添加编号的计数器 全局变量
+  class HashTable { // 链式哈希表 通过链表储存数值 通过字符串映射到值
 
     //构造函数
     constructor() {
@@ -1203,116 +1203,559 @@
       var prevMaps = this._maps
       this._maps = new Array(this._maps.length / 2).fill(null)
       this._size = 0 //很重要 重置数量 
-      for (var list of prevMaps) { 
+      for (var list of prevMaps) {
         var p = list
-        while (p) { 
-                    var key = p.key
-                    var val = p.val
-                    this.set(key, val)
-                    p = p.next
-                  }
-                }
-              }
-            } 
-
-    // 利用已经实现的映射表（哈希表） 创建自己的映射表
-    // JS 中的对象就是一个已经实现的映射表 
-    var id = 0
-    class Mymap3 {  // 了解即可
-      constructor() {
-        this.map = Object.create(null)
-      }
-      set(key, val) { 
-            if (typeof key == "number") {
-              key = 'N' + key
-            }
-            if (typeof key == "string") {
-              key = 'S' + key
-            }
-            if (typeof key == "boolean") {
-              key = 'B' + key
-            }
-            if (typeof key == "object" || typeof key == "function" || Array.isArray(key)) { //其他三种情况需要定义编号id 按id获得key值 
-              if (key._ObjectId) { // 查看输入的类型中是否有 编号属性 
-                key = key._ObjectId
-              } else {
-                key._ObjectId = id++ // 给属性为对象的值添加 编号 
-                key = key._ObjectId
-              }
-            }
-            this.map[key] = val
-          }
-          get(key) {
-            return this.map[key]
-          }
+        while (p) {
+          var key = p.key
+          var val = p.val
+          this.set(key, val)
+          p = p.next
         }
-
-        class MySet1 { // set 也是哈希 实现的 set集合 是特殊的映射 通过已经实现的mymap实现 myset 
-          constructor() {
-            this.map = new MyMap()
-          }
-          add(val) {
-            this.map.set(val, '在')
-            return this
-          }
-          delete(val) {
-            this.map.delete(val)
-          }
-          has(val) {
-            return this.map.get(val) === '在'
-          }
-        } 
-
-
-    //堆 优先队列 大顶堆 （小顶堆）
-    class PriorityQueue {
-      constructor() {
-        this._elements = []
       }
-      push(val) { 
+    }
+  }
+
+  // 利用已经实现的映射表（哈希表） 创建自己的映射表
+  // JS 中的对象就是一个已经实现的映射表 
+  var id = 0
+  class Mymap3 {  // 了解即可
+    constructor() {
+      this.map = Object.create(null)
+    }
+    set(key, val) {
+      if (typeof key == "number") {
+        key = 'N' + key
+      }
+      if (typeof key == "string") {
+        key = 'S' + key
+      }
+      if (typeof key == "boolean") {
+        key = 'B' + key
+      }
+      if (typeof key == "object" || typeof key == "function" || Array.isArray(key)) { //其他三种情况需要定义编号id 按id获得key值 
+        if (key._ObjectId) { // 查看输入的类型中是否有 编号属性 
+          key = key._ObjectId
+        } else {
+          key._ObjectId = id++ // 给属性为对象的值添加 编号 
+          key = key._ObjectId
+        }
+      }
+      this.map[key] = val
+    }
+    get(key) {
+      return this.map[key]
+    }
+  }
+
+  class MySet1 { // set 也是哈希 实现的 set集合 是特殊的映射 通过已经实现的mymap实现 myset 
+    constructor() {
+      this.map = new MyMap()
+    }
+    add(val) {
+      this.map.set(val, '在')
+      return this
+    }
+    delete(val) {
+      this.map.delete(val)
+    }
+    has(val) {
+      return this.map.get(val) === '在'
+    }
+  }
+
+
+  //堆 优先队列 大顶堆 （小顶堆）
+  class PriorityQueue {
+    constructor() {
+      this._elements = []
+    }
+    push(val) {
 
     }
-    pop() { 
+    pop() {
 
-        }
-        peek() {
+    }
+    peek() {
 
-        }
-      } 
-    </script>
+    }
+  } 
+</script>
 
-<script>
-  //第8章 章节练习
+<script type="xxx" id="第8章处理缺陷和异常">
+
   //8.11.1 重试
   function primitiveMultiply(a, b) {
-    if (Math.random() > 0.5) {
+    if (Math.random() < 0.5) {
       return a * b
     } else {
       throw new MultiplyorUnitFailure()
     }
   }
 
-    function MultiplyorUnitFailure() {
-
+  function MultiplyorUnitFailure() { //报错内容函数
   }
 
-    function multiple(a, b) {
+  function multiple(a, b) {
+    try {
+     return primitiveMultiply(a, b)
+    } catch(error) { //报错类型判断 是否为预期发生的报错
+      if (error instanceof MultiplyorUnitFailure) {
+        return multiple(a, b) //是继续尝试直到正确
+      } else { // 不是抛出错误类型
+        throw error
+      }
+    }
+  } 
 
+  //上锁的箱子  类似 python里面的with语句 操作完成 结果自动保存 例子自动关闭文件
+  // 与js里面的with语句不同
+
+  //js里面的with语句
+
+  // var a = 3
+  // obj = {a: 2,b: 3,}
+  // with(obj) {
+  //   var a = 1
+  //   console.log(a) a先在{}找 然后在 obj里面找 然后在往作用域外找 找到就停
+  // }
+
+  var box = {
+    locked: true,
+    unlock: function () { this.locked = false },
+    lock: function () { this.locked = true },
+    _content: [],
+    get content() {
+      if (this.locked) throw new Error("Locked!");
+      return this._content;
+    }
   }
 
-    //上锁的箱子
-    var box = {
-      locked: true,
-      unlock: function () { this.locked = false },
-      lock: function () { this.locked = true },
-      _content: [],
-      get content() {
-        if (this.locked) throw new Error("Locked!");
-        return this._content;
+  function withBoxUnlocked(f) {
+    box.unlock()
+    try {
+      f()
+    } finally {
+      box.lock()
+    }
+  }
+</script>
+
+<script type="" id="第9章正则表达式">
+
+  // js数值语法 数字在正则表达式的匹配
+  // /[+-]?((0|[1-9]\d*)\.?|(0|[1-9]\d*)?\.\d*)(e[+-]?\d+)?/i
+    
+
+  //  预设零断言：
+  // ^
+  // $ 
+  // \b
+
+  // 自定义零宽断言
+  // (?=expr)  正预测先行断言 positive lookahead，即要求一个位置的右边的内容要满足expr
+  // (?<=expr) 正回顾后发断言 positive lookbehind，即要求一个位置的左边的内容要满足expr
+  
+  // (?!expr)  负预测先行断言 negative lookahead，即要求一个位置的右边的内容不能满足expr
+  // (?<!expr) 负回顾后发断言 negative lookbehind，即要求一个位置的左边的内容不能满足expr
+
+  // 零宽断言可以连续使用，连续使用时断言的是同一个位置
+
+  // \b ===  (?<!\w)(?=\w)|(?<=\w)(?!\w)
+  // ^  ===  (?<!.)  左右不能出现任何符号
+  // $  ===  (?!.) 匹配第行的结尾   或  (?![^]) 匹配字符串整体的结尾
+
+  // 正则的选项：
+  //   /foo/igmysud
+  //   new RegExp('foo', 'igmysud')
+  //   第二个/后面的部分即为正则表达式的选项
+  //   不同选项有着不同的效果
+  //   i ignoreCase 不区分大小写
+  //   g global     全局匹配，即找到所有的匹配，而不是只找到一个匹配
+  //   m multiline  多行匹配，有m的时候^$可以表示第行的开始和结束，没有m时表示整个字符串的开始和结束
+  //   s dotAll     有s时，正则中的.可以代表任意符号
+  //   u unicode    启用uncode
+  //   d hasIndices 匹配结果中会包含每个捕获分组的开始和结束位置
+  //   y sticky     每次匹配必须从首次开始的位置就成功
+
+  //  具名分组：
+
+  // var match = (?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2}).exec(xxxx)
+
+  // match.groups.year
+  // match.groups.month
+  // match.groups.day
+
+  //  非捕获分组：
+  // 使用“?:”表示，该分组不计数，也不捕获
+  // (?:foo)(bar)
+  // (?:)不匹配任何内容，因为括号里根本就没东西，也不计数，相当于它完全不存在
+
+  //  前向/后向引用
+  // \1 \2 .. \9 表示正则表达式第几对括号已经匹配到的具体内容
+  // .(.)\1 表示 ABB 形式的字符串
+  // (.)(.)\2\1 表示ABBA形式
+
+  // $1$2...$9 在replace方法中作为第二个参数 替换字符 串$1...$9九个 会替换 第一个参数正则表达式中 第几对（）在字符串中匹配到的内容
+  // $& 是正则表达式在字符中的整个匹配内容
+
+
+  //运用正则表达式exec方法实现正则表达式上的其他方法 重点
+  RegExp.prototype.test2 = function(str) { //  /正则表达式/.test(str) 形式
+    if (this.exec(str)) {
+      return true
+    }
+    return false
+  }
+  String.prototype.match2 = function() {}
+  String.prototype.matchAll2 = function() {}
+  String.prototype.replace2 = function() {}
+  String.prototype.replaceAll2 = function() {}
+  String.prototype.split2 = function() {}
+  String.prototype.search2 = function() {}
+  
+
+</script>
+
+
+<!-- 递归下降  解析器-->
+<script type="" id="JSON语法解析器"> //将JSON语法文本还原成对象形式 JSON.parse函数的实现 JSON.stringify将对象变成JSON字符串格式
+  /**
+  *  思路： JSON语法 每个部分可以通过第一个字符类型确定结构
+  *     用一个指针指向当前解析的位置
+  *     根据当前位置的符合就能解析出何种值
+  *     对于每种值，写出解析其值的一个函数
+  *     解析完成将指针移动到解析完成的下一位
+  *
+  *  写法是“递归下降”
+  *  没有写报错 无法抛错 
+  */
+ 
+  //创建闭包包装  parseJSON函数 递归下降思想 
+  var parseJSON = (function() {
+
+     var str = ''        //函数内部闭包 最外层参数str
+     var i = 0           //变量i
+
+    return function parseJSON(input) {
+      i = 0         // 从0开始解析  调用一次函数
+      str = input   // 接参数 修改外部作用域str值
+      return parseValue()  //解析过程
+    }
+
+   
+    //  从某个位置开始解析出一个值
+    //  解析出什么类型取决于当前符号
+    function parseValue() {
+      if (str[i] == '"') {
+        return parseString()
+      }
+      if (str[i] >= "0" && str[i] <= "9") {
+        return parseNumber()
+      }
+      if (str[i] == 't') {
+        return parseTrue()
+      }
+      if (str[i] == 'f') {
+        return parseFalse()
+      }
+      if (str[i] == "n") {
+        return parseNull()
+      }
+      if (str[i] == '[') {
+        return parseArray()
+      }
+      if (str[i] == '{') {
+        return parseObject()
+      }
+      if (str[i] == ' ') {
+        parseSpace()
+        return parseValue()
       }
     }
 
-    function withBoxUnlocked(f) {
+    // 此时i指向一个空格 " "
+    // 移动指针 返回
+    function parseSpace() {
+      while(str[i] == " ") {
+        i++  // skip 空格
+      }
+    }
 
+    // 此时i指向一个对象的开始，即一个{
+    // 解析对象 移动指针 返回解析出的对象  
+    function parseObject() {
+      var obj = {}
+      i++ // skip {
+      while (str[i] !== "}") {  
+        if (str[i] == " ") {
+          parseSpace()
+        }
+        var key = parseString()
+        if (str[i] == " ") {
+          parseSpace()
+        }
+        i++ // skip :   增加  写抛错功能  这里不是 : 需要抛错
+        if (str[i] == " ") {
+          parseSpace()
+        }
+        var val = parseValue()
+        obj[key] = val
+
+        if (str[i] == " ") {
+          parseSpace()
+        }
+        if (str[i] == ",") {
+          i++ // skip ,  增加 写抛错功能  这里不是 , 需要抛错
+          continue
+        }
+      }
+      i++ // skip }
+      return obj
+    }
+
+    // 此时i指向一个数组的开始，即一个[ 
+    // 解析数组 移动指针 返回解析出的数组
+    function parseArray() {
+      var ary = []
+      i++ // skip [
+      
+      while (str[i] !== ']') {
+        if (str[i] == " ") {
+          parseSpace()
+        }
+        var value = parseValue()
+        ary.push(value)
+        if (str[i] == " ") {
+          parseSpace()
+        }
+        if (str[i] == ",") {
+          i++ // skip ,  增加 写抛错功能  这里不是 , 需要抛错
+          continue
+        }
+      }
+      i++ // skip ]   
+      return ary
+    }
+
+    // 此时i指向一个字符串的开始，即一个" 
+    // 解析字符串 移动指针 返回解析出的字符串
+    function parseString() {
+      i++ // skip first " 跳过第一个"
+      var start = i
+      while (str[i] !== '"') {
+        i++
+      }
+      //循环结束i指向第二个"
+      var s = str.slice(start, i)
+      i++ // 跳过"  i指向后面一个字符
+      return s
+    }
+
+    //此时i指向一个数字
+    function parseNumber() {
+      var numStr = ""
+      while(str[i] >= "0" && str[i] <= "9") { // 单个数字类型判断  需要限定范围 ASCII码中0-9 连续
+        numStr += str[i++]
+      }
+      return parseInt(numStr, 10) //返回转换后的数字
+    }
+
+    //JSON中 true false null 表示属性值的时候没有"" 所有根据str[i] 的字符类型t f n可以判断parseValue调用的函数是什么
+    //此时i指向t 后续字符是true
+    function parseTrue() {   
+      i += 4 
+      return true
+    }
+
+    //此时i指向f 后续字符是false
+    function parseFalse() {
+      i += 5
+      return false
+    }
+
+    //此时i指向n 后续字符是null 
+    function parseNull() {
+      i += 4
+      return null
+    }
+
+  })()
+
+</script>
+
+<script type="" id="第13章 文档对象模型">
+  //书上talksAbout函数的改进 找出元素节点中所有的文本内容
+  function getTextContent(node) {
+    if (node.nodeType == document.TEXT_NODE) { //文本节点无子节点
+     return node.nodeValue
+    }
+    if (node.nodeType == document.ELEMENT_NODE) {
+      var result = ""
+      for (var i = 0; i < node.childNodes.length; i++) {
+        result += getTextContent(node.childNodes[i])
+      }
+      return result
+    }
   }
+     
+  // 获取parent元素里面的标签名称为tagName的所有标签并返回数组
+  // $0.tagName 读取元素标签名 全大写字母 字符串 $0.nodeName 效果相同
+  // $0.localName 读取元素标签名 全小写字母 字符串
+  function getElementsByTagName(parent, tagName) {
+    var result =[]
+    for (var i = 0; i < parent.children.length; i++) {//不需要考虑文本节点 只考虑标签节点
+      if (parent.children[i].tagName == tagName) {
+        // 找出子元素中的符合标签名的元素
+        result.push(parent.children[i])
+      }
+      //找出该子元素的后代中满足条件的元素 放进数组
+      result.push(...getElementsByTagName(parent.children[i], tagName))
+    }
+    return result
+  }
+
+
+  // 获取整个里面的标签id 是id的元素并返回该元素（标签）
+  // 需要遍历document节点 找到后就可以停止 
+  function getElementById(id) {
+    var result = null
+    traverse(document.documentElement, el => {
+      if (el.id === id) {
+        result = el
+        return false //结束action 函数 找到后提前返回 停止遍历条件
+      }
+    })
+    return result
+  }
+
+  // 需要遍历document节点 参数是 节点 和 一个函数 高阶函数的运用
+  function traverse(node, action) {
+    if (action(node) === false) {
+       return false  //结束traverse函数 找到后提前返回 停止遍历条件
+    }
+    for (var child of node.children) {
+      if (traverse(child, action) === false) {
+        return false  //子元素结束traverse函数 找到后提前返回 停止遍历条件
+      }
+    }
+  }
+
+
+  // 递归 在node及其后代中 找特定id的元素（标签） 找到结果后自动停止
+  // 获取整个里面的标签id
+  function getElementById2(id, node = document.documentElement) {
+    if (node.id == id) {
+      return node
+    }
+    for (var child of node.children) { //在子元素节点找
+      var result = getElementById2(id, child)
+      if (result) {
+        return result
+      }
+    }
+    return null
+  }
+
+  // 创建一个元素节点 将剩下元素作为其子元素
+  function elt(tagName, ...children) {
+    var el = document.createElement(tagName) // 第一个参数一定是标签名 以此创建元素节点 是对象
+    for (var child of children) {
+      if (typeof child == "string") {
+        el.appendChild(document.createTextNode(child)) // 后续参数 有两个可能 字符 或 对象
+      } else {
+        el.appendChild(child) 
+      }
+    }
+    return el
+  }
+
+   // 创建一个元素节点 包含属性名属性值 将剩下元素作为其子元素  
+   // elt("div", {id: "foo", class: "bar"}, elt("a", null, "aaa") )
+  function elt(tagName, attrs = {}, ...children) {
+    var el = document.createElement(tagName) // 第一个参数一定是标签名 以此创建元素节点 是对象
+    if (attrs && typeof attrs == "object") {
+      for (var key in attrs) {
+        el.setAttribute(key, arrts[key]) // 设置属性名 属性值
+      }
+    }
+    for (var child of children) {
+      if (typeof child == "string") {
+        el.appendChild(document.createTextNode(child)) // 后续参数 有两个可能 字符 或 对象
+      } else {
+        el.appendChild(child) 
+      }
+    }
+    return el
+  }
+
+  //创建节点 并将其子节点中的文本节点的关键字 加粗    另一个方法是拼接html字符串 在作业练习中
+  function higlightCode(node, regex) { // regex正则必须是全局匹配
+    var text = node.textContent   // 拿到节点及其子元素所有文本内容
+    node.textContent = ""        // 清空内容 后续重新创建 关键字加粗后放进去
+    
+    var match            // 存储正则匹配内容 有lastIndex属性指向匹配字符末尾的后一个 用于slice
+    var i = 0            // 记录上一次匹配的lastIndex属性 初始值是0
+
+    while (match = regex.exec(text)) { // 匹配到内容返回数组 没有返回null 结束循环
+      var before = text.slice(i, match.index)           //正则匹配到文本之前的部分
+      node.appendChild(document.createTextNode(before)) //创建文本节点放回node父节点
+      var strong = document.createElment("strong")      // 创建 strong 元素节点
+      strong.appendChild((document.createTextNode(match[0]))) // 将匹配到的文本 创建文本节点 放进stong元素节点
+      node.appendChild(strong)                               // 将stong元素节点作为子节点放回其父节点
+      i = match.lastIndex                                    // i指向下一次匹配的开始位置 匹配到null结束循环 i还是指向上次匹配的lastIndex
+    }
+    var after = text.slice(i)                               //  后续未匹配到的文本创建文本节点放进父节点 恢复其内部原有的文本内容
+    node.appendChild(document.createTextNode(after))
+    // 创建完成后不需要返回
+  }
+
+  //深度复制节点 该写法无法复制标签内部属性值名
+  function cloneNode(node) { 
+    if (node.nodeType == document.ELEMENT_NODE) {  //是元素节点 
+      var el = document.createElement(node.tagName)  // 以元素的标签名tagName读取 创建元素节点
+      for (var child of node.childNodes) {           // 递归 将node 的子元素判断类型 添加到el中
+        el.appendChild(cloneNode(child))
+      }
+      return el
+    } else if (node.nodeType == document.TEXT_NODE) {   // 是文本节点 以文本nodeValue属性读取文本的值 创建文本节点 文本节点无子节点  返回创建后的节点
+      return document.createTextNode(node.nodeValue)
+    } else if (node.nodeType == document.COMMENT_NODE) { // 是注释节点 以注释文本nodeValue属性读取文本的值 创建注释节点 注释节点无子节点  返回创建后的节点
+      return document.createComment(node.nodeValue) 
+    }
+    
+  }
+  //深度复制节点 该写法可以复制标签内部属性值名
+  function cloneNode2(node) { 
+    if (node.nodeType == document.ELEMENT_NODE) {  //是元素节点 
+      var el = document.createElement(node.tagName)  // 以元素的标签名tagName读取 创建元素节点
+      
+      var names = node.getAttributeNames() //获取节点只包含属性名的数组
+      for (var name of names) {   
+        el.setAttribute(name, node.getAttribute(name))  //以属性名 节点获取到的属性值 为参数设置给el节点
+      }
+
+      for (var child of node.childNodes) {           // 递归 将node 的子元素判断类型 添加到el中
+        el.appendChild(cloneNode(child))
+      }
+      return el
+    } else if (node.nodeType == document.TEXT_NODE) {   // 是文本节点 以文本nodeValue属性读取文本的值 创建文本节点 文本节点无子节点  返回创建后的节点
+      return document.createTextNode(node.nodeValue)
+    } else if (node.nodeType == document.COMMENT_NODE) { // 是注释节点 以注释文本nodeValue属性读取文本的值 创建注释节点 注释节点无子节点  返回创建后的节点
+      return document.createComment(node.nodeValue) 
+    }
+    
+  }
+
+  //
+  // function getOuterHTML(node) {
+  //   if (node.nodeType == document.ELEMENT_NODE) {
+  //     return `<${node.}>`
+  //   }
+  // }
+  // //合并子元素中的连续文本节点
+  // function normalize(node) {
+  //   for (var child of node.childNodes) {
+  //     if (child.nodeType ==)
+  //   }
+  // }
 </script>

@@ -1,0 +1,41 @@
+<script type="" id="二叉树">
+  function isBST(root) { //判断是否是升序（或降序）中序遍历二叉树
+    var flag = true
+    var prev = -Infinity
+    try {  // 捕获异常（报错） 终止traverse 函数 不影响后续return 语句
+      traverse(root, val => {
+        if (var < prev) { // 升序 后面的小于前面值报错
+          flag = false
+          throw "isNotBST" // 通过报错返回第一层调用栈 
+        } else {
+          prev = val
+        }
+      })
+    } catch (e) { // 业务中需要判断错误类型  这里报错提前返回即可
+
+    }
+    
+    return flag
+  }
+
+  function traverse(root,action) { //中序遍历二叉树
+    if (root) {
+      traverse(root.left, action)
+      action(root.val)
+      traverse(root.right, action)
+
+      // 上面三行是正常写法 下面是配合isBST函数提前返回写法
+      //当action 函数为return false 时 终止traverse函数 现在是抛错写法
+      // if (traverse(root.left, action) === false) {
+      //   return
+      // }
+      // if (action(root.val) === false) {
+      //   return
+      // }
+      // if (traverse(root.right, action) === false) {
+      //   return
+      // }
+
+    }
+  }
+</script>

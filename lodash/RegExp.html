@@ -1,0 +1,37 @@
+<script>
+  //Regex validate PIN code  确认是 4位或者6位数字
+  function validatePIN(pin) {
+    return /^\d{4}$|^\d{6}$/.test(pin);  //  /^(\d{4}|\d{6})$/
+  }
+
+  // Credit Card Mask 最后四位保留其他字符变成 #
+  function maskify(cc) {
+    return cc.split('').reduce(function (p, c, i) {
+      return p.push(i < cc.length - 4 ? '#' : c), p;
+    }, []).join('');
+  }
+  //Valid Phone Number 有效的电话号码 ‘(123) 123-1234’
+  function validPhoneNumber(phoneNumber) {
+    return phoneNumber.match(/^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/) ? true : false;
+  }
+  //extract file name 将以数字_开头， .字符结尾的字符串 截取中间部分 替换实现
+  class FileNameExtractor {
+    static extractFileName(dirtyFileName) {
+      return dirtyFileName.replace(/^\d+_(.+)\..+$/g, "$1");
+    }
+  }
+  //String incrementer 给字符串后面数字加一 没有的情况加上一 进位情况  高位是0要补齐
+  function incrementString(strng) {
+    return strng.replace(/(\d*$)/, function (str) {
+      var leng = str.length
+      var result = Number(str) + 1 + ""
+      if (leng == 0) {
+        return result
+      }
+      while (result.length < leng) {
+        result = "0" + result
+      }
+      return result
+    })
+  }
+</script>
