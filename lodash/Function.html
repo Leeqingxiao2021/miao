@@ -963,5 +963,92 @@
     return result
   }
 
+  //第十四章事件降频（防抖） 重点 面试题  所有连续事件执行完 停下后 执行一次该事件
+  function debounce(func, time) {  // 运用 打字联想 调整页面大小重新布局 
+    var timeId 
+    return function (...args) {
+      clearTimeout(timeId)
+      timeId = setTimeout(() => {
+        func.call(this, ...args)
+      }, time);
+    }
+  }
+  //LODASH版本
+  function debounce(func, time) {  // 运用 打字联想 调整页面大小重新布局 
+    var timeId
+    var lastestResult
+    var called = false 
+    var lastThis
+    var lastArgs
+    var debounced = function (...args) {
+      clearTimeout(timeId)
+      lastArgs = args 
+      lastThis = this 
+      timeId = setTimeout(() => {
+        called = true
+        lastestResult = func.call(lastThis, ...lastArgs)
+        // called = false
+      }, time);
+      
+      return lastestResult
+    }
+    debounced.cancel = () => {
+      clearTimeout(timeId)
+    }
+    debounced.flush = () => {
+      if (!called) {
+        called = true
+        clearTimeout(timeId)
+        return func.call(lastThis, ...lastArgs)
+      }
+    }
+    return debounced
+  }
+
+  //第十四章事件节流 重点 面试题 所有连续事件执行过程中 间歇性 执行该事件
+  function throttle(func, time) { // 根据时间间歇性执行连续事件的一部分
+    var scheduled = false // 安排执行func状态
+    var lastevent //记录最新的事件
+    return function (event) { // event 需要外面事件的参数 event传递过来
+      lastevent = event  //更新事件
+      // clearTimeout(timeId) 不需要清除
+      if (!scheduled) {
+        scheduled = true
+        setTimeout(() => {
+          func.call(this, lastevent) 
+          scheduled = false //func执行完成后更新状态
+        }, time);
+      }
+    }
+  }
+
+  function throttle2(func, time) { // 一定时间内的事件发生了后续的事件就不执行 过了时间后再执行一次事件
+    var lastTime = 0
+    return function (event) { // event 需要外面事件的参数 event传递过来
+      var now = Date.now()
+      if (now - lastTime > time) {
+       func(event)
+       lastTime = now 
+      }
+    }
+  }
+
+ 
+  function throttle3(func, time) { // 根据时间间歇性执行连续事件的一部分 传参版本
+    var scheduled = false // 安排执行func状态
+    var lastargs//记录最新的事件
+    return function (...args) { // event 需要外面事件的参数 event传递过来
+      lastargs = args  //更新参数
+      if (!scheduled) {
+        scheduled = true
+        setTimeout(() => {
+          func.call(this, ...lastargs) 
+          scheduled = false //func执行完成后更新状态
+        }, time);
+      }
+    }
+  } 
   
+  
+
 </script>
