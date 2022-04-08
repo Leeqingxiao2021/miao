@@ -156,7 +156,6 @@
       worker.addEventListener('message', function (e) {
         clearInterval(timeoutId)
         worker.terminate()
-
         // 匹配成功 拼接字符串并显示 传入匹配结果和用时
         action1(Date.now() - startTime)
       })
@@ -245,7 +244,9 @@
 
       if (reStr.length == 0) { // 正则表达式不为空的情况下进行匹配
         resultShow.innerHTML = testStr  //为空的情况下显示原字符
-        // return
+        matchTime.style.background = 'rgb(197, 197, 197)' 
+        matchTime.textContent = 'no match'
+        return
       }
 
       try { // 防止正则语法错误
@@ -253,14 +254,17 @@
       } catch (e) {
         if (e instanceof SyntaxError) { // 正则表达式语法错误 测试的文本直接显示原内容
           resultShow.innerHTML = testStr
-          // return
+          matchTime.style.background = 'red' 
+          matchTime.textContent = 'pattern error'
+          return
         } else {
           throw e
         }
       }
+      
       matchAll(re, testStr, action1, action2, 2000)
 
-      function action1(mtime) { // mtime 匹配完成的时间
+      function action1(mtime) { // mtime 匹配完成的时间  该函数拼接字符串 显示匹配内容 显示颜色
         // console.time('aaa')
         while (match = re.exec(testStr)) {
           Group = 0  // 匹配的分组都是从0 开始 匹配的内容信息matchCount从1开始
@@ -279,6 +283,7 @@
             break //没有g 属性 正则的lastIndex 不变 只匹配一次 结束循环
           }
         }
+
         //  console.timeEnd('aaa')计算循环运行时间 控制台显示 未能直接拿到
         matchTime.style.background = 'rgb(78,132,117)'  // worker 匹配 与 时间 内容
         if (matchCount == 2 ) {
@@ -302,7 +307,8 @@
           testStringInput.style.display = 'none'
         }
       }
-      function action2() {
+
+      function action2() { //该函数为超时 显示内容
         matchTime.textContent = 'timeout'
         matchTime.style.background = 'red'
       }
