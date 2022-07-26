@@ -317,18 +317,29 @@
     }
 
 
-
-    // var pre = document.querySelector('pre') 调整光标位置 未完成
-    // pre.addEventListener('paste', function (e) {//paste 粘贴事件阻止键盘粘贴QWX
-    //   console.log(e)
-    //   // console.log(e.clipboardData.getData('text'))  获取粘贴的文本
-    //   e.preventDefault()
-    //   var text = e.clipboardData.getData('text')
-    //   var beforeSelection = this.textContent.slice(0, this.selectionStart) //selectionStart 光标开始位置
-    //   var aftreSelection = this.textContent.slice(this.selectionEnd) // selectionEnd 光标结束位置
-    //   this.textContent = beforeSelection + text + aftreSelection
-    //   this.selectionStart = this.selectionEnd = beforeSelection.length + text.length //修改光标位置
+    
+    // var pre = document.querySelector('pre') //调整光标位置 未完成
+    //   pre.addEventListener('paste', function (e) {//paste 粘贴事件阻止键盘粘贴QWX
+      //   console.log(e)
+      //   // console.log(e.clipboardData.getData('text'))  获取粘贴的文本
+      //   e.preventDefault()
+      //   var text = e.clipboardData.getData('text')
+      //   var beforeSelection = this.textContent.slice(0, this.selectionStart) //selectionStart 光标开始位置
+      //   var aftreSelection = this.textContent.slice(this.selectionEnd) // selectionEnd 光标结束位置
+      //   this.textContent = beforeSelection + text + aftreSelection
+      //   this.selectionStart = this.selectionEnd = beforeSelection.length + text.length //修改光标位置
     // })
+
+    resultShow.addEventListener('input', (e) => {
+      var length = e.target.innerText.length
+
+    })
+    resultShow.addEventListener('click', (e) => {
+      console.log(result.selectionStart)
+
+    })
+
+
 
     function getFlags() { // 获取 正则追加项
       var flags = 'd' //追加项d 获取分组信息 indices  需要该信息 默认为d

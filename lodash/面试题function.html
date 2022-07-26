@@ -230,7 +230,7 @@
 
  
   // var count = 0         写在这里是全局变量  写在函数体中 递归返回的count 是从 0 开始 无法累加   写在默认参数中可以避免这个问题  
-  var climbStairs = function(n， count = 0) {  // 爬楼梯 递归写法 
+  var climbStairs = function(n, count = 0) {  // 爬楼梯 递归写法 
     if (n == 0) {
       count++
       return
@@ -258,7 +258,7 @@
   };
 
   // var count = 0     写在这里是全局变量  写在函数体中 递归返回的count 是从 0 开始 无法累加   写在默认参数中可以避免这个问题                 
-  var uniquePaths = function(m, n， count = 0) { //  路径问题， 向右或者向下  递归写法  ，count计数  不记录路径
+  var uniquePaths = function(m, n, count = 0) { //  路径问题， 向右或者向下  递归写法  ，count计数  不记录路径
     if (m < 1 || n < 1) {
       return 
     }
@@ -335,6 +335,7 @@
     return true
   }
 
+  
   // 排序算法五种 插入 选择 冒泡  归并 快排
   function swap(ary, i, j) { //交换数组 两项上的值 下标不变
     var temp = ary[i]
@@ -550,6 +551,9 @@
     return ary              
   }   
   
+
+
+
   var plusOne = function(digits) {  //数组 末位加1 按十进制表示
     var l = digits.length - 1
       digits[l]++
@@ -1050,5 +1054,733 @@
   } 
   
   
+  get('/foo', function(data) {  
+    console.log(data)
+  })
+  function get(url, f) {  //ajax 实现原理
+    var xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+    xhr.send()
+    
+    xhr.onload = function() {
+        f(xhr.response)
+    }
+
+  var filesMap = { //将文件内容创建映射
+    './a.js': `module.exports.add = function() {
+
+    }
+    module.exports.sub = function() {
+  
+    }`,
+    './b.js': ``,
+    './c.js': ``,
+    './d.js': ``,
+    './add.js': ``,
+    './common.js': ``,
+    './jquery.js': ``,
+  }
+  function readFile(filename) {
+    return filesMap[filename]
+  }
+  function require(filename) {  //require 函数原理
+    var code = readFile(filename) // get('./a.js')  获取文件内容
+
+    var f = new Function('module', code)
+    var module = {exports: {}}
+    f(module)
+    return module.exports
+  }
+
+
+
+  function forof(generator, f) { //把生成器的下一步传给f函数  无法break 停止
+    var obj = generator.next()
+
+    while (obj.done == false) {
+        f(obj.value)
+        obj = generator.next()
+    }
+  }
+
+  function * foo() {
+    yield 1
+    yield 2
+  }
+
+
+  function forof(generator, f) { //for of 遍历实现原理  生成器步骤 break
+    var obj = generator.next()
+
+    while (obj.done == false) {
+        if (f(obj.value) === false) { // f函数返回结果 判断迭代是否提前结束
+            generator.return()
+            break
+        }
+        obj = generator.next()
+    }
+  }
+  forof(foo(),  x => {
+    console.log(x)
+    return false
+  })
+
+
+  ary[Symbol.iterator] = function *() { //类数组对象的迭代的实现  ary需要 有序属性名 length属性
+    for (var i = 0; i < this.length; i++){
+      yield this[i]
+    }
+  } 
+  var gen = ary[Symbol.iterator]()  //调用生成器函数 类似 gen = foo()     Symbol.iterator该属性是一个方法 可以for of 生成类数组对象的属性值
+  gen.next()
+
+
+  Number.prototype[Symbol.iterator] = function*() { //数字原始类型遍历实现 给数字的原型添加Symbol.iterator 数字即可迭代
+    var n = this 
+    for (var i = 1; i <= n; i++) {
+        yield i
+    }
+  }
+  for (var x of 10) {   //具有 类数组对象中的Symbol.iterator 属性 即可迭代 
+    console.log(x) 
+  }
+
+  var count = {}
+  Number.prototype[count] = function() { //数字原始类型遍历实现 给数字的原型添加一个对象 类似Symbol.iterator功能 数字即可迭代 另一种写法
+    var start = 1
+    var n = this 
+    return {  // 返回的对象 里面类似生成器 即可实现 生成器功能
+      next() {
+        return {  
+          value: start++,
+          done: start > n + 1
+        } 
+      }
+    }
+  }
+
+  for (var x of 10..count) {
+    console.log(x) 
+  }
+
+  //   生成器函数(generator function) function * (){}
+  //     生成器函数之间可以相互调用：yield * bar()
+
+  //   生成器对象(generator) 生成器函数返回的对象
+
+  //   可迭代对象(iterable) 具有一个Symbol.iterator方法的对象，并且该方法能够返回一个生成器对象
+
+  //   for of与展开运算符都可以处理生成器对象和可迭代对象
+
+  // Symbol:
+  //   原始类型
+  //   不会产生自动类型转换
+  //   用做唯一性对比
+  //   用来做对象或Map的映射的key
+  }
+
+  // 将一个promise风格的函数转换为一个回调风格的函数
+  function callbackify(promiseStyleFunc) {
+    return function (...args) { //默认传入参数最后一个是回调函数  ...args必须写在参数最后
+      var callback = args.pop() // 回调函数
+      promiseStyleFunc(...args).then(result => {
+        callback(null, result)
+      }, err => {
+        callback(err)
+      })
+    }
+  }
+
+  // 将一个回调风格的函数转换为一个返回 promise 的函数
+  // 类似 readFileP = promisify(fs.readFile)形式
+  function promisify(callbackBased) {
+    return function (...args) {
+      return new Promise((resolve, reject) => {
+        callbackBased(...args, (err, result) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(result)
+          }
+        })
+      })
+    }
+  }
+
+
+
+</script>
+<script type="" id="sort">//排序算法 面试题
+
+  // 排序算法五种 插入 选择 冒泡 归并 快排
+  function swap(ary, i, j) { //交换数组 两项上的值 下标不变
+    var temp = ary[i]
+    ary[i] = ary[j]
+    ary[j] = temp
+  }
+
+  var sortArray = function(nums) {       //数组排序 双重循环 选择排序  速度慢 从前到后排序   重点  面试题
+    var l = nums.length 
+    for (var i = 0; i < l - 1; i++) {    // i   0到 数组倒数第二的位置  
+      var min = i                        // 只需要记录最小数的下标 假设从 i 开始是最小的 i 递增
+      for (var j = i + 1; j < l; j++) {   // j    1到 组倒数第一的位置  比较大小
+        if (nums[min] > nums[j]) {        // 后续某位上的数比假定 最小值小 ，变更最小值下标  不需要等于
+          min = j
+        }
+      }
+      if (nums[min] < nums[i]) {       //   如果最小值小于假定最小值 ，交换两位 的数字 ，最小值到假定最小值
+        var max = nums[i]             //  i递增 只需要检查后续  重复运算
+        nums[i] = nums[min]
+        nums[min] = max 
+      }
+    }   
+    return nums
+  };
+
+  var insertSortArray = function(nums) {       //数组排序 双重循环 插入排序 从前到后排序  较快   重点  面试题
+    var l = nums.length            
+    for (var i = 1; i < l; i++) {         // i从 1 到最后一位
+      var sign = nums[i]                 // 记录此时i位置的值  
+      for (var j = i - 1; j >= 0; j--) {  // j  从i 位 到 0位 倒序排序    第二重循环后i之前包括i已经是有序的
+        if (nums[j] > sign) {    // 如果前一位大于i  把后一位值变更到 i 位，这时会修改i位的值 所以需要sign
+          nums[j + 1] = nums[j]    // 循环中 前一位大于后一位  把后一位变更为 前一位   会将之前变为有序
+          nums[j] = sign       // 把前一位赋原来i位的值，相当于交换前后位置 循环继续判断 与下面对比 有序位列时 下面给相同位置 赋值相同值 这里有序位列就被break了
+        } else {
+          break                        //  如果前一位比后一位小 循环跳出 不执行后续赋值  i进行下一个 进行判断     break 时 j-- 不执行
+        }
+      }
+      //nums[j + 1] = sign   // 放在这里减少计算 与上面一行 二选一     小于sign的下标是j,j + 1已经移到 j + 2位 将j+1赋值一开始的i 的值 这一轮排序完成开始下一轮
+    }
+    return nums
+  };
+
+  var bubbleSortArray = function(nums) {       //数组排序 双重循环 冒泡排序 从后往前排序 速度慢   重点 面试题  
+    var l = nums.length 
+    for (var i = l - 2; i >= 0; i--) {    // i 从倒数第二位开始向 0 位递减  i > 0时最后排的是 0 1  2位， 必须i>=0
+      var swap = false                    //  设置提前结束条件，假设每次都没有发生交换
+      for (var j = 0; j <= i; j++) {   // j  从0 到i 项  j + 1 到达最后一项 循环从最后向前 位依次递减  第二重循环后i之前包括i中的最大值被交换到i+1位上
+        if (nums[j] > nums[j + 1]) {     // 将最大值通过交换 变更到最后一项 后续比较 依次减少一位
+          var max = nums[j]
+          nums[j] = nums[j + 1]         // 当i = 0 时 比较 0 和 1 位 完成最后对比
+          nums[j + 1] = max
+          swap = true                 // 进入判断后 即发生了交换  如果某次遍历前j 项没有发生交换 即排序完成
+        }
+      }
+      if (!swap) {          // 某次遍历完没有发生交换 排序完成 swap 仍为假 非假进入判断 提前结束
+        return nums
+      }
+    }
+    return nums
+  };
+
+  /**
+ * 时间复杂度：n*log(n)
+ * 空间复杂度：n + log(n)
+ */
+  var mergeSortArray = function(nums) {           //归并排序 拆分数组 递归写法   重点 面试题 该方法无法在原数组就地修改 排序
+    if (nums.length < 2) {                        // 递归结束条件 当数组长度小于2时， 即只有一个元素，不需要排序 返回
+      return nums
+    }
+    var mid = Math.floor(nums.length / 2)    // 将数组一分为二  
+    var left = nums.slice(0,mid)             // 需创建新数组 承接 拆分的原数组 ，无法在原数组就地排序
+    var right = nums.slice(mid)              //  每次递归都会 拆分参数承接的数组
+
+    mergeSortArray(left)                      // 递归 给数组左边排序
+    mergeSortArray(right)                     // 递归 给数组右边排序
+     // 合并数组
+    var i = 0                                             // 左边数组下标  排序被k接收后递增
+    var j = 0                                             // 右边数组下标  排序被k接收后递增
+    var k = 0                                             // 原数组下标，用于排序时按大小序接受 左右数组的数 
+    while (i < left.length && j < right.length) {         // 循环条件 左右数组都没有排完时
+      if (left[i] < right[j]) {                           // 上面递归后左右数组都是有序的，比较left right 数组的最左边大小
+        nums[k++] = left[i++]                             // left 小填进原数组 同时 位 加一
+      } else {
+        nums[k++] = right[j++]                            // right 小 或者两边相等 填进原数组 同时 位 加一
+      }
+    }
+    while (i < left.length) {                             // 上面循环结束后 只有left 或者right 一个数组没有排完
+      nums[k++] = left[i++]                               // 没有排位的数组进入循环 
+    }
+    while (j < right.length) {
+      nums[k++] = right[j++]
+    }
+    return nums                                          // 返回排位序的数组
+  };
+
+  //不创建新数组 原数组就地排序  空间占用少 排序最优方法
+   /**
+    * 时间复杂度：n*log(n)
+    * 空间复杂度：log(n)  当相同值较多或者大部分有序时 空间复杂度会退化
+   */
+  var qSort = function(ary, start = 0, end = ary.length - 1) { //第一遍的排序范围是整个数组， 哨兵元素将数组分为三部分 小于哨兵，哨兵，大于哨兵
+    if (start >= end) {  //  当遍历范围相等时 即有一个元素 ，遍历范围左边大于右边时，即为空数组 返回
+      return ary
+    }
+
+    var pivotIdx = Math.floor(Math.random() * (end - start + 1) + start)  // 在排序范围内随机取数组下标 为哨兵下标
+    var pivot = ary[pivotIdx]    //将哨兵下标上的元素赋值为哨兵
+
+    swap(ary, pivotIdx, end)   //交换哨兵与排序范围最后一项上的值 哨兵元素到排序范围最后一项
+
+    var i = start   //计数器    哨兵元素的下标最后变成i
+    for (var j = start; j < end; j++) {  // 遍历排序范围  不遍历哨兵元素位
+      if (ary[j] < pivot) {  // 小于哨兵元素的值与计数器位置交换 计数器+1 移动  遇到大于哨兵的，i 为大于哨兵元素的值的下标，
+        swap(ary, i, j)      // 当 j 遍历到小于 哨兵元素的 i 与 j 位上的值交换   i 后移一位  第一遍 遍历后 i左边是小于哨兵元素 i及右边是大于等于哨兵元素
+        i++                  // 升序排序，降序 条件改为  (ary[j] > pivot)
+      }
+    }
+    // 交换两个下标位上的元素值，下标不变
+    swap(ary, i, end)       // 哨兵元素在最后一项 i位大于等于哨兵元素 将两者位置互换，此时数组 哨兵位左边小于哨兵，哨兵位，右边大于等于哨兵位
+
+    qSort(ary, start, i - 1)  // 将哨兵元素位左边排序 
+    qSort(ary, i + 1, end)    // 将哨兵元素位右边排序 哨兵位不用再排序    每次递归拆分范围 将数组拆分到一项时，排序完成
+    return ary                // 返回原数组 
+  }   
+  
+  // 将与哨兵元素相同的值放在一起 减少重复排序  不创建新数组 就地排序
+  var qSort2 = function(ary, start = 0, end = ary.length - 1) { 
+    if (start >= end) {  
+      return ary
+    }
+
+    var pivotIdx = Math.floor(Math.random() * (end - start + 1) + start)  
+    var pivot = ary[pivotIdx]   
+
+    swap(ary, pivotIdx, end)   //哨兵元素放在最后一位
+
+    var i = start  // i 左边是小于哨兵元素的值 i与j 相等时为等于或者大于哨兵元素的值，遍历一遍后右边是大于哨兵元素的值
+    var j = start 
+    for (var k = start; k < end; k++) {  //哨兵元素在最后一位 不用遍历最后一位
+      if (ary[k] < pivot) { // 升序排序， 小于哨兵元素 换到i位 i 与 j 加一  值大于哨兵元素时 i j 不用动
+        swap(ary, i, k)
+        if (i != j) {       // i 和 j 不相等时 k 与 j 再交换一次  
+          swap(ary, j, k)   // i左边是小与哨兵元素，i 与 j 之间的为与哨兵元素相等的，j指向大于哨兵元素
+        }
+        i++
+        j++
+      } else if (ary[k] == pivot) {  // 与哨兵元素相等时 j与遍历到的数交换位置，j加一 j的左边即为等于哨兵元素的值
+        swap(ary, j, k)   
+        j++                          // j 指向后一位 
+      }
+    }
+
+    swap(ary, j, end)                // 将哨兵元素换回来 i 到 j(包括j) 为 相同的数
+
+    qSort2(ary, start, i - 1)        // 左边排序
+    qSort2(ary, j + 1, end)          // 右边排序
+    return ary                       // 完成
+  }   
+
+
+  // 对数组ary的从start到end（包含）的元素进行快排
+  // predicate函数接的参数是数组项  针对数组中的元素返回一个确定其顺序的数值 可以对数组里面元素是对象的数组排序  
+  // 排序算法会根据这个数值来元素元素在数组中的有序位置
+  var qSortBy = function(ary, predicate = it => it, start = 0, end = ary.length - 1) { 
+    if (start >= end) {  
+      return ary
+    }
+
+    var pivotIdx = Math.floor(Math.random() * (end - start + 1) + start)  
+    var pivot = ary[pivotIdx]    
+
+    swap(ary, pivotIdx, end)   
+
+    var i = start   
+    for (var j = start; j < end; j++) {  
+      if (predicate(ary[j]) < predicate(pivot)) {  // < 升序    > 降序
+        swap(ary, i, j)     
+        i++                
+      }
+    }
+
+    swap(ary, i, end)      
+
+    qSortBy(ary, predicate, start, i - 1)  
+    qSortBy(ary, predicate, i + 1, end)    
+    return ary              
+  }   
+
+  // 对数组ary的从start到end（包含）的元素进行快排
+  // compare函数接收数组中的两个元素，返回正，负，零以告诉排序算法谁大谁小或再者相同
+  var qSortWith = function(ary, compare = (a, b) => a - b, start = 0, end = ary.length - 1) {   
+    if (start >= end) {  
+      return ary
+    }
+
+    var pivotIdx = Math.floor(Math.random() * (end - start + 1) + start)  
+    var pivot = ary[pivotIdx]    
+
+    swap(ary, pivotIdx, end)   
+
+    var i = start   
+    for (var j = start; j < end; j++) {  
+      if (compare(ary[j], pivot) < 0) {  // < 0 升序    > 0 降序
+        swap(ary, i, j)     
+        i++                
+      }
+    }
+
+    swap(ary, i, end)      
+
+    qSortWith(ary, compare, start, i - 1)  
+    qSortWith(ary, compare, i + 1, end)    
+    return ary              
+  }   
+  
+
+</script>
+<script type="" id="random sort"> //均匀随机排列 面试题
+
+  function shuffle(array) { //先给数组排序随机取值获得新数组 再以此排序 而不是直接依赖原数组值
+    var random = array.map(Math.random);
+    array.sort(function(a, b) {
+      return random[a] - random[b];
+    });
+  }
+
+  function shuffle2(array) {//洗牌算法 最后一项和之前交换 依次递减到第0项
+    var m = array.length, t, i; 
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+  }
+
+</script>
+<script> //面试题
+  function resolve(path) {  // 解析路径 使用栈解决 而不是正则表达式
+    return path.split('/').reduce((ary, it) => {
+      if (it == '.') {
+        return ary
+      }
+      if (it == '..') {
+        if (ary[ary.length - 1] == '..' || ary.length == 0) {
+          ary.push(it)
+        } else {
+          ary.pop()
+        }
+      } else ary.push(it)
+      return ary
+    }, []).join('/') // 这里将字符串拼接 / 是正常路径 \\是node解析path.resolve path.join 的路径拼接
+  }
+
+  function diff(ary1, ary2) {//两个数组的差集 ary1中没有ary2的元素 注意NaN !== NaN
+    var ary = [...arguments].slice(1).flat(1) //flat（n）降维n层
+    var aryset = new Set(ary)
+    return ary1.filter(item => !aryset.has(item))
+  }
+
+  function jsonp(url, onsuccess, onTimeout) { //JSONP请求超时处理 
+    var loaded = false
+    var timeout = false
+    var globalCallbackName = '__jsonp__callback__' + Date.now() + Math.random()
+    // 全局中挂载一个独一无二的变量指向一个函数 函数中调用onsuccess函数
+    // 该函数调用时间是 服务器在后端解析url得到前端需要的callback的函数名，将请求的资源作为参数返回到前端
+    // onload成功 得到代码调用该函数 此后节省空间 可以将函数名 和创建的script标签 删除
+    window[globalCallbackName] = function (data) {
+      if (!timeout) { // 没有超时 调用成功状态函数 避免超时后成功再调用的情况
+        onsuccess(data)
+      }
+    }
+
+    url = url + "&callback=" + globalCallbackName //将该次请求的回调函数名挂在url上由后端解析
+
+    //跨域请求资源 创建script节点 绑事件 src请求资源 放在dom的body中 执行完最好将节点删除
+    var scriptTag = document.createElement('script') //<script src="url">标签src无跨域访问限制 请求到资源
+    scriptTag.onload = function () {//加载并执行完成后触发
+      document.body.removeChild(scriptTag)
+      delete window[globalCallbackName]
+      loaded = true
+    }
+    scriptTag.src = url
+    document.body.appendChild(scriptTag)
+    //前面代码生效后即在请求资源 开始延时执行判断是否超时
+    setTimeout(function () {
+      if (!loaded) {
+        onTimeout()
+        document.body.removeChild(scriptTag)
+        delete window[globalCallbackName]
+        timeout = true
+      }
+    }, 5000)
+  }
+
+  function isType(value) { //判断类型 深度克隆
+    if (value === null) return "Null";
+    if (value === undefined) return "Undefined";
+    return Object.prototype.toString.call(value).slice(8, -1) // 'String' "Number"  'Boolean' "Function"  "Array" 'Object'
+  }
+  function deepClone(obj) { // 深度克隆对象  没有考虑环状对象 使用Map存之前的结果 
+
+    var result
+    var objType = isType(obj)
+    if (objType === "Object") {
+      result = {}
+    } else if (objType === "Array") {
+      result = []
+    } else return obj
+    for (var key in obj) {
+      var copy = obj[key]
+      if (isType(copy) === "Object" || isType(copy) === "Array") {
+        result[key] = deepClone(copy)
+      } else {
+        result[key] = copy
+      }
+    }
+    return result
+  }
+
+
+  function deepClone(obj) { // 深度克隆对象  考虑环状对象 使用Map存之前的结果 
+    var cache = new Map()
+    return clone(obj)
+    function clone(obj) {
+      if (cache.has(obj)) {
+        return cache.get(obj)
+      }
+      var result
+      var objType = isType(obj)
+      if (objType === "Object") {
+        result = {}
+        cache.set(obj, result)
+      } else if (objType === "Array") {
+        result = []
+      } else return obj
+      for (var key in obj) {
+        var copy = obj[key]
+        if (isType(copy) === "Object" || isType(copy) === "Array") {
+          result[key] = clone(copy)
+        } else {
+          result[key] = copy
+        }
+      }
+      return result
+    }
+  }
+
+
+  function isType(value) { //判断类型
+    if (value === null) return "Null";
+    if (value === undefined) return "Undefined";
+    return Object.prototype.toString.call(value).slice(8, -1) // 'String' "Number"  'Boolean' "Function"  "Array" 'Object'
+  }
+
+
+
+
+  // 防抖——触发高频事件后 n 秒后函数只会执行一次，如果n 秒内高频事件再次被触发，则重新计算时间；
+  function debounce(fn) {
+    let timeout = null // 创建一个标记用来存放定时器的返回值
+    return function () {
+      clearTimeout(timeout) // 每当用户输入的时候把前一个 setTimeout clear 掉
+      timeout = setTimeout(() => {// 然后又创建一个新的 setTimeout, 这样就能保证输入字符后的interval 间隔内如果还有字符输入的话，就不会执行fn 函数
+        fn.apply(this, arguments)
+      }, 500)
+    }
+  }
+
+  // 节流——高频事件触发，但在 n 秒内只会执行一次，所以节流会稀释函数的执行频率。
+  function throttle(fn) {
+    let canRun = true // 通过闭包保存一个标记
+    return function () {
+      if (!canRun) {
+        return // 在函数开头判断标记是否为 true，不为 true 则return
+      }
+      canRun = false // 立即设置为 false
+      setTimeout(() => { // 将外部传入的函数的执行放在 setTimeout 中
+        fn.apply(this, arguments) // 最后在 setTimeout 执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。当定时器没有执行的时候标记永远是false，在开头被 return 掉
+        canRun = true
+      }, 500)
+    }
+  }
+
+  function throttle3(func, time) { // 根据时间间歇性执行连续事件的一部分 传参版本
+    var scheduled = false // 安排执行func状态
+    var lastargs//记录最新的事件
+    return function (...args) { // event 需要外面事件的参数 event传递过来
+      lastargs = args  //更新参数
+      if (!scheduled) {
+        scheduled = true
+        setTimeout(() => {
+          func.call(this, ...lastargs)
+          scheduled = false //func执行完成后更新状态
+        }, time);
+      }
+    }
+  }
+
+
+  //实现一个new
+  function _new(fn, ...arg) {
+    // 我们使用构造函数 fn.prototype 创建一个对象
+    // 使创建的 obj.__proto__ = fn.prototype
+    // 这里不管是以什么样形式创建新的对象
+    // 其目的都是为了让新创建对象的原型等于构造函数的原型
+    const obj = Object.create(fn.prototype)
+    console.log('TCL: function_new -> fn.prototype', fn.prototype)
+    // 修改构造函数 this 指向
+    const ret = fn.apply(obj, arg)
+    // 确保返回值一直是一个对象
+    return ret instanceof Object ? ret : obj
+  }
+
+  //把ip地址转成32位整数 位运算
+  function ipToInt(IP) {
+    //正则匹配IP 
+    var REG = /^(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/;
+    var result = REG.exec(ip);
+    if (!result) return 'ip地址不合规定';
+    return (parseInt(result[1]) << 24 | parseInt(result[2]) << 16 | parseInt(result[3]) << 8 | parseInt(result[4])) >>> 0;
+  }
+
+  //动态规划 coins是硬币面值组成的数组 amount是需要凑成的数值  最少几个coin可以凑到amount  不求具体的硬币组成
+  var coinChange = function (coins, amount) {
+    //dp数组下标代表amount值， 下标对应的值表示最少枚数硬币凑成amount 
+    const dp = new Array(amount + 1).fill(Infinity)
+    dp[0] = 0
+    for (let i = 1; i <= amount; i++) {
+      for (const coin of coins) {
+        if (coin > i) continue
+        dp[i] = Math.min(dp[i - coin] + 1, dp[i])
+      }
+    }
+    return dp[amount] === Infinity ? -1 : dp[amount]
+  };
+</script>
+<script id="未分析">
+  function express2() { //express 简易实现
+    const middlewares = []
+
+    function app(req, res) {
+      var i = 0
+      runOneMW()
+      function runOneMW() {
+        middlewares[i++](req, res, function next() {
+          if (i < middlewares.length) {
+            runOneMW()
+          }
+        })
+      }
+    }
+
+
+    app.use = function (middleware) {
+      middlewares.push(middleware)
+    }
+
+    app.listen = function (...args) {
+      var server = http.createServer(this)
+      return server.listen(...args)
+    }
+
+    return app
+  }
+
+  function express() { //express 简易实现
+    const middlewares = []
+    var handle = function () { }
+
+    function app(req, res) {
+      handle(req, res)
+    }
+
+    function compose(middlewars) {
+      return middlewares.reduceRight((next, middleware) => {
+        return (req, res) => {
+          middleware(req, res, () => {
+            next(req, res)
+          })
+        }
+      }, function () { })
+    }
+
+    app.use = function (middleware) {
+      middlewares.push(middleware)
+      handle = compose(middlewares)
+    }
+
+    app.listen = function (...args) {
+      var server = http.createServer(this)
+      return server.listen(...args)
+    }
+
+    return app
+  }
+
+  //同步实现use方法
+  function wrapAsyncMiddleware(asyncMiddleware) {
+    return function (req, res, next) {
+      asyncMiddleware(req, res, next).catch(next)
+    }
+  }
+
+  app.use(wrapAsyncMiddleware(async function foo(req, res, next) {
+    var body = ''
+
+    for await (var data of req) {
+      body += data.toString()
+    }
+
+    req.body = body
+
+    next()
+  }))
+
+  //getJSONP 函数实现
+  //jsonp原理：通过script标签请求一段js执行
+  //问题：不能发post或者 其它请求方法的请求;  没有请求体
+
+  function getJSONP(url, callback, onFail, onTimeout) {
+    var varName = 'JSONP_' + Date.now() + '_' + Math.random().toString().slice(2)
+    var 成功 = false
+    var 失败 = false
+    var 超时 = false
+
+    globalThis[varName] = function (data) {
+      if (!超时) {
+        成功 = true
+        callback(data)
+      }
+    }
+
+    url = url.replace('callback=?', 'callback=' + varName)
+
+    var script = document.createElement('script')
+    script.src = url
+
+    script.onerror = function (e) {
+      if (!超时) {
+        失败 = true
+        onFail()
+      }
+    }
+
+    setTimeout(() => {
+      if (!成功 && !失败) {
+        超时 = true
+        onTimeout()
+      }
+    }, 3000)
+
+    document.head.appendChild(script)
+  }
+
+  //正则替换简易的模板字符串
+  function f(tpl, obj) {
+    return tpl.replace(/\{\s*(\w+)\s*\}/g, function (match, propName) {
+      return obj[propName]
+    })
+  }
+
+  f('{name}同学,在2022年度的{activity}运动中，取得优异成绩，{year}年{month}月{day}日', {
+    name: '张三',
+    year: '2022',
+    day: '17',
+    activity: '扫地',
+    month: '9',
+  })
+
 
 </script>

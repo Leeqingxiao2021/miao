@@ -232,13 +232,26 @@
     var node //创建path 节点 全局对象 便于后续修改
     var svg = document.querySelector('svg')
     var color1 = document.querySelector('#colorSelect') // 线条颜色
-    var color2 = document.querySelector('#colorFill')
+            var color2 = document.querySelector('#colorFill')
+      var title_tool = document.querySelector('.title_tool')
     var strokeWidthSelect = document.querySelector('#strokeWidthSelect') // 线条粗细
     var tool = "t_brush"
     var stack = new Stack  // 用栈保存撤销和恢复的节点 
     var startdot  // 记录画笔第一次点击svg的位置
     var labelbgc = document.querySelectorAll("[type='radio']")
     var spans = document.querySelectorAll('div#color_chose span')
+
+  let flag = 0  // 贝塞尔曲线参数
+  let path
+  let pos
+
+                let progress = 1 // 控制多段线参数
+                let lastTool
+                let polygonStartPos
+                let polyline
+                let polygon
+
+
     svg.addEventListener('mousedown', function (e) {
       if (e.which == 1) {
         startdot = mouse(svg)
@@ -301,24 +314,88 @@
           })
           svg.append(node)
         }
-        // if (tool == 't_polygon') {
-        //   node = svgElt('polygon', {
-        //     points: `${startdot.x} ${startdot.y} `,
-        //     fill: 'none',
-        //     stroke: colorSelect.value,    // line 颜色 
-        //     'stroke-width': strokeWidthSelect.value,  // 宽度
-        //     'stroke-linecap': 'round', //line 的形状 线形
-        //   })
-        //   svg.addEventListener('mousedown', function polygondraw(e) {
-        //     var pos = mouse(svg)
-        //     var a = node.getAttribute('points')
-        //     a += `${pos.x} ${pos.y} `;
-        //     node.setAttribute('points', a)
-        //   })
-        //   svg.append(node)
-        // }
+        if (tool == "t_circle") { //贝塞尔曲线
+          flag++;
+          if (flag > 3) {
+            flag = 1;
+          }
+          if (flag == 1) {
+            path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            svg.appendChild(path);
+            pos = mouse(svg);
+            point1 = `${pos.x},${pos.y}`;
+            path.setAttribute('stroke', colorSelect.value);
+            path.setAttribute('stroke-width', strokeWidthSelect.value);
+            path.setAttribute('d', `M ${point1} C ${point1}  ${point1} ${point1}`);
+            path.setAttribute("fill", "none");
+          }
+          else if (flag == 2) {
+            pos = mouse(svg);
+            point3 = `${pos.x},${pos.y}`;
+          }
+          else if (flag == 3) {
+            pos = mouse(svg);
+            point4 = `${pos.x},${pos.y}`;
+          }
+        }
+        
+
+        if (tool == 't_polygon') {
+          if (progress == 1) {
+            polygonStartPos = startdot;
+            progress = 2;
+            polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+            svg.append(polyline);
+            if (fill.checked) {
+              polyline.setAttribute('fill', colorFill.value)
+            } else {
+              polyline.setAttribute('fill', "none")
+            }
+            polyline.setAttribute("stroke", colorSelect.value);
+            polyline.setAttribute("stroke-width", strokeWidthSelect.value);
+            polyline.setAttribute("stroke-linecap", "round");
+            polyline.setAttribute("stroke-linejoin", "round");
+
+            let points = `${startdot.x} ${startdot.y}`;
+            polyline.setAttribute("points", points);
+          }
+          if (progress == 2) {
+            polyline = svg.lastChild;
+            polyline.setAttribute("stroke", colorSelect.value);
+            let points = polyline.getAttribute("points");
+            points += ` ${startdot.x} ${startdot.y}`;
+            polyline.setAttribute("points", points);
+          }
+
+          document.addEventListener("mousemove", drawPolygon);
+          document.addEventListener("mouseup", reset);
+          document.addEventListener("mouseup", finishPolygon);
+          window.addEventListener("blur", reset);
+        }
         window.addEventListener('mousemove', onMove) //绑在window 避免在svg元素外不触发 进出位置连直线
       }
+    })
+
+                    title_tool.addEventListener('click', function (e) {
+                      flag = 4 //点击工具栏 终止未完成贝塞尔曲线
+
+                      if (lastTool == "polygon" && progress != 1) { //点击工具栏 终止未完成多段线
+                        polyline = svg.lastChild;
+                        polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+
+                        polygon.setAttribute("stroke", polyline.getAttribute("stroke"));
+                        polygon.setAttribute("stroke-width", polyline.getAttribute("stroke-width"));
+                        polygon.setAttribute("stroke-linecap", polyline.getAttribute("stroke-linecap"));
+                        polygon.setAttribute("stroke-linejoin", polyline.getAttribute("stroke-linejoin"));
+                        polygon.setAttribute("fill", polyline.getAttribute("fill"));
+
+                        let points = polyline.getAttribute("points");
+
+                        polygon.setAttribute("points", points);
+
+                        svg.replaceChild(polygon, polyline);
+                      }
+                      progress = 1
     })
 
     function onMove(e) {
@@ -418,14 +495,23 @@
           node.setAttribute('ry', Math.abs(pos.y - startdot.y) / 2)
         }
       }
-      // if (tool == 't_polygon') {
-      //   if (fill.checked) {
-      //     node.setAttribute('fill', colorFill.value)
-      //   }
-      //   var points = node.getAttribute('points')
-      //   points = `${startdot.x} ${startdot.y} ${pos.x} ${pos.y} `;
-      //   node.setAttribute('points', points)
-      // }
+      if (tool == "t_circle") {
+        if (flag == 1) {
+          pos = mouse(svg);
+          point2 = `${pos.x},${pos.y}`;
+          path.setAttribute('d', `M ${point1} C ${point2} ${point2} ${point2}`);
+        }
+        else if (flag == 2) {
+          pos = mouse(svg);
+          point3 = `${pos.x},${pos.y}`;
+          path.setAttribute('d', `M ${point1} C ${point3} ${point2} ${point2}`);
+        }
+        else if (flag == 3) {
+          pos = mouse(svg);
+          point4 = `${pos.x},${pos.y}`;
+          path.setAttribute('d', `M ${point1} C ${point3} ${point4} ${point2}`);
+        }
+      }
     }
 
     window.addEventListener('keydown', function (e) { // 撤销和恢复 ctrl+Z  ctrl+Y
@@ -446,6 +532,7 @@
       // console.log(e)
       var pos = mouse(svg)
       if (e.target.id.startsWith('t_')) {
+        lastTool = tool //用于画多段线
         tool = e.target.id
       }
       if (e.target.type == "radio") {
@@ -478,6 +565,8 @@
       }
 
     })
+
+
     function mouse(node) {  // 获取点击位置相对外层元素node 的相对横纵坐标
       var nodePos = node.getBoundingClientRect() //获得一个对象 包括node元素相对窗口左上角的位置信息 x y 与left top对应
       return {
@@ -485,6 +574,51 @@
         y: window.event.clientY - nodePos.y,
       }
     }
+
+
+  function drawPolygon(e) {
+    if (e.which !== 1) {
+      document.removeEventListener("mousemove", drawPolygon);
+    } else {
+      let pos = mouse(svg);
+      polyline = svg.lastChild;
+
+      let points = polyline.getAttribute("points");
+      polyline.setAttribute("points", points.replace(/-?\d+.\d* -?\d+.\d*$/, `${pos.x} ${pos.y}`));
+      //polyline.setAttribute("points", points.replace(/-?\d+.\d+ -?\d+$/, `${pos.x} ${pos.y}`));
+    }
+  }
+
+  function finishPolygon(e) {
+    polyline = svg.lastChild;
+    let pos = mouse(svg);
+    if (Math.abs(pos.x - polygonStartPos.x) < 10 && Math.abs(pos.y - polygonStartPos.y) < 10) {
+      let polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+
+      polygon.setAttribute("stroke", polyline.getAttribute("stroke"));
+      polygon.setAttribute("stroke-width", polyline.getAttribute("stroke-width"));
+      polygon.setAttribute("stroke-linecap", polyline.getAttribute("stroke-linecap"));
+      polygon.setAttribute("stroke-linejoin", polyline.getAttribute("stroke-linejoin"));
+      polygon.setAttribute("fill", polyline.getAttribute("fill"));
+
+      let points = polyline.getAttribute("points");
+
+      polygon.setAttribute("points", points.replace(/-?\d+.\d* -?\d+.\d*$/, ""))
+      //polygon.setAttribute("points", points.replace(/-?\d+.\d+ -?\d+$/, ""))
+      svg.replaceChild(polygon, polyline);
+      progress = 1;
+    }
+  }
+
+  function reset() {
+    document.removeEventListener("mouseup", reset);
+    document.removeEventListener("mousemove", drawPolygon);
+    document.removeEventListener("mousemove", finishPolygon);
+  }
+
+
+
+
     function svgElt(tagName, attrs = {}, ...children) { //给svg创建带属性名和子节点的svg节点
       var node = document.createElementNS('http://www.w3.org/2000/svg', tagName)
       for (var key in attrs) {
@@ -538,6 +672,7 @@
     })
 
     let save = document.querySelector(".save");
+
     function beforeQuit(e) {
       e.returnValue = "退出前请先下载文件！";
       return e.returnValue;
@@ -554,6 +689,8 @@
       a.click();
       window.removeEventListener("beforeunload", beforeQuit);
     })
+
+
     // 点击缩小放大效果
     // save.addEventListener("mousedown", function () {
     //   save.style.fontSize = "35px";

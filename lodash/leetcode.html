@@ -1,4 +1,4 @@
-<script type="xxx" id="leetcode93题"> //复原ip地址 回溯算法
+<script type="" id="leetcode93题"> //复原ip地址 回溯算法
   //Input: s = "25525511135"
   //Output: ["255.255.11.135","255.255.111.35"]
   function restoreIpAddresses (s) {
@@ -23,6 +23,7 @@
     bt(s)
     return result
   };
+  
   //另一种写法 递归传入默认参数 计算过程放在参数中 减少公共参数  缺点 占用内存
   var restoreIpAddresses = function(s) {
   var result = []
@@ -59,8 +60,8 @@
   }
 </script>
 
-<script type="xxx" id="leetcode39题"> //组合求和 回溯算法
-  //输入：candidates = [2,3,6,7], target = 7
+<script type="" id="leetcode39题"> //组合求和 回溯算法
+  //输入: candidates = [2,3,6,7], target = 7
   //输出：[[2,2,3],[7]]
   var combinationSum = function(candidates, target) {
     var result = []
@@ -109,7 +110,7 @@
   };
 </script>
 
-<script type="xxx" id="leetcode22题">  //括号生成 回溯算法
+<script type="" id="leetcode22题">  //括号生成 回溯算法
   var generateParenthesis = function(n) {
     var result =  []
     function bt(n, str = "", left = 0, right = 0) {
@@ -129,7 +130,7 @@
   };
 </script>
 
-<script type="xxx" id="leetcode17题">  //电话号码的字母组合 回溯算法
+<script type="" id="leetcode17题">  //电话号码的字母组合 回溯算法
   var letterCombinations = function(digits) {
     var map = {
       2: "abc", 3: "def", 4: "ghi", 5: "jkl" , 6: "mno", 7: "pqrs", 8: "tuv", 9: "wxyz"
@@ -153,9 +154,121 @@
     return result
   };
 </script>
+<script id="leetcode17题"> //四项之和 
 
-<script type="xxx" id="leetcode46题">  // 全排列 回溯算法
-    //输入：nums = [1,2,3]
+  //回溯写法 超时
+  var fourSum = function (nums, target) {// nums数组中四项之和等于target 四项没有下标相同的 结果中没有数值相同的重复项
+    nums = nums.sort((a, b) => { return a - b })
+    if (nums.length < 4) {
+      return []
+    }
+    var result = []
+    var res = []
+    function bt(ary) {
+      if (res.length == 4 && sum(res) == target) {
+        if (putIn(result, res)) {
+          result.push([...res])
+        }
+      }
+      for (var i = 0; i < ary.length; i++) {
+        var num = ary[i]
+        if (res.length < 4) {
+          res.push(num)
+          bt(ary.slice(i + 1))
+          res.pop()
+        }
+      }
+    }
+    bt(nums)
+    return result
+  };
+  function sum(nums) { //求和
+    var result
+    if (nums.length == 4) {
+      result = nums[0] + nums[1] + nums[2] + nums[3]
+    } else result = undefined
+    return result
+  }
+  function putIn(result, res) { // 判断是否有重复项
+    if (result.length == 0) {
+      return true
+    }
+    var ishas = 0
+    for (var i = 0; i < result.length; i++) {
+      var ary = result[i]
+      for (var j = 0; j < ary.length; j++) {
+        if (ary[j] == res[j]) {
+          ishas += 1
+        } else {
+          ishas = 0
+          break
+        }
+      }
+      if (ishas == 4) {
+        return false
+      }
+    }
+    return true
+  }
+
+  //双指针 没有搞懂
+  var fourSum = function (nums, target) {
+    let len = nums.length;
+    if (len < 4) {
+      // 长度小于4就不存在四数之和了
+      return [];
+    }
+    nums = nums.sort((a, b) => a - b);
+    let res = [];
+    /**
+     * 因为要求四数之和，所以最后的三个数构不成四数
+     * 所以直接忽略掉后面的三次循环
+     */
+    const outerLength = len - 3;
+    /**
+     * 外层求的是四数之和，内层求的是三数之和
+     * 因此内层循环次数比外层要多一个
+     */
+    const innerLength = outerLength + 1;
+    for (let i = 0; i < outerLength; ++i) {
+      const outerTarget = target - nums[i];
+      if (i > 0 && nums[i] === nums[i - 1]) {
+        continue;
+      }
+      const innerStart = i + 1;
+      for (let j = innerStart; j < innerLength; ++j) {
+        const innerTarget = outerTarget - nums[j];
+        if (j > innerStart && nums[j] === nums[j - 1]) {
+          continue;
+        }
+        let [l, r] = [j + 1, len - 1];
+        while (l < r) {
+          const sum = nums[l] + nums[r];
+          if (sum === innerTarget) {
+            res.push([nums[i], nums[j], nums[l], nums[r]]);
+            while (l < r && nums[l] === nums[l + 1]) {
+              ++l;
+            }
+            while (l < r && nums[r] === nums[r - 1]) {
+              --r;
+            }
+            ++l;
+            --r;
+          } else if (sum > innerTarget) {
+            --r;
+          } else {
+            ++l;
+          }
+        }
+      }
+    }
+    return res;
+  };
+</script>
+
+
+<script type="" id="leetcode46题">  // 全排列 回溯算法
+    //输入: nums = [1,2,3]
     //输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
   var permute = function(nums) {
     var used = Array(nums.length).fill(false)   //给筛选过的元素做标记
@@ -181,7 +294,7 @@
   }; 
 
   //递归写法
-  //输入：nums = [1,2,3]
+  //输入: nums = [1,2,3]
   //输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
   var permute = function(nums) {
     return permutations(nums)
@@ -438,4 +551,51 @@
   })()
 
 
+</script>
+
+<script type="" id="leetcode173题"> //中序遍历二叉树 迭代器实现
+  function *traverse(root) {  // 生成器函数写法 按中序顺序迭代
+    if (root) {
+      yield *traverse(root.left)  //yield *traverse  调用生成器函数 而不是生成一个生成器 没有next等方法 
+      yield root.value            //yield调用函数得到函数中 yield语句的值 即该句 
+      yield *traverse(root.right) //yield调用函数的语句 只是调用函数 
+    } 
+  }
+  class BSTIterator { //借助迭代器实现
+    constructor(root) {
+      this.generator = traverse(root)   //记录一个生成器
+      this.generated = this.generator.next()  //记录下一个next状态 
+    }
+    next() {
+      var result = this.generated.value
+      this.generated = this.generator.next()
+      return result
+    }
+    hasNext() {
+      return !this.generated.done
+    }
+  }
+
+  class BSTIterator2 { //按题逻辑实现中序遍历 左 中 右顺序
+    constructor(root) {
+      this.stack = []
+      var p = root
+      while(p) {
+        this.stack.push(p) //把节点及其所有的左节点进栈
+        p = p.left
+      }
+    }
+    next() {
+      var node = this.stack.pop() // 拿出栈的节点一定是中序遍历的 返回该节点的值
+      var p = node.right  //看该节点是否有右节点
+      while(p) {            // 把右节点放进栈 看有没有子左节点 有都进栈
+        this.stack.push(p)
+        p = p.left
+      }
+      return node.val  //返回中序遍历的结果
+    }
+    hasNext() {
+      return this.stack.length > 0  //栈有长度就有下一节点
+    }
+  }
 </script>
