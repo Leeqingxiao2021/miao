@@ -130,6 +130,7 @@
       margin: 0px;
       font: .5em sans-serif;
     }
+
   </style>
 </head>
 
@@ -241,15 +242,15 @@
     var labelbgc = document.querySelectorAll("[type='radio']")
     var spans = document.querySelectorAll('div#color_chose span')
 
-  let flag = 0  // 贝塞尔曲线参数
-  let path
-  let pos
+    let flag = 0  // 贝塞尔曲线参数
+    let path
+    let pos
 
-                let progress = 1 // 控制多段线参数
-                let lastTool
-                let polygonStartPos
-                let polyline
-                let polygon
+    let progress = 1 // 控制多段线参数
+    let lastTool
+    let polygonStartPos
+    let polyline
+    let polygon
 
 
     svg.addEventListener('mousedown', function (e) {
@@ -338,7 +339,7 @@
             point4 = `${pos.x},${pos.y}`;
           }
         }
-        
+
 
         if (tool == 't_polygon') {
           if (progress == 1) {
@@ -376,26 +377,26 @@
       }
     })
 
-                    title_tool.addEventListener('click', function (e) {
-                      flag = 4 //点击工具栏 终止未完成贝塞尔曲线
+    title_tool.addEventListener('click', function (e) {
+      flag = 4 //点击工具栏 终止未完成贝塞尔曲线
 
-                      if (lastTool == "polygon" && progress != 1) { //点击工具栏 终止未完成多段线
-                        polyline = svg.lastChild;
-                        polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      if (lastTool == "polygon" && progress != 1) { //点击工具栏 终止未完成多段线
+        polyline = svg.lastChild;
+        polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
 
-                        polygon.setAttribute("stroke", polyline.getAttribute("stroke"));
-                        polygon.setAttribute("stroke-width", polyline.getAttribute("stroke-width"));
-                        polygon.setAttribute("stroke-linecap", polyline.getAttribute("stroke-linecap"));
-                        polygon.setAttribute("stroke-linejoin", polyline.getAttribute("stroke-linejoin"));
-                        polygon.setAttribute("fill", polyline.getAttribute("fill"));
+        polygon.setAttribute("stroke", polyline.getAttribute("stroke"));
+        polygon.setAttribute("stroke-width", polyline.getAttribute("stroke-width"));
+        polygon.setAttribute("stroke-linecap", polyline.getAttribute("stroke-linecap"));
+        polygon.setAttribute("stroke-linejoin", polyline.getAttribute("stroke-linejoin"));
+        polygon.setAttribute("fill", polyline.getAttribute("fill"));
 
-                        let points = polyline.getAttribute("points");
+        let points = polyline.getAttribute("points");
 
-                        polygon.setAttribute("points", points);
+        polygon.setAttribute("points", points);
 
-                        svg.replaceChild(polygon, polyline);
-                      }
-                      progress = 1
+        svg.replaceChild(polygon, polyline);
+      }
+      progress = 1
     })
 
     function onMove(e) {
@@ -576,45 +577,45 @@
     }
 
 
-  function drawPolygon(e) {
-    if (e.which !== 1) {
-      document.removeEventListener("mousemove", drawPolygon);
-    } else {
-      let pos = mouse(svg);
-      polyline = svg.lastChild;
+                    function drawPolygon(e) {
+                      if (e.which !== 1) {
+                        document.removeEventListener("mousemove", drawPolygon);
+                      } else {
+                        let pos = mouse(svg);
+                        polyline = svg.lastChild;
 
-      let points = polyline.getAttribute("points");
-      polyline.setAttribute("points", points.replace(/-?\d+.\d* -?\d+.\d*$/, `${pos.x} ${pos.y}`));
-      //polyline.setAttribute("points", points.replace(/-?\d+.\d+ -?\d+$/, `${pos.x} ${pos.y}`));
-    }
-  }
+                      let points = polyline.getAttribute("points");
+                      polyline.setAttribute("points", points.replace(/-?\d+.\d* -?\d+.\d*$/, `${pos.x} ${pos.y}`));
+                      //polyline.setAttribute("points", points.replace(/-?\d+.\d+ -?\d+$/, `${pos.x} ${pos.y}`));
+                    }
+                  }
 
-  function finishPolygon(e) {
-    polyline = svg.lastChild;
-    let pos = mouse(svg);
-    if (Math.abs(pos.x - polygonStartPos.x) < 10 && Math.abs(pos.y - polygonStartPos.y) < 10) {
-      let polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                    function finishPolygon(e) {
+                      polyline = svg.lastChild;
+                      let pos = mouse(svg);
+                      if (Math.abs(pos.x - polygonStartPos.x) < 10 && Math.abs(pos.y - polygonStartPos.y) < 10) {
+                        let polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
 
-      polygon.setAttribute("stroke", polyline.getAttribute("stroke"));
-      polygon.setAttribute("stroke-width", polyline.getAttribute("stroke-width"));
-      polygon.setAttribute("stroke-linecap", polyline.getAttribute("stroke-linecap"));
-      polygon.setAttribute("stroke-linejoin", polyline.getAttribute("stroke-linejoin"));
-      polygon.setAttribute("fill", polyline.getAttribute("fill"));
+                      polygon.setAttribute("stroke", polyline.getAttribute("stroke"));
+                      polygon.setAttribute("stroke-width", polyline.getAttribute("stroke-width"));
+                      polygon.setAttribute("stroke-linecap", polyline.getAttribute("stroke-linecap"));
+                      polygon.setAttribute("stroke-linejoin", polyline.getAttribute("stroke-linejoin"));
+                      polygon.setAttribute("fill", polyline.getAttribute("fill"));
 
-      let points = polyline.getAttribute("points");
+                      let points = polyline.getAttribute("points");
 
-      polygon.setAttribute("points", points.replace(/-?\d+.\d* -?\d+.\d*$/, ""))
-      //polygon.setAttribute("points", points.replace(/-?\d+.\d+ -?\d+$/, ""))
-      svg.replaceChild(polygon, polyline);
-      progress = 1;
-    }
-  }
+                      polygon.setAttribute("points", points.replace(/-?\d+.\d* -?\d+.\d*$/, ""))
+                      //polygon.setAttribute("points", points.replace(/-?\d+.\d+ -?\d+$/, ""))
+                      svg.replaceChild(polygon, polyline);
+                      progress = 1;
+                    }
+                  }
 
-  function reset() {
-    document.removeEventListener("mouseup", reset);
-    document.removeEventListener("mousemove", drawPolygon);
-    document.removeEventListener("mousemove", finishPolygon);
-  }
+                    function reset() {
+                      document.removeEventListener("mouseup", reset);
+                      document.removeEventListener("mousemove", drawPolygon);
+                      document.removeEventListener("mousemove", finishPolygon);
+                    }
 
 
 
